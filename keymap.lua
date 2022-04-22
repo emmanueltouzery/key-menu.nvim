@@ -245,8 +245,6 @@ end
 -- local ks, ds = pretty_keystrokes_and_descriptions(compute_state_fresh(' ', 'n'))
 -- print(vim.inspect(raw_layout(ks, ds, 100)))
 
--- Unstable below here.
-
 function open_window(prefix, mode)
   ui = vim.api.nvim_list_uis()[1]
   -- FIXME: What do we do if there is not exactly one UI??
