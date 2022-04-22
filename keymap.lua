@@ -291,7 +291,7 @@ function open_window(prefix, mode)
 
   vim.keymap.set('n', '<Esc>', close_window, {buffer=buf})
 
-  print(' SPC -> _')
+  print(' SPC → …')
 end
 
 vim.keymap.set('n', '<Leader>', function() open_window(' ', 'n') end)
