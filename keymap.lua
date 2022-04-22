@@ -250,28 +250,25 @@ function open_window(prefix, mode)
   local function set_command_line(s)
     print(s)
   end
+
   local function clear_command_line()
     print(' ') -- This is janky. An empty string seems to cause the print to get skipped altogether.
   end
 
-  local ui = vim.api.nvim_list_uis()[1]
-  -- FIXME: What do we do if there is not exactly one UI??
+  local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
 
   local buf = vim.api.nvim_create_buf(false, true)
-  local function clear_buffer()
-    vim.api.buf_set_lines(buf, 1, -1, false, {})
-  end
 
-  local win_config = {
+  -- XXX: At this point the buffer is not yet populated, so the window dimensions are not yet set correctly for the first real draw. I would really like to be able to, for the first draw, configure the window while it is still not visible, and then show it already all configured correctly. I don't think the Neovim API currently supports this. 2022-04-22
+  local win = vim.api.nvim_open_win(buf, true, {
     anchor = 'SW', relative = 'editor',
     row = ui.height, col = 0,
     -- XXX: I would like the height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
     width = ui.width, height = 1,
     style = 'minimal',
     border = {'─', '─', '─', '', '─', '─', '─', ''},
-  }
-  -- XXX: I would really like to be able to, for the first draw, configure the window while it is still not visible, and then show it already all configured correctly. I don't think the Neovim API currently supports this. 2022-04-22
-  local win = vim.api.nvim_open_win(buf, true, win_config)
+  })
+
   local function close_window()
     vim.api.nvim_win_close(win, true)
     clear_command_line()
@@ -282,13 +279,10 @@ function open_window(prefix, mode)
   local redraw = function()
     local prefix_keys, complete_keys = compute_keys(prefix, mappings)
     local pretty_keystrokes, pretty_descriptions = pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
-    local rows = raw_layout(pretty_keystrokes, pretty_descriptions, win_config.width)
+    local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
-    win_config.height = #rows + 2
-    print("Height:")
-    print(win_config.height)
-    vim.api.nvim_win_set_config(win, win_config)
+    vim.api.nvim_win_set_config(win, {width = ui.width, height = #rows + 2})
     vim.api.nvim_buf_set_lines(buf, 1, -1, false, rows)
   end
 
