@@ -1,5 +1,5 @@
 function _filter(pred, arr)
-  result = {}
+  local result = {}
   for _, x in ipairs(arr) do
     if pred(x) then
       table.insert(result, x)
@@ -9,7 +9,7 @@ function _filter(pred, arr)
 end
 
 function _map(func, arr)
-  result = {}
+  local result = {}
   for _, x in ipairs(arr) do
     table.insert(result, func(x))
   end
@@ -18,7 +18,7 @@ end
 -- print(vim.inspect(_map(function(x) return x*x end, {1, 2, 3})))
 
 function _partial(func, x)
-  function result(y)
+  local function result(y)
     return func(x, y)
   end
   return result
@@ -59,7 +59,7 @@ function peel(lhs)
   -- That's the semantics, anyway. The implementation is naive.
   --]]
   if lhs:sub(1, 1) == '<' then
-    last = 2
+    local last = 2
     while lhs:sub(last, last) ~= '>' do
       last = last + 1
     end
@@ -89,22 +89,22 @@ end
 function raw_layout(keys, descriptions, max_width, config)
   if not config then config = raw_layout_default_config() end
 
-  max_key_width = math.max(unpack(_map(vim.fn.strdisplaywidth, keys)))
-  middle_width = vim.fn.strdisplaywidth(config.middle_text)
-  max_description_width = math.max(unpack(_map(vim.fn.strdisplaywidth, descriptions)))
-  num_columns = math.floor((max_width - 2*config.padding + config.spacing) /
-                           (max_key_width + middle_width + max_description_width + config.spacing))
+  local max_key_width = math.max(unpack(_map(vim.fn.strdisplaywidth, keys)))
+  local middle_width = vim.fn.strdisplaywidth(config.middle_text)
+  local max_description_width = math.max(unpack(_map(vim.fn.strdisplaywidth, descriptions)))
+  local num_columns = math.floor((max_width - 2*config.padding + config.spacing) /
+                                 (max_key_width + middle_width + max_description_width + config.spacing))
   if num_columns == 0 then
     error('Does not fit')
   end
-  fstring = string.format('%%%ds%s%%-%ds', max_key_width, config.middle_text, max_description_width)
-  num_rows = math.ceil(#keys / num_columns)
-  rows = {}
+  local fstring = string.format('%%%ds%s%%-%ds', max_key_width, config.middle_text, max_description_width)
+  local num_rows = math.ceil(#keys / num_columns)
+  local rows = {}
   while #rows * num_columns < #keys do
-    row = string.rep(' ', config.padding)
+    local row = string.rep(' ', config.padding)
     for column = 1, num_columns do
       if column > 1 then row = row .. string.rep(' ', config.spacing) end
-      index = num_rows * (column - 1) + #rows + 1
+      local index = num_rows * (column - 1) + #rows + 1
       if index <= #keys then
         row = row .. string.format(fstring, keys[index], descriptions[index])
       else
@@ -119,7 +119,7 @@ end
 -- print(vim.inspect(raw_layout({'a', 'b', 'ESC'}, {'append', 'behead', 'quit'}, 30)))
 
 function test_raw_layout()
-  function ok(result, expected)
+  local function ok(result, expected)
     if #result ~= #expected then return false end
     for i = 1, #result do
       if result[i] ~= expected[i] then return false end
@@ -128,13 +128,13 @@ function test_raw_layout()
   end
 
   function test_case(input, expected)
-    result = raw_layout(unpack(input))
+    local result = raw_layout(unpack(input))
     if not ok(result, expected) then
       print(string.format('Error: expected "%s", but got "%s"', expected, result))
     end
   end
 
-  config = {
+  local config = {
     padding = 1,
     spacing = 2,
     middle_text = ' → ',
@@ -143,7 +143,7 @@ function test_raw_layout()
   test_case({{'x'}, {'foo'}, 10, config},
             {' x → foo '})
 
-  tight_config = {
+  local tight_config = {
     padding = 0,
     spacing = 0,
     middle_text = '',
@@ -156,12 +156,12 @@ function test_raw_layout()
 end
 
 function compute_state(prefix, mappings)
-  complete_keys = {} -- keystroke-to-mapping
-  prefix_keys = {} -- keystroke-to-list-of-mappings
+  local complete_keys = {} -- keystroke-to-mapping
+  local prefix_keys = {} -- keystroke-to-list-of-mappings
   for _, mapping in ipairs(mappings) do
     -- Get the key and description for this mapping.
-    key, tail = peel_after(prefix, mapping.lhs)
-    is_complete = (#tail == 0)
+    local key, tail = peel_after(prefix, mapping.lhs)
+    local is_complete = (#tail == 0)
     if is_complete then
       complete_keys[key] = mapping
     else
@@ -174,7 +174,7 @@ end
 -- print(vim.inspect({compute_state(' ', prefix_mappings_starting_with(' ', vim.api.nvim_get_keymap('n')))}))
 
 function compute_state_fresh(prefix, mode)
-  mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
+  local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
   return compute_state(prefix, mappings)
 end
 -- print(vim.inspect({compute_state_fresh(' ', 'n')}))
@@ -186,7 +186,7 @@ function _add_table_keys(set, t)
 end
 
 function _set_to_list(set)
-  result = {}
+  local result = {}
   for key, _true in pairs(set) do
     table.insert(result, key)
   end
@@ -194,8 +194,8 @@ function _set_to_list(set)
 end
 
 function keystroke_comparator(k1, k2)
-  lk1 = string.lower(k1)
-  lk2 = string.lower(k2)
+  local lk1 = string.lower(k1)
+  local lk2 = string.lower(k2)
   if lk1 == lk2 then
     return k1 < k2
   else
@@ -208,7 +208,7 @@ local LC_CR = '<cr>'
 
 function pretty_description(mapping)
   if mapping.rhs then
-    lowercase = string.lower(mapping.rhs)
+    local lowercase = string.lower(mapping.rhs)
     if _starts_with(LC_CMD, lowercase) and _ends_with(LC_CR, lowercase) then
       return ':' .. mapping.rhs:sub(#LC_CMD + 1, #mapping.rhs - #LC_CR)
     end
@@ -218,14 +218,14 @@ end
 -- print(pretty_description({rhs = '<Cmd>fuck<CR>'}))
 
 function pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
-  all_keystrokes = {}
+  local all_keystrokes = {}
   _add_table_keys(all_keystrokes, prefix_keys)
   _add_table_keys(all_keystrokes, complete_keys)
-  sorted_keystrokes = _set_to_list(all_keystrokes)
+  local sorted_keystrokes = _set_to_list(all_keystrokes)
   table.sort(sorted_keystrokes, keystroke_comparator)
 
-  keystrokes = {}
-  descriptions = {}
+  local keystrokes = {}
+  local descriptions = {}
   for _, keystroke in ipairs(sorted_keystrokes) do
     if complete_keys[keystroke] then
       table.insert(keystrokes, keystroke)
@@ -246,17 +246,17 @@ end
 -- print(vim.inspect(raw_layout(ks, ds, 100)))
 
 function open_window(prefix, mode)
-  ui = vim.api.nvim_list_uis()[1]
+  local ui = vim.api.nvim_list_uis()[1]
   -- FIXME: What do we do if there is not exactly one UI??
 
-  buf = vim.api.nvim_create_buf(false, true)
-  function clear_buffer()
+  local buf = vim.api.nvim_create_buf(false, true)
+  local function clear_buffer()
     vim.api.buf_set_lines(buf, 1, -1, false, {})
   end
 
-  max_width = ui.width
+  local max_width = ui.width
 
-  win_config = {
+  local win_config = {
     relative = 'editor',
     anchor = 'SW',
     row = ui.height,
@@ -268,20 +268,20 @@ function open_window(prefix, mode)
     border = {'─', '─', '─', '', '─', '─', '─', ''},
   }
 
-  prefix_keys, complete_keys = compute_state_fresh(prefix, mode)
-  keys, descriptions = pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
-  rows = raw_layout(keys, descriptions, win_config.width)
+  local prefix_keys, complete_keys = compute_state_fresh(prefix, mode)
+  local keys, descriptions = pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
+  local rows = raw_layout(keys, descriptions, win_config.width)
   table.insert(rows, 1, "")
   table.insert(rows, "")
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, rows)
 
   win_config.height = #rows
 
-  win = vim.api.nvim_open_win(buf, true, win_config)
-  function close_window()
+  local win = vim.api.nvim_open_win(buf, true, win_config)
+  local function close_window()
     vim.api.nvim_win_close(win, true)
   end
-  function resize_window(width, height)
+  local function resize_window(width, height)
     win_config.width = width
     win_config.height = height
     vim.api.nvim_win_set_config(win, win_config)
