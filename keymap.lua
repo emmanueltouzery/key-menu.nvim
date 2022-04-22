@@ -277,9 +277,17 @@ function open_window(prefix, mode)
 
   win_config.height = #rows
 
+  local function set_command_line(s)
+    print(s)
+  end
+  local function clear_command_line()
+    print(' ') -- This is janky. An empty string seems to cause the print to get skipped altogether.
+  end
+
   local win = vim.api.nvim_open_win(buf, true, win_config)
   local function close_window()
     vim.api.nvim_win_close(win, true)
+    clear_command_line()
   end
   local function resize_window(width, height)
     win_config.width = width
