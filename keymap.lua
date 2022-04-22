@@ -173,6 +173,7 @@ function compute_state(prefix, mappings)
 end
 -- print(vim.inspect({compute_state(' ', prefix_mappings_starting_with(' ', vim.api.nvim_get_keymap('n')))}))
 
+-- XXX: Unused.
 function compute_state_fresh(prefix, mode)
   local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
   return compute_state(prefix, mappings)
@@ -268,7 +269,9 @@ function open_window(prefix, mode)
     border = {'─', '─', '─', '', '─', '─', '─', ''},
   }
 
-  local prefix_keys, complete_keys = compute_state_fresh(prefix, mode)
+  local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
+
+  local prefix_keys, complete_keys = compute_state(prefix, mappings)
   local keys, descriptions = pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
   local rows = raw_layout(keys, descriptions, win_config.width)
   table.insert(rows, 1, "")
