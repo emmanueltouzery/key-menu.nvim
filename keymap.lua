@@ -203,13 +203,14 @@ function keystroke_comparator(k1, k2)
   end
 end
 
+local LC_CMD = '<cmd>'
+local LC_CR = '<cr>'
+
 function pretty_description(mapping)
   if mapping.rhs then
     lowercase = string.lower(mapping.rhs)
-    p1 = _starts_with('<cmd>', lowercase)
-    p2 = _ends_with('<cr>', lowercase)
-    if _starts_with('<cmd>', lowercase) and _ends_with('<cr>', lowercase) then
-      return ':' .. mapping.rhs:sub(6, #mapping.rhs - 4)
+    if _starts_with(LC_CMD, lowercase) and _ends_with(LC_CR, lowercase) then
+      return ':' .. mapping.rhs:sub(#LC_CMD + 1, #mapping.rhs - #LC_CR)
     end
   end
   return mapping.rhs
