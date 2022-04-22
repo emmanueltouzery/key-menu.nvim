@@ -255,17 +255,11 @@ function open_window(prefix, mode)
     vim.api.buf_set_lines(buf, 1, -1, false, {})
   end
 
-  local max_width = ui.width
-
   local win_config = {
-    relative = 'editor',
-    anchor = 'SW',
-    row = ui.height,
-    col = 0,
-    width = max_width,
-    height = 30,
+    anchor = 'SW', relative = 'editor',
+    row = ui.height, col = 0,
+    width = ui.width, height = 0,
     style = 'minimal',
-    -- border = {'─', '─', '─', '', '─', '─', '─', ''},
     border = {'─', '─', '─', '', '─', '─', '─', ''},
   }
 
