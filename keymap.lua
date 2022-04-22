@@ -80,7 +80,7 @@ end
 
 function raw_layout_default_config()
   return {
-    padding = 1,
+    padding = 2,
     spacing = 2,
     middle_text = ' → ',
   }
@@ -256,8 +256,7 @@ function open_window(prefix, mode)
     vim.api.buf_set_lines(buf, 1, -1, false, {})
   end
 
-  border_width = 1 -- XXX: Magic number.
-  max_width = ui.width - 2*border_width
+  max_width = ui.width
 
   win_config = {
     relative = 'editor',
@@ -267,15 +266,18 @@ function open_window(prefix, mode)
     width = max_width,
     height = 30,
     style = 'minimal',
-    border = 'rounded',
+    -- border = {'─', '─', '─', '', '─', '─', '─', ''},
+    border = {'─', '─', '─', '', '─', '─', '─', ''},
   }
 
   prefix_keys, complete_keys = compute_state_fresh(prefix, mode)
   keys, descriptions = pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
   rows = raw_layout(keys, descriptions, win_config.width)
+  table.insert(rows, 1, "")
+  table.insert(rows, "")
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, rows)
 
-  win_config.height = #rows + 2
+  win_config.height = #rows
 
   win = vim.api.nvim_open_win(buf, true, win_config)
   function close_window()
@@ -288,9 +290,11 @@ function open_window(prefix, mode)
   end
 
   vim.keymap.set('n', '<Esc>', close_window, {buffer=buf})
+
+  print(' SPC -> _')
 end
--- open_window(' ', 'n')
-vim.keymap.set('n', '<Leader>e', function() open_window(' ', 'n') end)
+
+vim.keymap.set('n', '<Leader>', function() open_window(' ', 'n') end)
 
 function test_all()
   test_raw_layout()
