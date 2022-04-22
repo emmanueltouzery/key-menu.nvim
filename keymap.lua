@@ -276,8 +276,7 @@ function open_window(prefix, mode)
 
   local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
 
-  local redraw = function()
-    local prefix_keys, complete_keys = compute_keys(prefix, mappings)
+  local redraw = function(prefix_keys, complete_keys)
     local pretty_keystrokes, pretty_descriptions = pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
     local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
 
@@ -286,7 +285,54 @@ function open_window(prefix, mode)
     vim.api.nvim_buf_set_lines(buf, 1, -1, false, rows)
   end
 
-  redraw()
+  local remove_local_mappings = nil
+  local add_local_mappings = nil -- XXX: We declare this symbol here for lexical scoping. Is there a better way to do this?
+
+  local update_state = function(new_prefix, new_mappings)
+    if remove_local_mappings then
+      remove_local_mappings()
+      remove_local_mappings = nil -- Just to be safe.
+    end
+
+    -- Our state is basically encapsulated by the (prefix, mappings) pair.
+    prefix, mappings = new_prefix, new_mappings
+    -- XXX: Do we really need to have (prefix, mappings) as persistent state?
+
+    local prefix_keys, complete_keys = compute_keys(prefix, mappings)
+    add_local_mappings(prefix, prefix_keys, complete_keys)
+
+    redraw(prefix_keys, complete_keys)
+  end
+
+  add_local_mappings = function(prefix, prefix_keys, complete_keys)
+    local mode_ = 'n'
+    local opts_ = {buffer=buf}
+
+    print(string.format("buf=%d", buf))
+
+    remove_local_mappings = function()
+      for keystroke, next_mappings in pairs(prefix_keys) do
+        -- print(string.format('mode=%s, keystroke=%s, opts=%s', mode_, keystroke, vim.inspect(opts_)))
+        -- vim.keymap.del(mode_, keystroke, opts_)
+      end
+
+      for keystroke, mapping in pairs(complete_keys) do
+      end
+    end
+
+    do
+      for keystroke, next_mappings in pairs(prefix_keys) do
+        local cb = function() update_state(prefix .. keystroke, next_mappings) end
+        vim.keymap.set(mode_, keystroke, cb, opts_)
+      end
+
+      for keystroke, mapping in pairs(complete_keys) do
+        -- TODO. We need the command to get executed in the original context, i.e., the original buffer. Maybe the easiest way to guarantee this is to just close this window??
+      end
+    end
+  end
+
+  update_state(prefix, mappings)
 
   vim.keymap.set('n', '<Esc>', close_window, {buffer=buf})
 
