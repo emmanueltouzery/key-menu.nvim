@@ -308,15 +308,13 @@ function open_window(prefix, mode)
     local mode_ = 'n'
     local opts_ = {buffer=buf}
 
-    print(string.format("buf=%d", buf))
-
     remove_local_mappings = function()
       for keystroke, next_mappings in pairs(prefix_keys) do
-        -- print(string.format('mode=%s, keystroke=%s, opts=%s', mode_, keystroke, vim.inspect(opts_)))
-        -- vim.keymap.del(mode_, keystroke, opts_)
+        vim.keymap.del(mode_, keystroke, opts_)
       end
 
       for keystroke, mapping in pairs(complete_keys) do
+        -- TODO.
       end
     end
 
