@@ -151,6 +151,8 @@ function test_raw_layout()
 
   test_case({{'xx', 'yyy'}, {'zzz', 'ww'}, 12, tight_config},
             {' xxzzzyyyww '})
+  test_case({{'a', 'b'}, {'😶', 'd'}, 4, tight_config},
+            {'a😶', 'bd '})
 
   print('All tests passed!')
 end
