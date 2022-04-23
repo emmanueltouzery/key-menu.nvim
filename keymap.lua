@@ -248,6 +248,21 @@ end
 -- local ks, ds = pretty_keystrokes_and_descriptions(compute_keys_fresh(' ', 'n'))
 -- print(vim.inspect(raw_layout(ks, ds, 100)))
 
+-- XXX: This doesn't really work.
+function shadow_all_global_mappings(buf)
+  -- We only need to worry about normal mode, because with no mappings available it should not even be possible to get into another mode.
+  mappings = vim.api.nvim_get_keymap('n')
+  handled_keystrokes = {}
+  for _, mapping in ipairs(mappings) do
+    keystroke, suffix = peel(mapping.lhs)
+    print('Shadowing ' .. keystroke)
+    if not handled_keystrokes[keystroke] then
+      vim.api.nvim_buf_set_keymap(buf, 'n', keystroke, '', {})
+      handled_keystrokes[keystroke] = true
+    end
+  end
+end
+
 function open_window(prefix, mode)
   local function set_command_line(s)
     print(s)
@@ -260,6 +275,7 @@ function open_window(prefix, mode)
   local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
 
   local buf = vim.api.nvim_create_buf(false, true)
+  shadow_all_global_mappings(buf)
 
   -- XXX: At this point the buffer is not yet populated, so the window dimensions are not yet set correctly for the first real draw. I would really like to be able to, for the first draw, configure the window while it is still not visible, and then show it already all configured correctly. I don't think the Neovim API currently supports this. 2022-04-22
   local win = vim.api.nvim_open_win(buf, true, {
