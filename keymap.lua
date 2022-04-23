@@ -130,7 +130,7 @@ function test_raw_layout()
   function test_case(input, expected)
     local result = raw_layout(unpack(input))
     if not ok(result, expected) then
-      print(string.format('Error: expected "%s", but got "%s"', expected, result))
+      print(string.format('Error: expected "%s", but got "%s"', vim.inspect(expected), vim.inspect(result)))
     end
   end
 
