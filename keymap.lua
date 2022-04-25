@@ -422,11 +422,17 @@ function open_window(prefix, mode)
   local remove_local_mappings = nil
   local add_local_mappings = nil -- XXX: We declare this symbol here for lexical scoping. Is there a better way to do this?
 
+  add_default_mappings = function()
+    vim.keymap.set('n', '<Esc>', close_window, {buffer=buf, nowait=true})
+    vim.keymap.set('n', '<C-c>', close_window, {buffer=buf, nowait=true})
+  end
+
   local update_state = function(new_prefix, new_mappings)
     if remove_local_mappings then
       remove_local_mappings()
       remove_local_mappings = nil -- Just to be safe.
     end
+    add_default_mappings()
 
     -- Our state is basically encapsulated by the (prefix, mappings) pair.
     prefix, mappings = new_prefix, new_mappings
@@ -466,8 +472,6 @@ function open_window(prefix, mode)
   end
 
   update_state(prefix, mappings)
-
-  vim.keymap.set('n', '<Esc>', close_window, {buffer=buf})
 
   print(' SPC → …')
 end
