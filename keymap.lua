@@ -190,7 +190,7 @@ function raw_layout(keys, descriptions, max_width, config)
       if column > 1 then row = row .. string.rep(' ', config.spacing) end
       local index = num_rows * (column - 1) + #rows + 1
       if index <= #keys then
-        key, description = keys[index], descriptions[index]
+        local key, description = keys[index], descriptions[index]
         row = row
            .. string.rep(' ', max_key_width - vim.api.nvim_strwidth(key)) .. key
            .. config.middle_text
