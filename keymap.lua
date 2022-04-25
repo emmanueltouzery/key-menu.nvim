@@ -471,7 +471,14 @@ function open_window(prefix, mode)
           if mapping.callback then
             mapping.callback()
           else
-            --
+            local mode = ''
+            if mapping.noremap then
+              mode = mode .. 'n'
+            else
+              mode = mode .. 'm'
+            end
+            local rhs = vim.api.nvim_replace_termcodes(mapping.rhs, true, true, true)
+            vim.api.nvim_feedkeys(rhs, mode, false)
           end
         end
         vim.keymap.set('n', keystroke, cb, opts_)
