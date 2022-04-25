@@ -86,32 +86,126 @@ function raw_layout_default_config()
   }
 end
 
+function char_byte_count(s, i)
+  -- Get byte count of unicode character starting at byte i (RFC 3629).
+  -- https://neovim.discourse.group/t/how-do-you-work-with-strings-with-multibyte-characters-in-lua/2437/3
+  local c = string.byte(s, i or 1)
+
+  if c > 0 and c <= 127 then
+    return 1
+  elseif c >= 194 and c <= 223 then
+    return 2
+  elseif c >= 224 and c <= 239 then
+    return 3
+  elseif c >= 240 and c <= 244 then
+    return 4
+  else
+    return 1 -- Copilot suggestion, IDK...
+  end
+end
+
+function truncate_to_display_width(s, width)
+  -- O(n), I'm not sure it's possible to do better.
+  if width == 0 then
+    return ''
+  end
+
+  local result = ''
+  local last_char_bytes = nil
+  local display_width = 0
+  local i = 1
+  while i <= #s do
+    local char_bytes = char_byte_count(s, i)
+    local char = s:sub(i, i + char_bytes - 1)
+    local char_display_width = vim.api.nvim_strwidth(char)
+    if display_width + char_display_width > width then
+      if #result == 0 then
+        return '…'
+      elseif display_width + 1 <= width then
+        return result .. '…'
+      else
+        return result:sub(1, #result-last_char_bytes) .. '…'
+      end
+    end
+    result = result .. char
+    display_width = display_width + char_display_width
+    i = i + char_bytes
+    last_char_bytes = char_bytes
+  end
+  return result
+end
+
+function test_truncate_to_display_width()
+  local function test_case(s, width, expected)
+    result = truncate_to_display_width(s, width)
+    if result ~= expected then
+      print(string.format('For ("%s", %d), expected %s, and got %s', s, width, expected, result))
+      return false
+    else
+      return true
+    end
+  end
+
+  local all_ok = true
+  all_ok = all_ok and test_case('abc', 0, '')
+  all_ok = all_ok and test_case('a', 1, 'a')
+  all_ok = all_ok and test_case('ab', 1, '…')
+  all_ok = all_ok and test_case('abc', 2, 'a…')
+  all_ok = all_ok and test_case('abcd', 3, 'ab…')
+  all_ok = all_ok and test_case('abc😶', 3, 'ab…')
+  all_ok = all_ok and test_case('abc😶', 4, 'abc…')
+  all_ok = all_ok and test_case('abc😶', 5, 'abc😶')
+  return all_ok
+end
+
 function raw_layout(keys, descriptions, max_width, config)
+  if #keys == 0 then
+    return {}
+  end
+
   if not config then config = raw_layout_default_config() end
 
-  local max_key_width = math.max(unpack(_map(vim.fn.strdisplaywidth, keys)))
-  local middle_width = vim.fn.strdisplaywidth(config.middle_text)
-  local max_description_width = math.max(unpack(_map(vim.fn.strdisplaywidth, descriptions)))
+  if max_width < 2*config.padding + 1 then
+    -- We don't even have space for a single character (…).
+    return {}
+  end
+
+  local max_key_width = math.max(unpack(_map(vim.api.nvim_strwidth, keys)))
+  local middle_width = vim.api.nvim_strwidth(config.middle_text)
+  local max_description_width = math.max(unpack(_map(vim.api.nvim_strwidth, descriptions)))
   local num_columns = math.floor((max_width - 2*config.padding + config.spacing) /
                                  (max_key_width + middle_width + max_description_width + config.spacing))
+
+  truncate = false
   if num_columns == 0 then
-    error('Does not fit')
+    num_columns = 1
+    truncate = true
   end
-  local fstring = string.format('%%%ds%s%%-%ds', max_key_width, config.middle_text, max_description_width)
+
   local num_rows = math.ceil(#keys / num_columns)
   local rows = {}
   while #rows * num_columns < #keys do
-    local row = string.rep(' ', config.padding)
+    local row = ''
     for column = 1, num_columns do
       if column > 1 then row = row .. string.rep(' ', config.spacing) end
       local index = num_rows * (column - 1) + #rows + 1
       if index <= #keys then
-        row = row .. string.format(fstring, keys[index], descriptions[index])
+        key, description = keys[index], descriptions[index]
+        row = row
+           .. string.rep(' ', max_key_width - vim.api.nvim_strwidth(key)) .. key
+           .. config.middle_text
+           .. description
+        if not truncate then
+          row = row .. string.rep(' ', max_description_width - vim.api.nvim_strwidth(description))
+        end
       else
         row = row .. string.rep(' ', max_key_width + middle_width + max_description_width)
       end
     end
-    row = row .. string.rep(' ', config.padding)
+    if truncate then
+      row = truncate_to_display_width(row, max_width - 2*config.padding)
+    end
+    row = string.rep(' ', config.padding) .. row .. string.rep(' ', config.padding)
     table.insert(rows, row)
   end
   return rows
@@ -131,6 +225,9 @@ function test_raw_layout()
     local result = raw_layout(unpack(input))
     if not ok(result, expected) then
       print(string.format('Error: expected "%s", but got "%s"', vim.inspect(expected), vim.inspect(result)))
+      return false
+    else
+      return true
     end
   end
 
@@ -140,8 +237,20 @@ function test_raw_layout()
     middle_text = ' → ',
   }
 
-  test_case({{'x'}, {'foo'}, 10, config},
-            {' x → foo '})
+  local all_ok = true
+
+  all_ok = all_ok and test_case({{}, {}, 10, config},
+                                {})
+  all_ok = all_ok and test_case({{'x'}, {'y'}, 3, config},
+                                {' … '})
+  all_ok = all_ok and test_case({{'x'}, {'y'}, 4, config},
+                                {' x… '})
+  all_ok = all_ok and test_case({{'x'}, {'y'}, 11, {padding=5, spacing=0, middle_text=''}},
+                                {'     …     '})
+  all_ok = all_ok and test_case({{'x', 'z'}, {'y', 'w'}, 14, config},
+                                {' x → y  z → w '})
+  all_ok = all_ok and test_case({{'x'}, {'foo'}, 10, config},
+                                {' x → foo '})
 
   local tight_config = {
     padding = 0,
@@ -149,12 +258,12 @@ function test_raw_layout()
     middle_text = '',
   }
 
-  test_case({{'xx', 'yyy'}, {'zzz', 'ww'}, 12, tight_config},
-            {' xxzzzyyyww '})
-  test_case({{'a', 'b'}, {'😶', 'd'}, 4, tight_config},
-            {'a😶', 'bd '})
+  all_ok = all_ok and test_case({{'xx', 'yyy'}, {'zzz', 'ww'}, 12, tight_config},
+                                {' xxzzzyyyww '})
+  all_ok = all_ok and test_case({{'a', 'b'}, {'😶', 'd'}, 4, tight_config},
+                                {'a😶', 'bd '})
 
-  print('All tests passed!')
+  return all_ok
 end
 
 function compute_keys(prefix, mappings)
@@ -358,5 +467,15 @@ end
 vim.keymap.set('n', '<Leader>', function() open_window(' ', 'n') end)
 
 function test_all()
-  test_raw_layout()
+  local all_ok = true
+  all_ok = all_ok and test_truncate_to_display_width()
+  all_ok = all_ok and test_raw_layout()
+  if all_ok then
+    print('All tests passed!')
+  else
+    print('Some tests FAILED!')
+  end
+  return all_ok
 end
+
+test_all()
