@@ -433,7 +433,7 @@ function open_window(prefix, mode)
 
   add_local_mappings = function(prefix, prefix_keys, complete_keys)
     local mode_ = 'n'
-    local opts_ = {buffer=buf}
+    local opts_ = {buffer=buf, nowait=true}
 
     remove_local_mappings = function()
       for keystroke, next_mappings in pairs(prefix_keys) do
