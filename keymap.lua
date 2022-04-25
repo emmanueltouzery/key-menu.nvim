@@ -323,9 +323,12 @@ function pretty_description(mapping)
     local lowercase = string.lower(mapping.rhs)
     if _starts_with(LC_CMD, lowercase) and _ends_with(LC_CR, lowercase) then
       return ':' .. mapping.rhs:sub(#LC_CMD + 1, #mapping.rhs - #LC_CR)
+    else
+      return mapping.rhs
     end
+  else
+    return '(Callback)'
   end
-  return mapping.rhs
 end
 -- print(pretty_description({rhs = '<Cmd>fuck<CR>'}))
 
@@ -368,7 +371,8 @@ function shadow_all_global_mappings(buf)
   chars = 'abcdefghijklmnopqrstuvwxyz'
        .. 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
        .. '0123456789'
-       .. '~!#$%^&*()_+`-=[]{}|\\:;"\'<>,.?/'
+       .. '~!#$%^&*()_+`-=[]{}|\\;"\'<>,.?/'
+       -- .. ':'
 
   for i = 1, #chars do
     char = chars:sub(i, i)
@@ -445,28 +449,32 @@ function open_window(prefix, mode)
   end
 
   add_local_mappings = function(prefix, prefix_keys, complete_keys)
-    local mode_ = 'n'
     local opts_ = {buffer=buf, nowait=true}
 
     remove_local_mappings = function()
       for keystroke, next_mappings in pairs(prefix_keys) do
         map_to_nop(buf, keystroke)
-        -- vim.keymap.del(mode_, keystroke, opts_)
       end
-
       for keystroke, mapping in pairs(complete_keys) do
-        -- TODO.
+        map_to_nop(buf, keystroke)
       end
     end
 
     do
       for keystroke, next_mappings in pairs(prefix_keys) do
         local cb = function() update_state(prefix .. keystroke, next_mappings) end
-        vim.keymap.set(mode_, keystroke, cb, opts_)
+        vim.keymap.set('n', keystroke, cb, opts_)
       end
-
       for keystroke, mapping in pairs(complete_keys) do
-        -- TODO. We need the command to get executed in the original context, i.e., the original buffer. Maybe the easiest way to guarantee this is to just close this window??
+        local cb = function()
+          close_window()
+          if mapping.callback then
+            mapping.callback()
+          else
+            --
+          end
+        end
+        vim.keymap.set('n', keystroke, cb, opts_)
       end
     end
   end
