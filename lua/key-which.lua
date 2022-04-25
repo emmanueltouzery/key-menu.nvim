@@ -1,4 +1,4 @@
-function _filter(pred, arr)
+local function _filter(pred, arr)
   local result = {}
   for _, x in ipairs(arr) do
     if pred(x) then
@@ -8,7 +8,7 @@ function _filter(pred, arr)
   return result
 end
 
-function _map(func, arr)
+local function _map(func, arr)
   local result = {}
   for _, x in ipairs(arr) do
     table.insert(result, func(x))
@@ -17,7 +17,7 @@ function _map(func, arr)
 end
 -- print(vim.inspect(_map(function(x) return x*x end, {1, 2, 3})))
 
-function _partial(func, x)
+local function _partial(func, x)
   local function result(y)
     return func(x, y)
   end
@@ -26,14 +26,14 @@ end
 -- function add(x, y) return x + y end
 -- print(vim.inspect(_map(_partial(add, 3), {1, 2, 3})))
 
-function _starts_with(prefix, s)
+local function _starts_with(prefix, s)
   return s:sub(1, #prefix) == prefix
 end
 -- print(_starts_with('abc', 'ab'))
 -- print(_starts_with('ab', 'ab'))
 -- print(_starts_with('ab', 'abc'))
 
-function _ends_with(suffix, s)
+local function _ends_with(suffix, s)
   return s:sub(#s - (#suffix - 1), #s) == suffix
 end
 -- print(_ends_with('abc', 'ab'))
@@ -41,16 +41,16 @@ end
 -- print(_ends_with('ab', 'ab'))
 -- print(_ends_with('ab', 'abc'))
 
-function is_prefix_mapping_starting_with(prefix, mapping)
+local function is_prefix_mapping_starting_with(prefix, mapping)
   return #prefix ~= #mapping.lhs and _starts_with(prefix, mapping.lhs)
 end
 
-function prefix_mappings_starting_with(prefix, mappings)
+local function prefix_mappings_starting_with(prefix, mappings)
   return _filter(_partial(is_prefix_mapping_starting_with, prefix), mappings)
 end
 -- print(vim.inspect(prefix_mappings_starting_with(' ', vim.api.nvim_get_keymap('n'))))
 
-function peel(lhs)
+local function peel(lhs)
   --[[
   -- Peel off the next keystroke of a 'lhs'.
   -- For example, peel('abc') => 'a', 'bc',
@@ -70,7 +70,7 @@ end
 -- print(peel('abc')) -- a bc
 -- print(peel('<Esc>foo')) -- <Esc> foo
 
-function peel_after(prefix, lhs)
+local function peel_after(prefix, lhs)
   if lhs:sub(1, #prefix) ~= prefix then
     error('Prefix "' .. prefix '" does not match start of "' .. lhs .. '"')
   end
@@ -78,7 +78,7 @@ function peel_after(prefix, lhs)
 end
 -- print(peel_after('ab', 'abcde')) -- c de
 
-function raw_layout_default_config()
+local function raw_layout_default_config()
   return {
     padding = 2,
     spacing = 2,
@@ -86,7 +86,7 @@ function raw_layout_default_config()
   }
 end
 
-function char_byte_count(s, i)
+local function char_byte_count(s, i)
   -- Get byte count of unicode character starting at byte i (RFC 3629).
   -- https://neovim.discourse.group/t/how-do-you-work-with-strings-with-multibyte-characters-in-lua/2437/3
   local c = string.byte(s, i or 1)
@@ -104,7 +104,7 @@ function char_byte_count(s, i)
   end
 end
 
-function truncate_to_display_width(s, width)
+local function truncate_to_display_width(s, width)
   -- O(n), I'm not sure it's possible to do better.
   if width == 0 then
     return ''
@@ -135,7 +135,7 @@ function truncate_to_display_width(s, width)
   return result
 end
 
-function test_truncate_to_display_width()
+local function test_truncate_to_display_width()
   local function test_case(s, width, expected)
     result = truncate_to_display_width(s, width)
     if result ~= expected then
@@ -158,7 +158,7 @@ function test_truncate_to_display_width()
   return all_ok
 end
 
-function raw_layout(keys, descriptions, max_width, config)
+local function raw_layout(keys, descriptions, max_width, config)
   if #keys == 0 then
     return {}
   end
@@ -212,7 +212,7 @@ function raw_layout(keys, descriptions, max_width, config)
 end
 -- print(vim.inspect(raw_layout({'a', 'b', 'ESC'}, {'append', 'behead', 'quit'}, 30)))
 
-function test_raw_layout()
+local function test_raw_layout()
   local function ok(result, expected)
     if #result ~= #expected then return false end
     for i = 1, #result do
@@ -266,7 +266,7 @@ function test_raw_layout()
   return all_ok
 end
 
-function compute_keys(prefix, mappings)
+local function compute_keys(prefix, mappings)
   local complete_keys = {} -- keystroke-to-mapping
   local prefix_keys = {} -- keystroke-to-list-of-mappings
   for _, mapping in ipairs(mappings) do
@@ -285,19 +285,19 @@ end
 -- print(vim.inspect({compute_keys(' ', prefix_mappings_starting_with(' ', vim.api.nvim_get_keymap('n')))}))
 
 -- XXX: Unused.
-function compute_keys_fresh(prefix, mode)
+local function compute_keys_fresh(prefix, mode)
   local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
   return compute_keys(prefix, mappings)
 end
 -- print(vim.inspect({compute_keys_fresh(' ', 'n')}))
 
-function _add_table_keys(set, t)
+local function _add_table_keys(set, t)
   for key, _ in pairs(t) do
     set[key] = true
   end
 end
 
-function _set_to_list(set)
+local function _set_to_list(set)
   local result = {}
   for key, _true in pairs(set) do
     table.insert(result, key)
@@ -305,7 +305,7 @@ function _set_to_list(set)
   return result
 end
 
-function keystroke_comparator(k1, k2)
+local function keystroke_comparator(k1, k2)
   local lk1 = string.lower(k1)
   local lk2 = string.lower(k2)
   if lk1 == lk2 then
@@ -318,7 +318,7 @@ end
 local LC_CMD = '<cmd>'
 local LC_CR = '<cr>'
 
-function pretty_description(mapping)
+local function pretty_description(mapping)
   if mapping.rhs then
     local lowercase = string.lower(mapping.rhs)
     if _starts_with(LC_CMD, lowercase) and _ends_with(LC_CR, lowercase) then
@@ -332,7 +332,7 @@ function pretty_description(mapping)
 end
 -- print(pretty_description({rhs = '<Cmd>fuck<CR>'}))
 
-function pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
+local function pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
   local all_keystrokes = {}
   _add_table_keys(all_keystrokes, prefix_keys)
   _add_table_keys(all_keystrokes, complete_keys)
@@ -366,7 +366,7 @@ end
 
 -- XXX: This doesn't really work right.
 -- https://neovim.discourse.group/t/what-is-the-usual-way-of-disabling-default-mappings-when-building-a-modal-dialog/2436
-function shadow_all_global_mappings(buf)
+local function shadow_all_global_mappings(buf)
   -- We only need to worry about normal mode, because with no mappings available it should not even be possible to get into another mode.
   chars = 'abcdefghijklmnopqrstuvwxyz'
        .. 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -383,7 +383,7 @@ function shadow_all_global_mappings(buf)
   end
 end
 
-function open_window(prefix, mode)
+local function open_window(prefix, mode)
   local function set_command_line(s)
     print(s)
   end
@@ -491,9 +491,11 @@ function open_window(prefix, mode)
   print(' SPC → …')
 end
 
-vim.keymap.set('n', '<Leader>', function() open_window(' ', 'n') end)
+local function setup()
+  vim.keymap.set('n', '<Leader>', function() open_window(' ', 'n') end)
+end
 
-function test_all()
+local function test_all()
   local all_ok = true
   all_ok = all_ok and test_truncate_to_display_width()
   all_ok = all_ok and test_raw_layout()
@@ -505,4 +507,8 @@ function test_all()
   return all_ok
 end
 
-test_all()
+-- test_all()
+
+return {
+  setup = setup,
+}
