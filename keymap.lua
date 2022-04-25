@@ -357,18 +357,25 @@ end
 -- local ks, ds = pretty_keystrokes_and_descriptions(compute_keys_fresh(' ', 'n'))
 -- print(vim.inspect(raw_layout(ks, ds, 100)))
 
--- XXX: This doesn't really work.
+local function map_to_nop(buf, keystroke)
+  vim.api.nvim_buf_set_keymap(buf, 'n', keystroke, '', {nowait=true})
+end
+
+-- XXX: This doesn't really work right.
+-- https://neovim.discourse.group/t/what-is-the-usual-way-of-disabling-default-mappings-when-building-a-modal-dialog/2436
 function shadow_all_global_mappings(buf)
   -- We only need to worry about normal mode, because with no mappings available it should not even be possible to get into another mode.
-  mappings = vim.api.nvim_get_keymap('n')
-  handled_keystrokes = {}
-  for _, mapping in ipairs(mappings) do
-    keystroke, suffix = peel(mapping.lhs)
-    print('Shadowing ' .. keystroke)
-    if not handled_keystrokes[keystroke] then
-      vim.api.nvim_buf_set_keymap(buf, 'n', keystroke, '', {})
-      handled_keystrokes[keystroke] = true
-    end
+  chars = 'abcdefghijklmnopqrstuvwxyz'
+       .. 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+       .. '0123456789'
+       .. '~!#$%^&*()_+`-=[]{}|\\:;"\'<>,.?/'
+
+  for i = 1, #chars do
+    char = chars:sub(i, i)
+    print(char)
+    map_to_nop(buf, char)
+    map_to_nop(buf, string.format('<C-%s>', char))
+    map_to_nop(buf, string.format('<A-%s>', char))
   end
 end
 
@@ -437,7 +444,8 @@ function open_window(prefix, mode)
 
     remove_local_mappings = function()
       for keystroke, next_mappings in pairs(prefix_keys) do
-        vim.keymap.del(mode_, keystroke, opts_)
+        map_to_nop(buf, keystroke)
+        -- vim.keymap.del(mode_, keystroke, opts_)
       end
 
       for keystroke, mapping in pairs(complete_keys) do
