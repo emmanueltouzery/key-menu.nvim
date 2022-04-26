@@ -491,8 +491,13 @@ local function open_window(prefix, mode)
   print(' SPC → …')
 end
 
-local function setup()
+
+local leader_names
+
+local function setup(opts)
+  opts = opts or {}
   vim.keymap.set('n', '<Leader>', function() open_window(' ', 'n') end)
+  leader_names = opts.leader_names
 end
 
 local function test_all()
