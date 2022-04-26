@@ -78,6 +78,22 @@ local function peel_after(prefix, lhs)
 end
 -- print(peel_after('ab', 'abcde')) -- c de
 
+local leader_names
+
+local function get_leader_name(prefix)
+  local keystroke, result
+  local tree = leader_names or {}
+  while tree and #prefix > 0 do
+    keystroke, prefix = peel(prefix)
+    result, tree = unpack(tree[keystroke] or {})
+  end
+  if #prefix == 0 and result then
+    return result
+  else
+    return '...'
+  end
+end
+
 local function raw_layout_default_config()
   return {
     padding = 2,
@@ -332,7 +348,7 @@ local function pretty_description(mapping)
 end
 -- print(pretty_description({rhs = '<Cmd>fuck<CR>'}))
 
-local function pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
+local function pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_keys)
   local all_keystrokes = {}
   _add_table_keys(all_keystrokes, prefix_keys)
   _add_table_keys(all_keystrokes, complete_keys)
@@ -348,16 +364,16 @@ local function pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
     end
     if prefix_keys[keystroke] then
       table.insert(keystrokes, keystroke)
-      table.insert(descriptions, "...")
+      table.insert(descriptions, get_leader_name(prefix .. keystroke))
     end
   end
   return keystrokes, descriptions
 end
--- print(vim.inspect({pretty_keystrokes_and_descriptions(compute_keys_fresh(' ', 'n'))}))
+-- print(vim.inspect({pretty_keystrokes_and_descriptions(' ', compute_keys_fresh(' ', 'n'))}))
 
 -- print(vim.inspect(raw_layout({'a', 'b', 'ESC'}, {'append', 'behead', 'quit'}, 30)))
 
--- local ks, ds = pretty_keystrokes_and_descriptions(compute_keys_fresh(' ', 'n'))
+-- local ks, ds = pretty_keystrokes_and_descriptions(' ', compute_keys_fresh(' ', 'n'))
 -- print(vim.inspect(raw_layout(ks, ds, 100)))
 
 local function map_to_nop(buf, keystroke)
@@ -415,7 +431,8 @@ local function open_window(prefix, mode)
   local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
 
   local redraw = function(prefix_keys, complete_keys)
-    local pretty_keystrokes, pretty_descriptions = pretty_keystrokes_and_descriptions(prefix_keys, complete_keys)
+    -- XXX: It's sloppy that the ambient prefix is accessed here.
+    local pretty_keystrokes, pretty_descriptions = pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_keys)
     local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
@@ -490,9 +507,6 @@ local function open_window(prefix, mode)
 
   print(' SPC → …')
 end
-
-
-local leader_names
 
 local function setup(opts)
   opts = opts or {}
