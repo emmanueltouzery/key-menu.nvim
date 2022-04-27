@@ -17,6 +17,17 @@ local function _map(func, arr)
 end
 -- print(vim.inspect(_map(function(x) return x*x end, {1, 2, 3})))
 
+local function _concat(t1, t2)
+  local result = {}
+  for _, x in ipairs(t1) do
+    table.insert(result, x)
+  end
+  for _, x in ipairs(t2) do
+    table.insert(result, x)
+  end
+  return result
+end
+
 local function _partial(func, x)
   local function result(y)
     return func(x, y)
@@ -400,6 +411,8 @@ local function shadow_all_global_mappings(buf)
 end
 
 local function open_window(prefix, mode)
+  local original_buf = vim.api.nvim_get_current_buf()
+
   local function set_command_line(s)
     print(s)
   end
@@ -428,7 +441,10 @@ local function open_window(prefix, mode)
     clear_command_line()
   end
 
-  local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
+  local global_mappings = vim.api.nvim_get_keymap(mode)
+  local buffer_mappings = vim.api.nvim_buf_get_keymap(original_buf, mode)
+  local all_mappings = _concat(global_mappings, buffer_mappings)
+  local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
     -- XXX: It's sloppy that the ambient prefix is accessed here.
@@ -443,7 +459,7 @@ local function open_window(prefix, mode)
   local remove_local_mappings = nil
   local add_local_mappings = nil -- XXX: We declare this symbol here for lexical scoping. Is there a better way to do this?
 
-  add_default_mappings = function()
+  local add_default_mappings = function()
     vim.keymap.set('n', '<Esc>', close_window, {buffer=buf, nowait=true})
     vim.keymap.set('n', '<C-c>', close_window, {buffer=buf, nowait=true})
   end
