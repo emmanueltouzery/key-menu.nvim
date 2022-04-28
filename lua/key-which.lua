@@ -346,6 +346,9 @@ local LC_CMD = '<cmd>'
 local LC_CR = '<cr>'
 
 local function pretty_description(mapping)
+  if mapping.desc then
+    return mapping.desc
+  end
   if mapping.rhs then
     local lowercase = string.lower(mapping.rhs)
     if _starts_with(LC_CMD, lowercase) and _ends_with(LC_CR, lowercase) then
