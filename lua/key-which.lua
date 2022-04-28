@@ -203,7 +203,7 @@ local function raw_layout(keys, descriptions, max_width, config)
   local num_columns = math.floor((max_width - 2*config.padding + config.spacing) /
                                  (max_key_width + middle_width + max_description_width + config.spacing))
 
-  truncate = false
+  local truncate = false
   if num_columns == 0 then
     num_columns = 1
     truncate = true
