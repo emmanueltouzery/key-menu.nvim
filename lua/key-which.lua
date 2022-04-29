@@ -362,6 +362,14 @@ local function pretty_description(mapping)
 end
 -- print(pretty_description({rhs = '<Cmd>fuck<CR>'}))
 
+local pretty_keystroke_dict = {
+  [" "] = 'SPC',
+}
+
+local function pretty_keystroke(keystroke)
+  return pretty_keystroke_dict[keystroke] or keystroke
+end
+
 local function pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_keys)
   local all_keystrokes = {}
   _add_table_keys(all_keystrokes, prefix_keys)
@@ -373,11 +381,11 @@ local function pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_
   local descriptions = {}
   for _, keystroke in ipairs(sorted_keystrokes) do
     if complete_keys[keystroke] then
-      table.insert(keystrokes, keystroke)
+      table.insert(keystrokes, pretty_keystroke(keystroke))
       table.insert(descriptions, pretty_description(complete_keys[keystroke]))
     end
     if prefix_keys[keystroke] then
-      table.insert(keystrokes, keystroke)
+      table.insert(keystrokes, pretty_keystroke(keystroke))
       table.insert(descriptions, get_leader_name(prefix .. keystroke))
     end
   end
@@ -416,8 +424,15 @@ end
 local function open_window(prefix, mode)
   local original_buf = vim.api.nvim_get_current_buf()
 
-  local function set_command_line(s)
-    print(s)
+  local function set_command_line(prefix)
+    local keystrokes = {}
+    while #prefix ~= 0 do
+      local keystroke, new_prefix = peel(prefix)
+      table.insert(keystrokes, pretty_keystroke(keystroke))
+      prefix = new_prefix
+    end
+    table.insert(keystrokes, '…')
+    print(' ' .. table.concat(keystrokes, ' → '))
   end
 
   local function clear_command_line()
@@ -482,6 +497,7 @@ local function open_window(prefix, mode)
     add_local_mappings(prefix, prefix_keys, complete_keys)
 
     redraw(prefix_keys, complete_keys)
+    set_command_line(prefix)
   end
 
   add_local_mappings = function(prefix, prefix_keys, complete_keys)
@@ -523,8 +539,6 @@ local function open_window(prefix, mode)
   end
 
   update_state(prefix, mappings)
-
-  print(' SPC → …')
 end
 
 local function setup(opts)
