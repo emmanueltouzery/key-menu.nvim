@@ -107,8 +107,8 @@ end
 
 local function raw_layout_default_config()
   return {
-    padding = 2,
-    spacing = 2,
+    padding = 1,
+    spacing = 3,
     middle_text = ' → ',
   }
 end
