@@ -101,7 +101,7 @@ local function get_leader_name(prefix)
   if #prefix == 0 and result then
     return result
   else
-    return '...'
+    return ''
   end
 end
 
@@ -386,7 +386,7 @@ local function pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_
     end
     if prefix_keys[keystroke] then
       table.insert(keystrokes, pretty_keystroke(keystroke))
-      table.insert(descriptions, get_leader_name(prefix .. keystroke))
+      table.insert(descriptions, get_leader_name(prefix .. keystroke)..'…')
     end
   end
   return keystrokes, descriptions
