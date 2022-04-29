@@ -436,7 +436,7 @@ local function open_window(prefix, mode)
     -- XXX: I would like the height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
     width = ui.width, height = 1,
     style = 'minimal',
-    border = {'─', '─', '─', '', '─', '─', '─', ''},
+    border = {'─', '─', '─', '', '', '', '', ''},
   })
 
   local function close_window()
