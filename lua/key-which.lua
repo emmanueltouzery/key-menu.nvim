@@ -421,16 +421,21 @@ local function shadow_all_global_mappings(buf)
   end
 end
 
+local function get_keystrokes(prefix)
+  local result = {}
+  while #prefix ~= 0 do
+    local keystroke
+    keystroke, prefix = peel(prefix)
+    table.insert(result, pretty_keystroke(keystroke))
+  end
+  return result
+end
+
 local function open_window(prefix, mode)
   local original_buf = vim.api.nvim_get_current_buf()
 
-  local function set_command_line(prefix)
-    local keystrokes = {}
-    while #prefix ~= 0 do
-      local keystroke, new_prefix = peel(prefix)
-      table.insert(keystrokes, pretty_keystroke(keystroke))
-      prefix = new_prefix
-    end
+  local function set_command_line()
+    local keystrokes = get_keystrokes(prefix)
     table.insert(keystrokes, '…')
     print(' ' .. table.concat(keystrokes, ' → '))
   end
