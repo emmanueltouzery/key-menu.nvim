@@ -470,7 +470,6 @@ local function open_window(prefix, mode)
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
-    -- XXX: It's sloppy that the ambient prefix is accessed here.
     local pretty_keystrokes, pretty_descriptions = pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_keys)
     local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
 
@@ -499,20 +498,20 @@ local function open_window(prefix, mode)
     -- XXX: Do we really need to have (prefix, mappings) as persistent state?
 
     local prefix_keys, complete_keys = compute_keys(prefix, mappings)
-    add_local_mappings(prefix, prefix_keys, complete_keys)
+    add_local_mappings(prefix_keys, complete_keys)
 
     redraw(prefix_keys, complete_keys)
-    set_command_line(prefix)
+    set_command_line()
   end
 
-  add_local_mappings = function(prefix, prefix_keys, complete_keys)
+  add_local_mappings = function(prefix_keys, complete_keys)
     local opts_ = {buffer=buf, nowait=true}
 
     remove_local_mappings = function()
-      for keystroke, next_mappings in pairs(prefix_keys) do
+      for keystroke, _ in pairs(prefix_keys) do
         map_to_nop(buf, keystroke)
       end
-      for keystroke, mapping in pairs(complete_keys) do
+      for keystroke, _ in pairs(complete_keys) do
         map_to_nop(buf, keystroke)
       end
     end
