@@ -444,17 +444,16 @@ local function open_window(prefix, mode)
     print(' ') -- This is janky. An empty string seems to cause the print to get skipped altogether.
   end
 
-  local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
-
   local buf = vim.api.nvim_create_buf(false, true)
   shadow_all_global_mappings(buf)
 
+  local initial_ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
   -- XXX: At this point the buffer is not yet populated, so the window dimensions are not yet set correctly for the first real draw. I would really like to be able to, for the first draw, configure the window while it is still not visible, and then show it already all configured correctly. I don't think the Neovim API currently supports this. 2022-04-22
   local win = vim.api.nvim_open_win(buf, true, {
     anchor = 'SW', relative = 'editor',
-    row = ui.height, col = 0,
+    row = initial_ui.height, col = 0,
     -- XXX: I would like the height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
-    width = ui.width, height = 1,
+    width = initial_ui.width, height = 1,
     style = 'minimal',
     border = {'─', '─', '─', '', '', '', '', ''},
   })
@@ -470,12 +469,20 @@ local function open_window(prefix, mode)
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
+    local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
     local pretty_keystrokes, pretty_descriptions = pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_keys)
     local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
-    vim.api.nvim_win_set_config(win, {width = ui.width, height = #rows + 2})
+    vim.api.nvim_win_set_config(win, {
+      anchor = 'SW', relative = 'editor', -- XXX: https://github.com/neovim/neovim/issues/18368
+      row = ui.height, col = 0,
+      width = ui.width, height = #rows + 2,
+    })
     vim.api.nvim_buf_set_lines(buf, 1, -1, false, rows)
+
+    -- XXX: https://github.com/neovim/neovim/issues/18369
+    set_command_line()
   end
 
   local remove_local_mappings = nil
@@ -499,7 +506,6 @@ local function open_window(prefix, mode)
     add_local_mappings(prefix_keys, complete_keys)
 
     redraw(prefix_keys, complete_keys)
-    set_command_line()
   end
 
   add_local_mappings = function(prefix_keys, complete_keys)
@@ -545,7 +551,8 @@ local function open_window(prefix, mode)
     end
   end
 
-  vim.api.nvim_create_autocmd("BufLeave", {buffer = buf, callback = close_window})
+  vim.api.nvim_create_autocmd("BufLeave", {buffer=buf, callback=close_window})
+  vim.api.nvim_create_autocmd("VimResized", {buffer=buf, callback=full_update})
 
   full_update()
 end
