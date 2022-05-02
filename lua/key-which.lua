@@ -480,6 +480,9 @@ local function open_window(prefix, mode)
       width = ui.width, height = #rows + 2,
     })
     vim.api.nvim_buf_set_lines(buf, 1, -1, false, rows)
+    for line_number = 1, #rows + 2 do
+      vim.api.nvim_buf_add_highlight(buf, -1, 'KeyWhichWindow', line_number-1, 1, -1)
+    end
 
     -- XXX: https://github.com/neovim/neovim/issues/18369
     set_command_line()
