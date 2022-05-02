@@ -486,16 +486,14 @@ local function open_window(prefix, mode)
     vim.keymap.set('n', '<C-c>', close_window, {buffer=buf, nowait=true})
   end
 
-  local update_state = function(new_prefix, new_mappings)
+  local full_update = function()
+    -- Call this after the statre (prefix, mappings) has been updated, or just to do a full redraw.
+
     if remove_local_mappings then
       remove_local_mappings()
       remove_local_mappings = nil -- Just to be safe.
     end
     add_default_mappings()
-
-    -- Our state is basically encapsulated by the (prefix, mappings) pair.
-    prefix, mappings = new_prefix, new_mappings
-    -- XXX: Do we really need to have (prefix, mappings) as persistent state?
 
     local prefix_keys, complete_keys = compute_keys(prefix, mappings)
     add_local_mappings(prefix_keys, complete_keys)
@@ -518,7 +516,12 @@ local function open_window(prefix, mode)
 
     do
       for keystroke, next_mappings in pairs(prefix_keys) do
-        local cb = function() update_state(prefix .. keystroke, next_mappings) end
+        local cb = function()
+          -- Our state is basically encapsulated by the (prefix, mappings) pair.
+          prefix, mappings = prefix .. keystroke, next_mappings
+          -- XXX: Do we really need to have (prefix, mappings) as persistent state?
+          full_update()
+        end
         vim.keymap.set('n', keystroke, cb, opts_)
       end
       for keystroke, mapping in pairs(complete_keys) do
@@ -544,7 +547,7 @@ local function open_window(prefix, mode)
 
   vim.api.nvim_create_autocmd("BufLeave", {buffer = buf, callback = close_window})
 
-  update_state(prefix, mappings)
+  full_update()
 end
 
 local function setup(opts)
