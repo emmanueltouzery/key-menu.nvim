@@ -538,6 +538,8 @@ local function open_window(prefix, mode)
     end
   end
 
+  vim.api.nvim_create_autocmd("BufLeave", {buffer = buf, callback = close_window})
+
   update_state(prefix, mappings)
 end
 
