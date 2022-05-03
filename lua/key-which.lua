@@ -425,7 +425,7 @@ local function get_keystrokes(prefix)
   while #prefix ~= 0 do
     local keystroke
     keystroke, prefix = peel(prefix)
-    table.insert(result, pretty_keystroke(keystroke))
+    table.insert(result, keystroke)
   end
   return result
 end
@@ -434,7 +434,7 @@ local function open_window(prefix, mode)
   local original_buf = vim.api.nvim_get_current_buf()
 
   local function set_command_line()
-    local keystrokes = get_keystrokes(prefix)
+    local keystrokes = _map(pretty_keystroke, get_keystrokes(prefix))
     table.insert(keystrokes, '…')
     print(' ' .. table.concat(keystrokes, ' → '))
   end
@@ -487,13 +487,10 @@ local function open_window(prefix, mode)
     set_command_line()
   end
 
+  -- XXX: We declare these symbols here for lexical scoping. Is there a better way to do this?
   local remove_local_mappings = nil
-  local add_local_mappings = nil -- XXX: We declare this symbol here for lexical scoping. Is there a better way to do this?
-
-  local add_default_mappings = function()
-    vim.keymap.set('n', '<Esc>', close_window, {buffer=buf, nowait=true})
-    vim.keymap.set('n', '<C-c>', close_window, {buffer=buf, nowait=true})
-  end
+  local add_local_mappings = nil
+  local add_default_mappings = nil
 
   local full_update = function()
     -- Call this after the statre (prefix, mappings) has been updated, or just to do a full redraw.
@@ -551,6 +548,23 @@ local function open_window(prefix, mode)
         vim.keymap.set('n', keystroke, cb, opts_)
       end
     end
+  end
+
+  local backspace = function()
+    local keystrokes = get_keystrokes(prefix)
+    if #keystrokes < 2 then
+      close_window()
+    else
+      prefix = table.concat(vim.list_slice(keystrokes, 1, #keystrokes - 1))
+      mappings = prefix_mappings_starting_with(prefix, all_mappings)
+      full_update()
+    end
+  end
+
+  add_default_mappings = function()
+    vim.keymap.set('n', '<Esc>', close_window, {buffer=buf, nowait=true})
+    vim.keymap.set('n', '<C-c>', close_window, {buffer=buf, nowait=true})
+    vim.keymap.set('n', '<BS>', backspace, {buffer=buf, nowait=true})
   end
 
   vim.api.nvim_create_autocmd("BufLeave", {buffer=buf, callback=close_window})
