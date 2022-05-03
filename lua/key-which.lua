@@ -433,10 +433,14 @@ end
 local function open_window(prefix, mode)
   local original_buf = vim.api.nvim_get_current_buf()
 
-  local function set_command_line()
+  local function get_command_line_text()
     local keystrokes = _map(pretty_keystroke, get_keystrokes(prefix))
     table.insert(keystrokes, '…')
-    print(' ' .. table.concat(keystrokes, ' → '))
+    return table.concat(keystrokes, ' → ')
+  end
+
+  local function set_command_line()
+    print(' ' .. get_command_line_text())
   end
 
   local function clear_command_line()
@@ -471,12 +475,16 @@ local function open_window(prefix, mode)
   local redraw = function(prefix_keys, complete_keys)
     -- Basically everything is one-based.
 
-    local min_width = 15 -- TODO: Set from keystrokes-so-far.
-
     local horizontal_padding = 1
     local horizontal_spacing = 3
-    local items = pretty_items(prefix, prefix_keys, complete_keys)
     local max_num_rows = 10
+
+    local pretty_keystrokes_so_far = string.rep(' ', horizontal_padding)
+                                  .. get_command_line_text()
+                                  .. string.rep(' ', horizontal_padding)
+    local min_width = vim.api.nvim_strwidth(pretty_keystrokes_so_far)
+
+    local items = pretty_items(prefix, prefix_keys, complete_keys)
     local num_rows = math.min(#items, max_num_rows)
     local num_cols = math.ceil(#items / num_rows)
     local get_col_num = function(item_num) return math.ceil(item_num / num_rows) end
@@ -513,10 +521,10 @@ local function open_window(prefix, mode)
     width = math.max(width, min_width)
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
-    vim.api.nvim_win_set_config(win, {width = width, height = num_rows})
+    vim.api.nvim_win_set_config(win, {width = width, height = num_rows + 2})
 
     local blank_lines = {}
-    for _ = 1, num_rows do
+    for _ = 1, num_rows + 2 do
       table.insert(blank_lines, string.rep(' ', width))
     end
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, blank_lines)
@@ -538,9 +546,11 @@ local function open_window(prefix, mode)
       local description_end = description_start + description_width - 1
 
       -- Basically everything is one-based and end-inclusive, except here:
-      vim.api.nvim_buf_set_text(buf, row_num-1, description_start-1, row_num-1, description_end, {item.description})
-      vim.api.nvim_buf_set_text(buf, row_num-1, sep_start-1, row_num-1, sep_end, {sep})
-      vim.api.nvim_buf_set_text(buf, row_num-1, keystroke_start-1, row_num-1, keystroke_end, {item.keystroke})
+      vim.api.nvim_buf_set_lines(buf, 0, 1, false, {pretty_keystrokes_so_far})
+      vim.api.nvim_buf_set_lines(buf, 1, 2, false, {string.rep('─', width)})
+      vim.api.nvim_buf_set_text(buf, row_num+1, description_start-1, row_num+1, description_end, {item.description})
+      vim.api.nvim_buf_set_text(buf, row_num+1, sep_start-1, row_num+1, sep_end, {sep})
+      vim.api.nvim_buf_set_text(buf, row_num+1, keystroke_start-1, row_num+1, keystroke_end, {item.keystroke})
     end
 
     --[[
