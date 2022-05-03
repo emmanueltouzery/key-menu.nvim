@@ -370,33 +370,33 @@ local function pretty_keystroke(keystroke)
   return pretty_keystroke_dict[keystroke] or keystroke
 end
 
-local function pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_keys)
+local function pretty_items(prefix, prefix_keys, complete_keys)
   local all_keystrokes = {}
   _add_table_keys(all_keystrokes, prefix_keys)
   _add_table_keys(all_keystrokes, complete_keys)
   local sorted_keystrokes = _set_to_list(all_keystrokes)
   table.sort(sorted_keystrokes, keystroke_comparator)
 
-  local keystrokes = {}
-  local descriptions = {}
+  local items = {}
   for _, keystroke in ipairs(sorted_keystrokes) do
     if complete_keys[keystroke] then
-      table.insert(keystrokes, pretty_keystroke(keystroke))
-      table.insert(descriptions, pretty_description(complete_keys[keystroke]))
+      table.insert(items, {
+        keystroke = pretty_keystroke(keystroke),
+        description = pretty_description(complete_keys[keystroke]),
+      })
     end
     if prefix_keys[keystroke] then
-      table.insert(keystrokes, pretty_keystroke(keystroke))
-      table.insert(descriptions, get_leader_name(prefix .. keystroke)..'…')
+      table.insert(items, {
+        keystroke = pretty_keystroke(keystroke),
+        description = get_leader_name(prefix .. keystroke)
+      })
     end
   end
-  return keystrokes, descriptions
+  return items
 end
--- print(vim.inspect({pretty_keystrokes_and_descriptions(' ', compute_keys_fresh(' ', 'n'))}))
+-- print(vim.inspect({pretty_items(' ', compute_keys_fresh(' ', 'n'))}))
 
 -- print(vim.inspect(raw_layout({'a', 'b', 'ESC'}, {'append', 'behead', 'quit'}, 30)))
-
--- local ks, ds = pretty_keystrokes_and_descriptions(' ', compute_keys_fresh(' ', 'n'))
--- print(vim.inspect(raw_layout(ks, ds, 100)))
 
 local function map_to_nop(buf, keystroke)
   vim.api.nvim_buf_set_keymap(buf, 'n', keystroke, '', {nowait=true})
@@ -454,7 +454,7 @@ local function open_window(prefix, mode)
     -- XXX: I would like the height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
     width = initial_ui.width, height = 1,
     style = 'minimal',
-    border = {'─', '─', '─', '', '', '', '', ''},
+    border = 'rounded',
   })
   vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:Normal')
 
@@ -469,23 +469,97 @@ local function open_window(prefix, mode)
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
-    local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
-    local pretty_keystrokes, pretty_descriptions = pretty_keystrokes_and_descriptions(prefix, prefix_keys, complete_keys)
-    local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
+    -- Basically everything is one-based.
+
+    local min_width = 15 -- TODO: Set from keystrokes-so-far.
+
+    local horizontal_padding = 1
+    local horizontal_spacing = 3
+    local items = pretty_items(prefix, prefix_keys, complete_keys)
+    local max_num_rows = 10
+    local num_rows = math.min(#items, max_num_rows)
+    local num_cols = math.ceil(#items / num_rows)
+    local get_col_num = function(item_num) return math.ceil(item_num / num_rows) end
+    local get_row_num = function(item_num) return 1 + (item_num-1) % num_rows end
+    local sep = ' → '
+    local sep_width = vim.api.nvim_strwidth(sep)
+
+    local col_widths = {}
+    local keystroke_widths = {}
+    local description_widths = {}
+    local function _set_to_at_least(widths_by_col, col_num, value)
+      if not widths_by_col[col_num] then widths_by_col[col_num] = 0 end
+      widths_by_col[col_num] = math.max(widths_by_col[col_num], value)
+    end
+    for item_num = 1, #items do
+      local item = items[item_num]
+      local col_num = get_col_num(item_num)
+      local keystroke_width = vim.api.nvim_strwidth(item.keystroke)
+      local description_width = vim.api.nvim_strwidth(item.description)
+      local display_width = keystroke_width + sep_width + description_width
+      _set_to_at_least(col_widths, col_num, display_width)
+      _set_to_at_least(keystroke_widths, col_num, keystroke_width)
+      _set_to_at_least(description_widths, col_num, description_width)
+    end
+
+    -- Compute col_start[col_num] and the total width of the window's text.
+    local col_starts = {}
+    local width = horizontal_padding + 1
+    for col_num = 1, num_cols do
+      col_starts[col_num] = width
+      width = width + horizontal_spacing + col_widths[col_num]
+    end
+    width = width - horizontal_spacing + horizontal_padding - 1
+    width = math.max(width, min_width)
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
+    vim.api.nvim_win_set_config(win, {width = width, height = num_rows})
+
+    local blank_lines = {}
+    for _ = 1, num_rows do
+      table.insert(blank_lines, string.rep(' ', width))
+    end
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, blank_lines)
+
+    for item_num = #items, 1, -1 do
+      -- It is important that we (1) loop backwards and (2) add the description, sep, key strings backwards, because as of 2022-05-03 (and I guess forever since Neovim won't break APIs), `vim.api.buf_set_text` takes _byte indices_, not display columns!
+      -- XXX: https://github.com/neovim/neovim/issues/18406
+      local item = items[item_num]
+      local row_num = get_row_num(item_num)
+      local col_num = get_col_num(item_num)
+      local keystroke_width = vim.api.nvim_strwidth(item.keystroke)
+      local description_width = vim.api.nvim_strwidth(item.description)
+      local keystroke_col_width = keystroke_widths[col_num]
+      local keystroke_start = col_starts[col_num] + (keystroke_col_width - keystroke_width)
+      local keystroke_end = keystroke_start + keystroke_width - 1
+      local sep_start = keystroke_end + 1
+      local sep_end = sep_start + sep_width - 1
+      local description_start = sep_end + 1
+      local description_end = description_start + description_width - 1
+
+      -- Basically everything is one-based and end-inclusive, except here:
+      vim.api.nvim_buf_set_text(buf, row_num-1, description_start-1, row_num-1, description_end, {item.description})
+      vim.api.nvim_buf_set_text(buf, row_num-1, sep_start-1, row_num-1, sep_end, {sep})
+      vim.api.nvim_buf_set_text(buf, row_num-1, keystroke_start-1, row_num-1, keystroke_end, {item.keystroke})
+    end
+
+    --[[
+    local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
+    local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
+
     vim.api.nvim_win_set_config(win, {
-      anchor = 'SW', relative = 'editor', -- XXX: https://github.com/neovim/neovim/issues/18368
+      -- anchor = 'NW', relative = 'cursor', -- XXX: https://github.com/neovim/neovim/issues/18368
       row = ui.height, col = 0,
-      width = ui.width, height = #rows + 2,
+      width = ui.width, height = #rows,
     })
-    vim.api.nvim_buf_set_lines(buf, 1, -1, false, rows)
-    for line_number = 1, #rows + 2 do
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, rows)
+    for line_number = 1, #rows do
       vim.api.nvim_buf_add_highlight(buf, -1, 'KeyWhichWindow', line_number-1, 1, -1)
     end
 
     -- XXX: https://github.com/neovim/neovim/issues/18369
     set_command_line()
+    ]]--
   end
 
   -- XXX: We declare these symbols here for lexical scoping. Is there a better way to do this?
