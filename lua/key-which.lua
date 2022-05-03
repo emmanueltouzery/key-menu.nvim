@@ -456,6 +456,7 @@ local function open_window(prefix, mode)
     style = 'minimal',
     border = {'─', '─', '─', '', '', '', '', ''},
   })
+  vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:Normal')
 
   local function close_window()
     vim.api.nvim_win_close(win, true)
