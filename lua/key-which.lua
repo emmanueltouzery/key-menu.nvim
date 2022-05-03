@@ -406,15 +406,14 @@ end
 -- https://neovim.discourse.group/t/what-is-the-usual-way-of-disabling-default-mappings-when-building-a-modal-dialog/2436
 local function shadow_all_global_mappings(buf)
   -- We only need to worry about normal mode, because with no mappings available it should not even be possible to get into another mode.
-  chars = 'abcdefghijklmnopqrstuvwxyz'
-       .. 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-       .. '0123456789'
-       .. '~!#$%^&*()_+`-=[]{}|\\;"\'<>,.?/'
-       -- .. ':'
+  local chars = 'abcdefghijklmnopqrstuvwxyz'
+             .. 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+             .. '0123456789'
+             .. '~!#$%^&*()_+`-=[]{}|\\;"\'<>,.?/'
+             -- .. ':'
 
   for i = 1, #chars do
-    char = chars:sub(i, i)
-    print(char)
+    local char = chars:sub(i, i)
     map_to_nop(buf, char)
     map_to_nop(buf, string.format('<C-%s>', char))
     map_to_nop(buf, string.format('<A-%s>', char))
