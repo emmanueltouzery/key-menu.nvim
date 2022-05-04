@@ -435,7 +435,8 @@ local function open_window(prefix, mode)
 
   local function get_command_line_text()
     local keystrokes = _map(pretty_keystroke, get_keystrokes(prefix))
-    table.insert(keystrokes, '…')
+    -- table.insert(keystrokes, '…')
+    table.insert(keystrokes, '')
     return table.concat(keystrokes, ' → ')
   end
 
@@ -552,6 +553,8 @@ local function open_window(prefix, mode)
       vim.api.nvim_buf_set_text(buf, row_num+1, sep_start-1, row_num+1, sep_end, {sep})
       vim.api.nvim_buf_set_text(buf, row_num+1, keystroke_start-1, row_num+1, keystroke_end, {item.keystroke})
     end
+
+    vim.fn.setcursorcharpos(1, 999999)
 
     --[[
     local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
