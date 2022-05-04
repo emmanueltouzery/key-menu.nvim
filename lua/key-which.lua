@@ -388,7 +388,7 @@ local function pretty_items(prefix, prefix_keys, complete_keys)
     if prefix_keys[keystroke] then
       table.insert(items, {
         keystroke = pretty_keystroke(keystroke),
-        description = get_leader_name(prefix .. keystroke)
+        description = get_leader_name(prefix .. keystroke) .. '…'
       })
     end
   end
