@@ -355,8 +355,16 @@ local function open_window(prefix, mode)
     local min_width = vim.api.nvim_strwidth(pretty_keystrokes_so_far)
 
     local items = pretty_items(prefix, prefix_keys, complete_keys)
-    local num_rows = math.min(#items, max_num_rows)
-    local num_cols = math.ceil(#items / num_rows)
+
+    local num_rows, num_cols
+    if #items < max_num_rows then
+      num_cols = 1
+      num_rows = #items
+    else
+      num_cols = math.ceil(#items / max_num_rows)
+      num_rows = math.ceil(#items / num_cols)
+    end
+
     local get_col_num = function(item_num) return math.ceil(item_num / num_rows) end
     local get_row_num = function(item_num) return 1 + (item_num-1) % num_rows end
     local sep = ' → '
