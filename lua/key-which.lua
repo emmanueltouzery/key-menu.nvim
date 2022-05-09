@@ -123,9 +123,10 @@ local function char_byte_count(s, i)
   end
 end
 
-local function truncate_to_display_width(s, width)
+local function truncate(s, screen_cols)
   -- O(n), I'm not sure it's possible to do better.
-  if width == 0 then
+
+  if screen_cols == 0 then
     return ''
   end
 
@@ -137,10 +138,10 @@ local function truncate_to_display_width(s, width)
     local char_bytes = char_byte_count(s, i)
     local char = s:sub(i, i + char_bytes - 1)
     local char_display_width = vim.api.nvim_strwidth(char)
-    if display_width + char_display_width > width then
+    if display_width + char_display_width > screen_cols then
       if #result == 0 then
         return '…'
-      elseif display_width + 1 <= width then
+      elseif display_width + 1 <= screen_cols then
         return result .. '…'
       else
         return result:sub(1, #result-last_char_bytes) .. '…'
@@ -154,9 +155,9 @@ local function truncate_to_display_width(s, width)
   return result
 end
 
-local function test_truncate_to_display_width()
+local function test_truncate()
   local function test_case(s, width, expected)
-    local result = truncate_to_display_width(s, width)
+    local result = truncate(s, width)
     if result ~= expected then
       print(string.format('For ("%s", %d), expected %s, and got %s', s, width, expected, result))
       return false
@@ -259,7 +260,10 @@ local function pretty_items(prefix, prefix_keys, complete_keys)
     if complete_keys[keystroke] then
       table.insert(items, {
         keystroke = pretty_keystroke(keystroke),
-        description = pretty_description(complete_keys[keystroke]),
+        description = truncate(
+          pretty_description(complete_keys[keystroke]),
+          40 -- XXX: Magic number, screen columns
+        ),
       })
     end
     if prefix_keys[keystroke] then
@@ -516,7 +520,7 @@ end
 
 local function test_all()
   local all_ok = true
-  all_ok = all_ok and test_truncate_to_display_width()
+  all_ok = all_ok and test_truncate()
   if all_ok then
     print('All tests passed!')
   else
