@@ -454,10 +454,10 @@ local function open_window(prefix, mode)
   local initial_ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
   -- XXX: At this point the buffer is not yet populated, so the window dimensions are not yet set correctly for the first real draw. I would really like to be able to, for the first draw, configure the window while it is still not visible, and then show it already all configured correctly. I don't think the Neovim API currently supports this. 2022-04-22
   local win = vim.api.nvim_open_win(buf, true, {
-    anchor = 'SW', relative = 'editor',
-    row = initial_ui.height, col = 0,
-    -- XXX: I would like the height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
-    width = initial_ui.width, height = 1,
+    anchor = 'NW', relative = 'cursor',
+    row = 1, col = 1,
+    -- XXX: I would (perhaps) like the height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
+    width = 1, height = 1,
     style = 'minimal',
     border = 'rounded',
   })
