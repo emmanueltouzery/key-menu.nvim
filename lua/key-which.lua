@@ -105,14 +105,6 @@ local function get_leader_name(prefix)
   end
 end
 
-local function raw_layout_default_config()
-  return {
-    padding = 1,
-    spacing = 3,
-    middle_text = ' → ',
-  }
-end
-
 local function char_byte_count(s, i)
   -- Get byte count of unicode character starting at byte i (RFC 3629).
   -- https://neovim.discourse.group/t/how-do-you-work-with-strings-with-multibyte-characters-in-lua/2437/3
@@ -164,7 +156,7 @@ end
 
 local function test_truncate_to_display_width()
   local function test_case(s, width, expected)
-    result = truncate_to_display_width(s, width)
+    local result = truncate_to_display_width(s, width)
     if result ~= expected then
       print(string.format('For ("%s", %d), expected %s, and got %s', s, width, expected, result))
       return false
@@ -185,114 +177,6 @@ local function test_truncate_to_display_width()
   return all_ok
 end
 
-local function raw_layout(keys, descriptions, max_width, config)
-  if #keys == 0 then
-    return {}
-  end
-
-  if not config then config = raw_layout_default_config() end
-
-  if max_width < 2*config.padding + 1 then
-    -- We don't even have space for a single character (…).
-    return {}
-  end
-
-  local max_key_width = math.max(unpack(_map(vim.api.nvim_strwidth, keys)))
-  local middle_width = vim.api.nvim_strwidth(config.middle_text)
-  local max_description_width = math.max(unpack(_map(vim.api.nvim_strwidth, descriptions)))
-  local num_columns = math.floor((max_width - 2*config.padding + config.spacing) /
-                                 (max_key_width + middle_width + max_description_width + config.spacing))
-
-  local truncate = false
-  if num_columns == 0 then
-    num_columns = 1
-    truncate = true
-  end
-
-  local num_rows = math.ceil(#keys / num_columns)
-  local rows = {}
-  while #rows * num_columns < #keys do
-    local row = ''
-    for column = 1, num_columns do
-      if column > 1 then row = row .. string.rep(' ', config.spacing) end
-      local index = num_rows * (column - 1) + #rows + 1
-      if index <= #keys then
-        local key, description = keys[index], descriptions[index]
-        row = row
-           .. string.rep(' ', max_key_width - vim.api.nvim_strwidth(key)) .. key
-           .. config.middle_text
-           .. description
-        if not truncate then
-          row = row .. string.rep(' ', max_description_width - vim.api.nvim_strwidth(description))
-        end
-      else
-        row = row .. string.rep(' ', max_key_width + middle_width + max_description_width)
-      end
-    end
-    if truncate then
-      row = truncate_to_display_width(row, max_width - 2*config.padding)
-    end
-    row = string.rep(' ', config.padding) .. row .. string.rep(' ', config.padding)
-    table.insert(rows, row)
-  end
-  return rows
-end
--- print(vim.inspect(raw_layout({'a', 'b', 'ESC'}, {'append', 'behead', 'quit'}, 30)))
-
-local function test_raw_layout()
-  local function ok(result, expected)
-    if #result ~= #expected then return false end
-    for i = 1, #result do
-      if result[i] ~= expected[i] then return false end
-    end
-    return true
-  end
-
-  function test_case(input, expected)
-    local result = raw_layout(unpack(input))
-    if not ok(result, expected) then
-      print(string.format('Error: expected "%s", but got "%s"', vim.inspect(expected), vim.inspect(result)))
-      return false
-    else
-      return true
-    end
-  end
-
-  local config = {
-    padding = 1,
-    spacing = 2,
-    middle_text = ' → ',
-  }
-
-  local all_ok = true
-
-  all_ok = all_ok and test_case({{}, {}, 10, config},
-                                {})
-  all_ok = all_ok and test_case({{'x'}, {'y'}, 3, config},
-                                {' … '})
-  all_ok = all_ok and test_case({{'x'}, {'y'}, 4, config},
-                                {' x… '})
-  all_ok = all_ok and test_case({{'x'}, {'y'}, 11, {padding=5, spacing=0, middle_text=''}},
-                                {'     …     '})
-  all_ok = all_ok and test_case({{'x', 'z'}, {'y', 'w'}, 14, config},
-                                {' x → y  z → w '})
-  all_ok = all_ok and test_case({{'x'}, {'foo'}, 10, config},
-                                {' x → foo '})
-
-  local tight_config = {
-    padding = 0,
-    spacing = 0,
-    middle_text = '',
-  }
-
-  all_ok = all_ok and test_case({{'xx', 'yyy'}, {'zzz', 'ww'}, 12, tight_config},
-                                {' xxzzzyyyww '})
-  all_ok = all_ok and test_case({{'a', 'b'}, {'😶', 'd'}, 4, tight_config},
-                                {'a😶', 'bd '})
-
-  return all_ok
-end
-
 local function compute_keys(prefix, mappings)
   local complete_keys = {} -- keystroke-to-mapping
   local prefix_keys = {} -- keystroke-to-list-of-mappings
@@ -310,13 +194,6 @@ local function compute_keys(prefix, mappings)
   return prefix_keys, complete_keys
 end
 -- print(vim.inspect({compute_keys(' ', prefix_mappings_starting_with(' ', vim.api.nvim_get_keymap('n')))}))
-
--- XXX: Unused.
-local function compute_keys_fresh(prefix, mode)
-  local mappings = prefix_mappings_starting_with(prefix, vim.api.nvim_get_keymap(mode))
-  return compute_keys(prefix, mappings)
-end
--- print(vim.inspect({compute_keys_fresh(' ', 'n')}))
 
 local function _add_table_keys(set, t)
   for key, _ in pairs(t) do
@@ -435,38 +312,26 @@ local function open_window(prefix, mode)
 
   local function get_command_line_text()
     local keystrokes = _map(pretty_keystroke, get_keystrokes(prefix))
-    -- table.insert(keystrokes, '…')
-    table.insert(keystrokes, '')
+    table.insert(keystrokes, '') -- table.insert(keystrokes, '…') -- Currently the cursor goes here.
     return table.concat(keystrokes, ' → ')
-  end
-
-  local function set_command_line()
-    print(' ' .. get_command_line_text())
-  end
-
-  local function clear_command_line()
-    print(' ') -- This is janky. An empty string seems to cause the print to get skipped altogether.
   end
 
   local buf = vim.api.nvim_create_buf(false, true)
   shadow_all_global_mappings(buf)
 
-  local initial_ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
   -- XXX: At this point the buffer is not yet populated, so the window dimensions are not yet set correctly for the first real draw. I would really like to be able to, for the first draw, configure the window while it is still not visible, and then show it already all configured correctly. I don't think the Neovim API currently supports this. 2022-04-22
+  -- XXX: Alternatively we could populate the buffer correctly before creating the window and create it to have the correct size on the first draw. 2022-05-09
+  -- XXX: Alternatively we could (perhaps) set the width/height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
   local win = vim.api.nvim_open_win(buf, true, {
     anchor = 'NW', relative = 'cursor',
     row = 1, col = 1,
-    -- XXX: I would (perhaps) like the height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
     width = 1, height = 1,
     style = 'minimal',
     border = 'rounded',
   })
   vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:Normal')
 
-  local function close_window()
-    vim.api.nvim_win_close(win, true)
-    clear_command_line()
-  end
+  local close_window = function() vim.api.nvim_win_close(win, true) end
 
   local global_mappings = vim.api.nvim_get_keymap(mode)
   local buffer_mappings = vim.api.nvim_buf_get_keymap(original_buf, mode)
@@ -555,24 +420,6 @@ local function open_window(prefix, mode)
     end
 
     vim.fn.setcursorcharpos(1, 999999)
-
-    --[[
-    local ui = vim.api.nvim_list_uis()[1] -- FIXME: What do we do if there is not exactly one UI??
-    local rows = raw_layout(pretty_keystrokes, pretty_descriptions, ui.width)
-
-    vim.api.nvim_win_set_config(win, {
-      -- anchor = 'NW', relative = 'cursor', -- XXX: https://github.com/neovim/neovim/issues/18368
-      row = ui.height, col = 0,
-      width = ui.width, height = #rows,
-    })
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, rows)
-    for line_number = 1, #rows do
-      vim.api.nvim_buf_add_highlight(buf, -1, 'KeyWhichWindow', line_number-1, 1, -1)
-    end
-
-    -- XXX: https://github.com/neovim/neovim/issues/18369
-    set_command_line()
-    ]]--
   end
 
   -- XXX: We declare these symbols here for lexical scoping. Is there a better way to do this?
@@ -670,7 +517,6 @@ end
 local function test_all()
   local all_ok = true
   all_ok = all_ok and test_truncate_to_display_width()
-  all_ok = all_ok and test_raw_layout()
   if all_ok then
     print('All tests passed!')
   else
