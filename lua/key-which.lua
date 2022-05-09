@@ -323,12 +323,25 @@ local function open_window(prefix, mode)
   local buf = vim.api.nvim_create_buf(false, true)
   shadow_all_global_mappings(buf)
 
+  local horizontal_padding = 1
+  local horizontal_spacing = 3
+  local max_num_rows = 10
+  local screen_bottom_margin = 4 -- Very roughly, minimum distance from bottom of popup to bottom of screen.
+
+  local anchor, row, col
+  if vim.fn.screenrow() + max_num_rows + screen_bottom_margin > vim.o.lines then
+    anchor, row, col = 'SW', 0, 1
+  else
+    anchor, row, col = 'NW', 1, 1
+  end
+
   -- XXX: At this point the buffer is not yet populated, so the window dimensions are not yet set correctly for the first real draw. I would really like to be able to, for the first draw, configure the window while it is still not visible, and then show it already all configured correctly. I don't think the Neovim API currently supports this. 2022-04-22
   -- XXX: Alternatively we could populate the buffer correctly before creating the window and create it to have the correct size on the first draw. 2022-05-09
   -- XXX: Alternatively we could (perhaps) set the width/height to be 0 initially, but Neovim 0.7 does not allow that. Width/height must be positive integers. 2022-04-22
   local win = vim.api.nvim_open_win(buf, true, {
-    anchor = 'NW', relative = 'cursor',
-    row = 1, col = 1,
+    relative = 'cursor',
+    anchor = anchor,
+    row = row, col = col,
     width = 1, height = 1,
     style = 'minimal',
     border = 'rounded',
@@ -344,10 +357,6 @@ local function open_window(prefix, mode)
 
   local redraw = function(prefix_keys, complete_keys)
     -- Basically everything is one-based.
-
-    local horizontal_padding = 1
-    local horizontal_spacing = 3
-    local max_num_rows = 10
 
     local pretty_keystrokes_so_far = string.rep(' ', horizontal_padding)
                                   .. get_command_line_text()
