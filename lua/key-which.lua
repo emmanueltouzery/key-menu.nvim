@@ -389,12 +389,14 @@ local function open_window(prefix, mode)
     for item_num = 1, #items do
       local item = items[item_num]
       local col_num = get_col_num(item_num)
+
       local keystroke_width = vim.api.nvim_strwidth(item.keystroke)
       local description_width = vim.api.nvim_strwidth(item.description)
-      local display_width = keystroke_width + sep_width + description_width
-      _set_to_at_least(col_widths, col_num, display_width)
       _set_to_at_least(keystroke_widths, col_num, keystroke_width)
       _set_to_at_least(description_widths, col_num, description_width)
+
+      local display_width = keystroke_widths[col_num] + sep_width + description_widths[col_num]
+      _set_to_at_least(col_widths, col_num, display_width)
     end
 
     -- Compute col_start[col_num] and the total width of the window's text.
