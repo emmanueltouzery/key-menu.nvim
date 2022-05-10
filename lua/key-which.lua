@@ -52,6 +52,10 @@ end
 -- print(_ends_with('ab', 'ab'))
 -- print(_ends_with('ab', 'abc'))
 
+local function is_not_nop(mapping)
+  return mapping.rhs ~= ''
+end
+
 local function is_prefix_mapping_starting_with(prefix, mapping)
   return #prefix ~= #mapping.lhs and _starts_with(prefix, mapping.lhs)
 end
@@ -352,7 +356,7 @@ local function open_window(prefix, mode)
 
   local global_mappings = vim.api.nvim_get_keymap(mode)
   local buffer_mappings = vim.api.nvim_buf_get_keymap(original_buf, mode)
-  local all_mappings = _concat(global_mappings, buffer_mappings)
+  local all_mappings = _filter(is_not_nop, _concat(global_mappings, buffer_mappings))
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
