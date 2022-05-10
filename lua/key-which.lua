@@ -531,8 +531,10 @@ end
 
 local function setup(opts)
   opts = opts or {}
-  vim.keymap.set('n', '<Leader>', function() open_window(' ', 'n') end)
   leader_names = opts.leader_names
+  for prefix, _ in pairs(opts.leader_names) do
+    vim.keymap.set('n', prefix, function() open_window(prefix, 'n') end)
+  end
 end
 
 local function test_all()
