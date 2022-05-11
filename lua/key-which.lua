@@ -362,9 +362,11 @@ local function open_window(prefix, mode)
   local redraw = function(prefix_keys, complete_keys)
     -- Basically everything is one-based.
 
+    local command_line_text = get_command_line_text()
     local pretty_keystrokes_so_far = string.rep(' ', horizontal_padding)
-                                  .. get_command_line_text()
+                                  .. command_line_text
                                   .. string.rep(' ', horizontal_padding)
+    local cursor_col = horizontal_padding + vim.api.nvim_strwidth(command_line_text) + 1
     local min_width = vim.api.nvim_strwidth(pretty_keystrokes_so_far)
 
     local items = pretty_items(prefix, prefix_keys, complete_keys)
@@ -446,7 +448,7 @@ local function open_window(prefix, mode)
       vim.api.nvim_buf_set_text(buf, row_num+1, keystroke_start-1, row_num+1, keystroke_end, {item.keystroke})
     end
 
-    vim.fn.setcursorcharpos(1, 999999)
+    vim.fn.setcursorcharpos(1, cursor_col)
   end
 
   -- XXX: We declare these symbols here for lexical scoping. Is there a better way to do this?
