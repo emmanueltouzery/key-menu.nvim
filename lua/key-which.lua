@@ -350,7 +350,11 @@ local function open_window(prefix, mode)
     style = 'minimal',
     border = 'rounded',
   })
-  vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:Normal')
+
+  vim.api.nvim_win_set_option(win, 'winhighlight', table.concat({
+    'Normal:KeyWhichNormal',
+    'FloatBorder:KeyWhichFloatBorder',
+  }, ','))
 
   local close_window = function() vim.api.nvim_win_close(win, true) end
 
