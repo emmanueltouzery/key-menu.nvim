@@ -245,7 +245,7 @@ end
 -- print(pretty_description({rhs = '<Cmd>fuck<CR>'}))
 
 local pretty_keystroke_dict = {
-  [" "] = '⎵',
+  [" "] = '␠',
 }
 
 local function pretty_keystroke(keystroke)
