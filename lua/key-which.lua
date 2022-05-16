@@ -563,5 +563,6 @@ end
 -- test_all()
 
 return {
+  open_window = open_window,
   setup = setup,
 }
