@@ -520,7 +520,7 @@ local function open_window(prefix, mode)
 
   local backspace = function()
     local keystrokes = get_keystrokes(prefix)
-    if #keystrokes < 2 then
+    if #keystrokes < 1 then
       close_window()
     else
       prefix = table.concat(vim.list_slice(keystrokes, 1, #keystrokes - 1))
