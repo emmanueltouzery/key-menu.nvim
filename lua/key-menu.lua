@@ -549,7 +549,7 @@ local function setup(opts)
   end
 end
 
-local function test_all()
+local function _run_tests()
   local all_ok = true
   all_ok = all_ok and test_truncate()
   if all_ok then
@@ -560,9 +560,8 @@ local function test_all()
   return all_ok
 end
 
--- test_all()
-
 return {
+  _run_tests = _run_tests,
   open_window = open_window,
   setup = setup,
 }
