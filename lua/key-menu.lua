@@ -227,7 +227,7 @@ end
 local LC_CMD = '<cmd>'
 local LC_CR = '<cr>'
 
-local function pretty_description(mapping)
+local function get_pretty_description(mapping)
   if mapping.desc then
     return mapping.desc
   end
@@ -248,11 +248,11 @@ local pretty_keystroke_dict = {
   [" "] = '␠',
 }
 
-local function pretty_keystroke(keystroke)
+local function get_pretty_keystroke(keystroke)
   return pretty_keystroke_dict[keystroke] or keystroke
 end
 
-local function pretty_items(prefix, prefix_keys, complete_keys)
+local function get_pretty_items(prefix, prefix_keys, complete_keys)
   local all_keystrokes = {}
   _add_table_keys(all_keystrokes, prefix_keys)
   _add_table_keys(all_keystrokes, complete_keys)
@@ -263,16 +263,16 @@ local function pretty_items(prefix, prefix_keys, complete_keys)
   for _, keystroke in ipairs(sorted_keystrokes) do
     if complete_keys[keystroke] then
       table.insert(items, {
-        keystroke = pretty_keystroke(keystroke),
+        keystroke = get_pretty_keystroke(keystroke),
         description = truncate(
-          pretty_description(complete_keys[keystroke]),
+          get_pretty_description(complete_keys[keystroke]),
           40 -- XXX: Magic number, screen columns
         ),
       })
     end
     if prefix_keys[keystroke] then
       table.insert(items, {
-        keystroke = pretty_keystroke(keystroke),
+        keystroke = get_pretty_keystroke(keystroke),
         description = get_leader_name(prefix .. keystroke) .. '…'
       })
     end
@@ -319,7 +319,7 @@ local function open_window(prefix, mode)
   local original_buf = vim.api.nvim_get_current_buf()
 
   local function get_command_line_text()
-    local keystrokes = _map(pretty_keystroke, get_keystrokes(prefix))
+    local keystrokes = _map(get_pretty_keystroke, get_keystrokes(prefix))
     table.insert(keystrokes, '') -- table.insert(keystrokes, '…') -- Currently the cursor goes here.
     return table.concat(keystrokes, ' → ')
   end
@@ -373,7 +373,7 @@ local function open_window(prefix, mode)
     local cursor_col = horizontal_padding + vim.api.nvim_strwidth(command_line_text) + 1
     local min_width = vim.api.nvim_strwidth(pretty_keystrokes_so_far)
 
-    local items = pretty_items(prefix, prefix_keys, complete_keys)
+    local items = get_pretty_items(prefix, prefix_keys, complete_keys)
 
     local num_rows, num_cols
     if #items < max_num_rows then
