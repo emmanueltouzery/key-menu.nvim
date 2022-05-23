@@ -316,6 +316,8 @@ local function get_keystrokes(prefix)
 end
 
 local function open_window(prefix, mode)
+  prefix = vim.api.nvim_replace_termcodes(prefix, true, true, true) -- Pretty ugly. Is there a better way to do this?
+
   local original_buf = vim.api.nvim_get_current_buf()
 
   local function get_command_line_text()
