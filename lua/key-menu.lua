@@ -544,14 +544,6 @@ local function open_window(prefix)
   full_update()
 end
 
-local function setup(opts)
-  opts = opts or {}
-  leader_names = opts.leader_names
-  for prefix, _ in pairs(opts.leader_names) do
-    vim.keymap.set('n', prefix, function() open_window(prefix, 'n') end)
-  end
-end
-
 local function _run_tests()
   local all_ok = true
   all_ok = all_ok and test_truncate()
@@ -563,8 +555,13 @@ local function _run_tests()
   return all_ok
 end
 
+local function set(mode, lhs, opts)
+  opts = opts or {}
+  vim.keymap.set(mode, lhs, function() open_window(lhs) end, opts)
+end
+
 return {
   _run_tests = _run_tests,
   open_window = open_window,
-  setup = setup,
+  set = set,
 }
