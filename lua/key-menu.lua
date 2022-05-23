@@ -261,21 +261,21 @@ local function get_pretty_items(prefix, prefix_keys, complete_keys)
 
   local items = {}
   for _, keystroke in ipairs(sorted_keystrokes) do
+    local pretty_keystroke = get_pretty_keystroke(keystroke)
+
+    local pretty_description
     if complete_keys[keystroke] then
-      table.insert(items, {
-        keystroke = get_pretty_keystroke(keystroke),
-        description = truncate(
-          get_pretty_description(complete_keys[keystroke]),
-          40 -- XXX: Magic number, screen columns
-        ),
-      })
+      pretty_description = truncate(
+        get_pretty_description(complete_keys[keystroke]),
+        40 -- XXX: Magic number, screen columns
+      )
+    else
+      assert(prefix_keys[keystroke])
+      pretty_description = get_leader_name(prefix .. keystroke)
     end
-    if prefix_keys[keystroke] then
-      table.insert(items, {
-        keystroke = get_pretty_keystroke(keystroke),
-        description = get_leader_name(prefix .. keystroke) .. '…'
-      })
-    end
+
+    if prefix_keys[keystroke] then pretty_description = pretty_description .. '…' end
+    table.insert(items, {keystroke = pretty_keystroke, description = pretty_description})
   end
   return items
 end
