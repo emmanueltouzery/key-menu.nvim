@@ -51,13 +51,13 @@ require 'key-menu'.set('n', '<Space>g', {desc='Git'})
 
 -- Create a buffer-local mapping group to echo some example text.
 require 'key-menu'.set('n', '<Space>s',
-  {desc = 'Say something', buffer=true})
+  {desc = 'Say something', buffer = true})
 -- Create buffer-local mappings to say hello and goodbye.
 vim.keymap.set('n', '<Space>sh',
-  function() print("Hello, world") end,
+  function() print('Hello, world') end,
   {desc = '...hello!', buffer = true})
 vim.keymap.set('n', '<Space>sg',
-  function() print("Goodbye, world!") end,
+  function() print('Goodbye, world!') end,
   {desc = '...goodbye!', buffer = true})
 ```
 
