@@ -61,7 +61,9 @@ vim.keymap.set('n', '<Space>sg',
   {desc = '...goodbye!', buffer = true})
 ```
 
-Final results: ![sample-config-root](https://user-images.githubusercontent.com/5308024/170115903-a10692a8-11b7-4f4b-9194-c958251772fb.png) ![sample-config-git](https://user-images.githubusercontent.com/5308024/170115928-cbd9cb25-eb13-49ee-9fa0-eab22d0f9fe3.png) ![sample-config-say](https://user-images.githubusercontent.com/5308024/170115942-1ab0d108-77e9-47ad-a019-c766fa26965f.png)
+Final results:
+
+![sample-config-root](https://user-images.githubusercontent.com/5308024/170115903-a10692a8-11b7-4f4b-9194-c958251772fb.png) ![sample-config-git](https://user-images.githubusercontent.com/5308024/170115928-cbd9cb25-eb13-49ee-9fa0-eab22d0f9fe3.png) ![sample-config-say](https://user-images.githubusercontent.com/5308024/170115942-1ab0d108-77e9-47ad-a019-c766fa26965f.png)
 
 ## Related plugins
 
