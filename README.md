@@ -7,7 +7,7 @@
 ## Highlights
 
 - Just works. Lightweight and simple. Minimal configuration.
-- Hint window pops up next to your cursor, and uses as little screen real estate as possible.
+- The hint window pops up next to your cursor, and uses as little screen real estate as possible.
 - No custom syntax for creating mappings – just use Neovim's standard, built-in `vim.keymap.set`.
 
 ## Setup and usage
