@@ -46,6 +46,13 @@ vim.keymap.set('n', '<Space>gc', '<Cmd>Git commit<CR>')
 -- To describe the group of mappings under <Space>g, use key-menu.set.
 require 'key-menu'.set('n', '<Space>g', {desc='Git'})
 
+-- The function key-menu.set is just a thin wrapper around vim.keymap.set, and
+-- is provided for convenience so that you don't have to type the key sequence
+-- twice. The above call to key-menu.set is equivalent to this:
+vim.keymap.set('n', '<Space>g',
+  function() require 'key-menu'.open_window('<Space>g') end,
+  {desc='Git'})
+
 -- The arguments to key-menu.set are the same as those for vim.keymap.set,
 -- except that the RHS/callback argument is omitted.
 
