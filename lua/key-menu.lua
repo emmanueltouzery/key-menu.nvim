@@ -355,8 +355,8 @@ local function open_window(prefix)
   })
 
   vim.api.nvim_win_set_option(win, 'winhighlight', table.concat({
-    'Normal:KeyWhichNormal',
-    'FloatBorder:KeyWhichFloatBorder',
+    'Normal:KeyMenuNormal',
+    'FloatBorder:KeyMenuFloatBorder',
   }, ','))
 
   local close_window = function() vim.api.nvim_win_close(win, true) end
