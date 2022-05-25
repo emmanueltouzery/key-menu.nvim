@@ -72,6 +72,40 @@ Final results:
 
 ![sample-config-root](https://user-images.githubusercontent.com/5308024/170115903-a10692a8-11b7-4f4b-9194-c958251772fb.png) ![sample-config-git](https://user-images.githubusercontent.com/5308024/170115928-cbd9cb25-eb13-49ee-9fa0-eab22d0f9fe3.png) ![sample-config-say](https://user-images.githubusercontent.com/5308024/170115942-1ab0d108-77e9-47ad-a019-c766fa26965f.png)
 
+## How it works
+
+The easiest way to understand how this plugin works is to run the following command interactively in Neovim:
+```
+:lua require 'key-menu'.open_window('g')
+```
+This opens a window showing your mappings that start with a `g`. You can press one of the keys in the popup menu to complete or advance the mapping.
+
+So, if we want mapping hints for mappings starting with `g`, then all we have to do is make this window appear when we press `g`. We can do that with a mapping like this:
+```
+vim.keymap.set( -- define a new mapping
+  'n',          -- in Normal mode
+  'g',          -- which is bound to the 'g' key
+  function()    -- executing this function
+    require 'key-menu'.open_window('g')
+  end)
+```
+Now, when we press `g`, if we don't press another key within `timeoutlen` to invoke a different mapping (like `gx` or `gc`), then _this_ mapping will be executed, which pops up the `key-menu` window.
+
+It's annoying that we have to indicate `g` twice, once in the arguments to `vim.keymap.set`, and once in `open_window`, so `key-menu` provides a function `set` for convenience, which can be used like this:
+```
+require 'key-menu'.set( -- pop up a hint window
+  'n',                  -- in Normal mode
+  'g')                  -- when the letter g is pressed
+```
+This is the same as the `vim.keymap.set` call above.
+
+We can also use `desc` to configure the hint that is shown in the window. For example, suppose that we use `<Space>` as a leader key, and `<Space>g` for a collection of Git-related mappings. Then we might do:
+```
+require 'key-menu'.set('n', '<Space>')
+require 'key-menu'.set('n', '<Space>g', {desc='Git'})
+```
+Now a hint window will be shown if you press `<Space>`, and it will have a `g → Git` option.
+
 ## Related plugins
 
 - [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
