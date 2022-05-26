@@ -1,3 +1,11 @@
+local open_window_callbacks = {}
+do
+  -- Make open_window_callbacks have weak key refs.
+  local mt = {}
+  mt.__mode = 'k'
+  setmetatable(open_window_callbacks, mt)
+end
+
 local function _filter(pred, arr)
   local result = {}
   for _, x in ipairs(arr) do
@@ -570,7 +578,9 @@ end
 
 local function set(mode, lhs, opts)
   opts = opts or {}
-  vim.keymap.set(mode, lhs, function() open_window(lhs) end, opts)
+  local cb = function() open_window(lhs) end
+  open_window_callbacks[cb] = true
+  vim.keymap.set(mode, lhs, cb, opts)
 end
 
 return {
