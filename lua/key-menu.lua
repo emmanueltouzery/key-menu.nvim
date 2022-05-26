@@ -6,34 +6,8 @@ do
   setmetatable(open_window_callbacks, mt)
 end
 
-local function _filter(pred, arr)
-  local result = {}
-  for _, x in ipairs(arr) do
-    if pred(x) then
-      table.insert(result, x)
-    end
-  end
-  return result
-end
-
-local function _map(func, arr)
-  local result = {}
-  for _, x in ipairs(arr) do
-    table.insert(result, func(x))
-  end
-  return result
-end
--- print(vim.inspect(_map(function(x) return x*x end, {1, 2, 3})))
-
 local function _concat(t1, t2)
-  local result = {}
-  for _, x in ipairs(t1) do
-    table.insert(result, x)
-  end
-  for _, x in ipairs(t2) do
-    table.insert(result, x)
-  end
-  return result
+  return vim.list_extend(vim.deepcopy(t1), t2)
 end
 
 local function _partial(func, x)
@@ -43,7 +17,7 @@ local function _partial(func, x)
   return result
 end
 -- function add(x, y) return x + y end
--- print(vim.inspect(_map(_partial(add, 3), {1, 2, 3})))
+-- print(vim.inspect(vim.tbl_map(_partial(add, 3), {1, 2, 3})))
 
 local function _starts_with(prefix, s)
   return s:sub(1, #prefix) == prefix
@@ -69,7 +43,7 @@ local function is_prefix_mapping_starting_with(prefix, mapping)
 end
 
 local function prefix_mappings_starting_with(prefix, mappings)
-  return _filter(_partial(is_prefix_mapping_starting_with, prefix), mappings)
+  return vim.tbl_filter(_partial(is_prefix_mapping_starting_with, prefix), mappings)
 end
 -- print(vim.inspect(prefix_mappings_starting_with(' ', vim.api.nvim_get_keymap('n'))))
 
@@ -334,7 +308,7 @@ local function open_window(prefix)
   local original_buf = vim.api.nvim_get_current_buf()
 
   local function get_command_line_text()
-    local keystrokes = _map(get_pretty_keystroke, get_keystrokes(prefix))
+    local keystrokes = vim.tbl_map(get_pretty_keystroke, get_keystrokes(prefix))
     table.insert(keystrokes, '') -- table.insert(keystrokes, '…') -- Currently the cursor goes here.
     return table.concat(keystrokes, ' → ')
   end
@@ -375,7 +349,7 @@ local function open_window(prefix)
 
   local global_mappings = vim.api.nvim_get_keymap(mode)
   local buffer_mappings = vim.api.nvim_buf_get_keymap(original_buf, mode)
-  local all_mappings = _filter(is_not_nop, _concat(global_mappings, buffer_mappings))
+  local all_mappings = vim.tbl_filter(is_not_nop, _concat(global_mappings, buffer_mappings))
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
