@@ -427,6 +427,8 @@ local function open_window(prefix)
     end
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, blank_lines)
 
+    local row_offset = (anchor == 'NW' and 1) or -1
+
     if #items > 0 then
       for item_num = #items, 1, -1 do
         -- It is important that we (1) loop backwards and (2) add the description, sep, key strings backwards, because as of 2022-05-03 (and I guess forever since Neovim won't break APIs), `vim.api.buf_set_text` takes _byte indices_, not display columns!
@@ -445,16 +447,23 @@ local function open_window(prefix)
         local description_end = description_start + description_width - 1
 
         -- Basically everything is one-based and end-inclusive, except here:
-        vim.api.nvim_buf_set_text(buf, row_num+1, description_start-1, row_num+1, description_end, {item.description})
-        vim.api.nvim_buf_set_text(buf, row_num+1, sep_start-1, row_num+1, sep_end, {sep})
-        vim.api.nvim_buf_set_text(buf, row_num+1, keystroke_start-1, row_num+1, keystroke_end, {item.keystroke})
+        vim.api.nvim_buf_set_text(buf, row_num + row_offset, description_start-1, row_num + row_offset, description_end, {item.description})
+        vim.api.nvim_buf_set_text(buf, row_num + row_offset, sep_start-1, row_num + row_offset, sep_end, {sep})
+        vim.api.nvim_buf_set_text(buf, row_num + row_offset, keystroke_start-1, row_num + row_offset, keystroke_end, {item.keystroke})
       end
     else
-      vim.api.nvim_buf_set_text(buf, 2, horizontal_padding, 2, horizontal_padding + vim.api.nvim_strwidth(no_mappings_string), {no_mappings_string})
+      vim.api.nvim_buf_set_text(buf, 1 + row_offset, horizontal_padding, 1 + row_offset, horizontal_padding + vim.api.nvim_strwidth(no_mappings_string), {no_mappings_string})
     end
-    vim.api.nvim_buf_set_lines(buf, 0, 1, false, {pretty_keystrokes_so_far})
-    vim.api.nvim_buf_set_lines(buf, 1, 2, false, {string.rep('─', width)})
-    vim.fn.setcursorcharpos(1, cursor_col)
+
+    if anchor == 'NW' then
+      vim.api.nvim_buf_set_lines(buf, 0, 1, false, {pretty_keystrokes_so_far})
+      vim.api.nvim_buf_set_lines(buf, 1, 2, false, {string.rep('─', width)})
+      vim.fn.setcursorcharpos(1, cursor_col)
+    else
+      vim.api.nvim_buf_set_lines(buf, -2, -1, false, {pretty_keystrokes_so_far})
+      vim.api.nvim_buf_set_lines(buf, -3, -2, false, {string.rep('─', width)})
+      vim.fn.setcursorcharpos(num_rows + 2, cursor_col)
+    end
   end
 
   -- XXX: We declare these symbols here for lexical scoping. Is there a better way to do this?
