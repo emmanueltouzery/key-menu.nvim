@@ -238,16 +238,17 @@ local LC_CR = '<cr>'
 local function get_pretty_description(mapping)
   if mapping.desc then
     return mapping.desc
-  end
-  if mapping.rhs then
+  elseif mapping.rhs then
     local lowercase = string.lower(mapping.rhs)
     if _starts_with(LC_CMD, lowercase) and _ends_with(LC_CR, lowercase) then
       return ':' .. mapping.rhs:sub(#LC_CMD + 1, #mapping.rhs - #LC_CR)
     else
       return mapping.rhs
     end
-  else
+  elseif mapping.callback and not open_window_callbacks[mapping.callback] then
     return '(Callback)'
+  else
+    return ''
   end
 end
 -- print(pretty_description({rhs = '<Cmd>fuck<CR>'}))
@@ -270,11 +271,12 @@ local function get_pretty_items(prefix, prefix_keys, complete_keys)
   local items = {}
   for _, keystroke in ipairs(sorted_keystrokes) do
     local pretty_keystroke = get_pretty_keystroke(keystroke)
+    local mapping = complete_keys[keystroke] -- May be nil
 
     local pretty_description
-    if complete_keys[keystroke] then
+    if mapping then
       pretty_description = truncate(
-        get_pretty_description(complete_keys[keystroke]),
+        get_pretty_description(mapping),
         40 -- XXX: Magic number, screen columns
       )
     else
@@ -282,7 +284,9 @@ local function get_pretty_items(prefix, prefix_keys, complete_keys)
       pretty_description = get_leader_name(prefix .. keystroke)
     end
 
-    if prefix_keys[keystroke] then pretty_description = pretty_description .. '…' end
+    local is_prefix_key = prefix_keys[keystroke] or (mapping and open_window_callbacks[mapping.callback])
+    if is_prefix_key then pretty_description = pretty_description .. '…' end
+
     table.insert(items, {keystroke = pretty_keystroke, description = pretty_description})
   end
   return items
@@ -511,17 +515,23 @@ local function open_window(prefix)
       end
     end
 
-    do
-      for keystroke, next_mappings in pairs(prefix_keys) do
-        local cb = function()
-          -- Our state is basically encapsulated by the (prefix, mappings) pair.
-          prefix, mappings = prefix .. keystroke, next_mappings
-          -- XXX: Do we really need to have (prefix, mappings) as persistent state?
-          full_update()
-        end
-        vim.keymap.set('n', keystroke, cb, opts_)
+    local make_next_key_cb = function(keystroke)
+      return function()
+        -- Our state is basically encapsulated by the (prefix, mappings) pair.
+        prefix, mappings = prefix .. keystroke, prefix_keys[keystroke] or {}
+        -- XXX: Do we really need to have (prefix, mappings) as persistent state?
+        full_update()
       end
-      for keystroke, mapping in pairs(complete_keys) do
+    end
+
+    for keystroke, _ in pairs(prefix_keys) do
+      vim.keymap.set('n', keystroke, make_next_key_cb(keystroke), opts_)
+    end
+
+    for keystroke, mapping in pairs(complete_keys) do
+      if open_window_callbacks[mapping.callback] then
+        vim.keymap.set('n', keystroke, make_next_key_cb(keystroke), opts_)
+      else
         local cb = function()
           close_window()
           if mapping.callback then
