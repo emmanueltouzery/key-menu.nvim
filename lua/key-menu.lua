@@ -379,7 +379,10 @@ local function open_window(prefix)
     local items = get_pretty_items(prefix, prefix_keys, complete_keys)
 
     local num_rows, num_cols
-    if #items < max_num_rows then
+    if #items == 0 then
+      num_rows = 1
+      num_cols = 0
+    elseif #items < max_num_rows then
       num_cols = 1
       num_rows = #items
     else
@@ -412,15 +415,22 @@ local function open_window(prefix)
       _set_to_at_least(col_widths, col_num, display_width)
     end
 
+    local no_mappings_string = '(no mappings)'
+
     -- Compute col_start[col_num] and the total width of the window's text.
     local col_starts = {}
-    local width = horizontal_padding + 1
-    for col_num = 1, num_cols do
-      col_starts[col_num] = width
-      width = width + horizontal_spacing + col_widths[col_num]
+    local width
+    if #items > 0 then
+      width = horizontal_padding + 1
+      for col_num = 1, num_cols do
+        col_starts[col_num] = width
+        width = width + horizontal_spacing + col_widths[col_num]
+      end
+      width = width - horizontal_spacing + horizontal_padding - 1
+      width = math.max(width, min_width)
+    else
+      width = math.max(2 * horizontal_padding + vim.api.nvim_strwidth(no_mappings_string), min_width)
     end
-    width = width - horizontal_spacing + horizontal_padding - 1
-    width = math.max(width, min_width)
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
     vim.api.nvim_win_set_config(win, {width = width, height = num_rows + 2})
@@ -431,30 +441,33 @@ local function open_window(prefix)
     end
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, blank_lines)
 
-    for item_num = #items, 1, -1 do
-      -- It is important that we (1) loop backwards and (2) add the description, sep, key strings backwards, because as of 2022-05-03 (and I guess forever since Neovim won't break APIs), `vim.api.buf_set_text` takes _byte indices_, not display columns!
-      -- XXX: https://github.com/neovim/neovim/issues/18406
-      local item = items[item_num]
-      local row_num = get_row_num(item_num)
-      local col_num = get_col_num(item_num)
-      local keystroke_width = vim.api.nvim_strwidth(item.keystroke)
-      local description_width = vim.api.nvim_strwidth(item.description)
-      local keystroke_col_width = keystroke_widths[col_num]
-      local keystroke_start = col_starts[col_num] + (keystroke_col_width - keystroke_width)
-      local keystroke_end = keystroke_start + keystroke_width - 1
-      local sep_start = keystroke_end + 1
-      local sep_end = sep_start + sep_width - 1
-      local description_start = sep_end + 1
-      local description_end = description_start + description_width - 1
+    if #items > 0 then
+      for item_num = #items, 1, -1 do
+        -- It is important that we (1) loop backwards and (2) add the description, sep, key strings backwards, because as of 2022-05-03 (and I guess forever since Neovim won't break APIs), `vim.api.buf_set_text` takes _byte indices_, not display columns!
+        -- XXX: https://github.com/neovim/neovim/issues/18406
+        local item = items[item_num]
+        local row_num = get_row_num(item_num)
+        local col_num = get_col_num(item_num)
+        local keystroke_width = vim.api.nvim_strwidth(item.keystroke)
+        local description_width = vim.api.nvim_strwidth(item.description)
+        local keystroke_col_width = keystroke_widths[col_num]
+        local keystroke_start = col_starts[col_num] + (keystroke_col_width - keystroke_width)
+        local keystroke_end = keystroke_start + keystroke_width - 1
+        local sep_start = keystroke_end + 1
+        local sep_end = sep_start + sep_width - 1
+        local description_start = sep_end + 1
+        local description_end = description_start + description_width - 1
 
-      -- Basically everything is one-based and end-inclusive, except here:
-      vim.api.nvim_buf_set_lines(buf, 0, 1, false, {pretty_keystrokes_so_far})
-      vim.api.nvim_buf_set_lines(buf, 1, 2, false, {string.rep('─', width)})
-      vim.api.nvim_buf_set_text(buf, row_num+1, description_start-1, row_num+1, description_end, {item.description})
-      vim.api.nvim_buf_set_text(buf, row_num+1, sep_start-1, row_num+1, sep_end, {sep})
-      vim.api.nvim_buf_set_text(buf, row_num+1, keystroke_start-1, row_num+1, keystroke_end, {item.keystroke})
+        -- Basically everything is one-based and end-inclusive, except here:
+        vim.api.nvim_buf_set_text(buf, row_num+1, description_start-1, row_num+1, description_end, {item.description})
+        vim.api.nvim_buf_set_text(buf, row_num+1, sep_start-1, row_num+1, sep_end, {sep})
+        vim.api.nvim_buf_set_text(buf, row_num+1, keystroke_start-1, row_num+1, keystroke_end, {item.keystroke})
+      end
+    else
+      vim.api.nvim_buf_set_text(buf, 2, horizontal_padding, 2, horizontal_padding + vim.api.nvim_strwidth(no_mappings_string), {no_mappings_string})
     end
-
+    vim.api.nvim_buf_set_lines(buf, 0, 1, false, {pretty_keystrokes_so_far})
+    vim.api.nvim_buf_set_lines(buf, 1, 2, false, {string.rep('─', width)})
     vim.fn.setcursorcharpos(1, cursor_col)
   end
 
