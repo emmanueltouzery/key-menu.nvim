@@ -4702,13 +4702,13 @@ return {
     tag = "gh",
     lhs = "gh",
     summary = "start Select mode",
-    mode = "n"
+    mode = "n",
   },
   {
     tag = "gi",
     lhs = "gi",
     note = "2",
     summary = "like 'i', but first move to the |'^| mark",
-    mode = "n"
+    mode = "n",
   },
 }
