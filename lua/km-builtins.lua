@@ -2987,7 +2987,7 @@ return {
   --]]
   {
     tag = "g_CTRL-G",
-    lhs = "g<C-g>",
+    lhs = "g CTRL-G",
     summary = "show information about current cursor position",
     desc = "Info about cursor pos",
     mode = "n"
