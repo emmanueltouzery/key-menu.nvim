@@ -4688,3 +4688,26 @@ local _ = [==[
 }
 ]
 ]==]
+
+return {
+  {
+    tag = "gg",
+    lhs = "gg",
+    note = "1",
+    summary = "cursor to line N, default first line",
+    mode = "n"
+  },
+  {
+    tag = "gh",
+    lhs = "gh",
+    summary = "start Select mode",
+    mode = "n"
+  },
+  {
+    tag = "gi",
+    lhs = "gi",
+    note = "2",
+    summary = "like 'i', but first move to the |'^| mark",
+    mode = "n"
+  },
+}

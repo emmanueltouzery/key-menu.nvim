@@ -302,14 +302,7 @@ local function get_keystrokes(prefix)
 end
 
 local function get_builtin_keymap(mode)
-  local builtin_mappings = {
-    {
-      buffer = 0,
-      desc = "Top of file",
-      lhs = "gg",
-      mode = "n",
-    }
-  }
+  local builtin_mappings = require 'builtins'
   for _, mapping in ipairs(builtin_mappings) do
     mapping.rhs = mapping.lhs
   end
