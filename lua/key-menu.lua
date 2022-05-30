@@ -304,10 +304,23 @@ end
 local function get_builtin_keymap(mode)
   local builtin_mappings = vim.deepcopy(require 'km-builtins')
   for _, mapping in ipairs(builtin_mappings) do
+    mapping.lhs = vim.api.nvim_replace_termcodes(mapping.lhs, true, true, true)
     mapping.rhs = mapping.lhs
+    mapping.noremap = true -- This is important.
   end
   builtin_mappings = vim.tbl_filter(function(m) return m.mode == mode end, builtin_mappings)
   return builtin_mappings
+end
+
+local function shadow(old_mappings, new_mappings)
+  local new_lhss = {}
+  for _, m in ipairs(new_mappings) do
+    new_lhss[m.lhs] = true
+  end
+  local result = vim.deepcopy(old_mappings)
+  result = vim.tbl_filter(function(m) return not new_lhss[m.lhs] end, result)
+  vim.list_extend(result, new_mappings)
+  return result
 end
 
 local function open_window(prefix)
@@ -356,10 +369,11 @@ local function open_window(prefix)
 
   local close_window = function() vim.api.nvim_win_close(win, true) end
 
-  local builtin_mappings = get_builtin_keymap(mode)
-  local global_mappings = vim.api.nvim_get_keymap(mode)
-  local buffer_mappings = vim.api.nvim_buf_get_keymap(original_buf, mode)
-  local all_mappings = vim.tbl_filter(is_not_nop, _concat(builtin_mappings, _concat(global_mappings, buffer_mappings)))
+  local all_mappings = get_builtin_keymap(mode)
+  all_mappings = shadow(all_mappings, vim.api.nvim_get_keymap(mode))
+  all_mappings = shadow(all_mappings, vim.api.nvim_buf_get_keymap(original_buf, mode))
+  all_mappings = vim.tbl_filter(is_not_nop, all_mappings)
+
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
