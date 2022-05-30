@@ -301,6 +301,22 @@ local function get_keystrokes(prefix)
   return result
 end
 
+local function get_builtin_keymap(mode)
+  local builtin_mappings = {
+    {
+      buffer = 0,
+      desc = "Top of file",
+      lhs = "gg",
+      mode = "n",
+    }
+  }
+  for _, mapping in ipairs(builtin_mappings) do
+    mapping.rhs = mapping.lhs
+  end
+  builtin_mappings = vim.tbl_filter(function(m) return m.mode == mode end, builtin_mappings)
+  return builtin_mappings
+end
+
 local function open_window(prefix)
   local mode = vim.fn.mode()
   prefix = vim.api.nvim_replace_termcodes(prefix, true, true, true) -- Pretty ugly. Is there a better way to do this?
@@ -347,9 +363,10 @@ local function open_window(prefix)
 
   local close_window = function() vim.api.nvim_win_close(win, true) end
 
+  local builtin_mappings = get_builtin_keymap(mode)
   local global_mappings = vim.api.nvim_get_keymap(mode)
   local buffer_mappings = vim.api.nvim_buf_get_keymap(original_buf, mode)
-  local all_mappings = vim.tbl_filter(is_not_nop, _concat(global_mappings, buffer_mappings))
+  local all_mappings = vim.tbl_filter(is_not_nop, _concat(builtin_mappings, _concat(global_mappings, buffer_mappings)))
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
@@ -519,7 +536,7 @@ local function open_window(prefix)
           close_window()
           if mapping.callback then
             mapping.callback()
-          else
+          elseif mapping.rhs then
             local feedkeys_mode = ''
             if mapping.noremap then
               feedkeys_mode = feedkeys_mode .. 'n'
@@ -528,6 +545,8 @@ local function open_window(prefix)
             end
             local rhs = vim.api.nvim_replace_termcodes(mapping.rhs, true, true, true)
             vim.api.nvim_feedkeys(rhs, feedkeys_mode, false)
+          else
+            print(string.format('Error: mapping "%s" has no callback and no RHS', mapping.lhs))
           end
         end
         vim.keymap.set('n', keystroke, cb, opts_)
