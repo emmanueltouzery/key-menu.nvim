@@ -232,6 +232,9 @@ local function modified_keystroke(keystroke)
   if 1 <= n and n <= 26 then
     return string.format('CTRL-%s', vim.fn.nr2char(vim.fn.char2nr('A') - 1 + n))
   end
+  if n == 29 then
+    return 'CTRL-]'
+  end
 end
 
 local function get_pretty_keystroke(keystroke)
