@@ -58,7 +58,7 @@ return {
   },
   {
     tag = "i_CTRL-G_j",
-    lhs = "CTRL-G <Down>",
+    lhs = "<C-G><Down>",
     char = "CTRL-G <Down>",
     mode = "i",
     summary = "line down, to column where inserting started"
@@ -79,7 +79,7 @@ return {
   },
   {
     tag = "i_CTRL-G_k",
-    lhs = "CTRL-G <Up>",
+    lhs = "<C-G><Up>",
     char = "CTRL-G <Up>",
     mode = "i",
     summary = "line up, to column where inserting started"
@@ -935,7 +935,7 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-[ <Esc>",
+    lhs = "<C-[><Esc>",
     char = "CTRL-[ <Esc>",
     summary = "not used",
     mode = "n"
@@ -3071,28 +3071,28 @@ return {
   },
   {
     tag = "CTRL-W_<Down>",
-    lhs = "CTRL-W <Down>",
+    lhs = "<C-W><Down>",
     char = "CTRL-W <Down>",
     summary = "same as 'CTRL-W j'",
     mode = "n"
   },
   {
     tag = "CTRL-W_<Up>",
-    lhs = "CTRL-W <Up>",
+    lhs = "<C-W><Up>",
     char = "CTRL-W <Up>",
     summary = "same as 'CTRL-W k'",
     mode = "n"
   },
   {
     tag = "CTRL-W_<Left>",
-    lhs = "CTRL-W <Left>",
+    lhs = "<C-W><Left>",
     char = "CTRL-W <Left>",
     summary = "same as 'CTRL-W h'",
     mode = "n"
   },
   {
     tag = "CTRL-W_<Right>",
-    lhs = "CTRL-W <Right>",
+    lhs = "<C-W><Right>",
     char = "CTRL-W <Right>",
     summary = "same as 'CTRL-W l'",
     mode = "n"
