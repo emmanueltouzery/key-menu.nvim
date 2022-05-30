@@ -9,91 +9,91 @@ return {
   },
   {
     tag = "i_CTRL-A",
-    lhs = "<C-A>",
+    lhs = "<C-a>",
     char = "CTRL-A",
     mode = "i",
     summary = "insert previously inserted text"
   },
   {
     tag = "i_CTRL-C",
-    lhs = "<C-C>",
+    lhs = "<C-c>",
     char = "CTRL-C",
     mode = "i",
     summary = "quit insert mode, without checking for abbreviation"
   },
   {
     tag = "i_CTRL-D",
-    lhs = "<C-D>",
+    lhs = "<C-d>",
     char = "CTRL-D",
     mode = "i",
     summary = "delete one shiftwidth of indent in the current line"
   },
   {
     tag = "i_CTRL-E",
-    lhs = "<C-E>",
+    lhs = "<C-e>",
     char = "CTRL-E",
     mode = "i",
     summary = "insert the character which is below the cursor"
   },
   {
     tag = "<NONE>",
-    lhs = "<C-F>",
+    lhs = "<C-f>",
     char = "CTRL-F",
     mode = "i",
     summary = "not used (but by default it's in 'cinkeys' to re-indent the current line)"
   },
   {
     tag = "i_CTRL-G_j",
-    lhs = "<C-G><C-J>",
+    lhs = "<C-g><C-j>",
     char = "CTRL-G CTRL-J",
     mode = "i",
     summary = "line down, to column where inserting started"
   },
   {
     tag = "i_CTRL-G_j",
-    lhs = "<C-G>j",
+    lhs = "<C-g>j",
     char = "CTRL-G j",
     mode = "i",
     summary = "line down, to column where inserting started"
   },
   {
     tag = "i_CTRL-G_j",
-    lhs = "<C-G><Down>",
+    lhs = "<C-g><Down>",
     char = "CTRL-G <Down>",
     mode = "i",
     summary = "line down, to column where inserting started"
   },
   {
     tag = "i_CTRL-G_k",
-    lhs = "<C-G><C-K>",
+    lhs = "<C-g><C-k>",
     char = "CTRL-G CTRL-K",
     mode = "i",
     summary = "line up, to column where inserting started"
   },
   {
     tag = "i_CTRL-G_k",
-    lhs = "<C-G>k",
+    lhs = "<C-g>k",
     char = "CTRL-G k",
     mode = "i",
     summary = "line up, to column where inserting started"
   },
   {
     tag = "i_CTRL-G_k",
-    lhs = "<C-G><Up>",
+    lhs = "<C-g><Up>",
     char = "CTRL-G <Up>",
     mode = "i",
     summary = "line up, to column where inserting started"
   },
   {
     tag = "i_CTRL-G_u",
-    lhs = "<C-G>u",
+    lhs = "<C-g>u",
     char = "CTRL-G u",
     mode = "i",
     summary = "start new undoable edit"
   },
   {
     tag = "i_CTRL-G_U",
-    lhs = "<C-G>U",
+    lhs = "<C-g>U",
     char = "CTRL-G U",
     mode = "i",
     summary = "don't break undo with next cursor movement"
@@ -114,7 +114,7 @@ return {
   },
   {
     tag = "i_CTRL-H",
-    lhs = "<C-H>",
+    lhs = "<C-h>",
     char = "CTRL-H",
     mode = "i",
     summary = "same as <BS>"
@@ -128,7 +128,7 @@ return {
   },
   {
     tag = "i_CTRL-I",
-    lhs = "<C-I>",
+    lhs = "<C-i>",
     char = "CTRL-I",
     mode = "i",
     summary = "same as <Tab>"
@@ -142,7 +142,7 @@ return {
   },
   {
     tag = "i_CTRL-J",
-    lhs = "<C-J>",
+    lhs = "<C-j>",
     char = "CTRL-J",
     mode = "i",
     summary = "same as <CR>"
@@ -163,35 +163,35 @@ return {
   },
   {
     tag = "i_CTRL-M",
-    lhs = "<C-M>",
+    lhs = "<C-m>",
     char = "CTRL-M",
     mode = "i",
     summary = "same as <CR>"
   },
   {
     tag = "i_CTRL-N",
-    lhs = "<C-N>",
+    lhs = "<C-n>",
     char = "CTRL-N",
     mode = "i",
     summary = "find next match for keyword in front of the cursor"
   },
   {
     tag = "i_CTRL-O",
-    lhs = "<C-O>",
+    lhs = "<C-o>",
     char = "CTRL-O",
     mode = "i",
     summary = "execute a single command and return to insert mode"
   },
   {
     tag = "i_CTRL-P",
-    lhs = "<C-P>",
+    lhs = "<C-p>",
     char = "CTRL-P",
     mode = "i",
     summary = "find previous match for keyword in front of the cursor"
   },
   {
     tag = "i_CTRL-Q",
-    lhs = "<C-Q>",
+    lhs = "<C-q>",
     char = "CTRL-Q",
     mode = "i",
     summary = "same as CTRL-V, unless used for terminal control flow"
@@ -205,49 +205,49 @@ return {
   },
   {
     tag = "i_CTRL-R",
-    lhs = "<C-R>",
+    lhs = "<C-r>",
     char = "CTRL-R {register}",
     mode = "i",
     summary = "insert the contents of a register"
   },
   {
     tag = "i_CTRL-R_CTRL-R",
-    lhs = "<C-R><C-R>",
+    lhs = "<C-r><C-r>",
     char = "CTRL-R CTRL-R {register}",
     mode = "i",
     summary = "insert the contents of a register literally"
   },
   {
     tag = "i_CTRL-R_CTRL-O",
-    lhs = "<C-R><C-O>",
+    lhs = "<C-r><C-o>",
     char = "CTRL-R CTRL-O {register}",
     mode = "i",
     summary = "insert the contents of a register literally and don't auto-indent"
   },
   {
     tag = "i_CTRL-R_CTRL-P",
-    lhs = "<C-R><C-P>",
+    lhs = "<C-r><C-p>",
     char = "CTRL-R CTRL-P {register}",
     mode = "i",
     summary = "insert the contents of a register literally and fix indent."
   },
   {
     tag = "<NONE>",
-    lhs = "<C-S>",
+    lhs = "<C-s>",
     char = "CTRL-S",
     mode = "i",
     summary = "not used or used for terminal control flow"
   },
   {
     tag = "i_CTRL-T",
-    lhs = "<C-T>",
+    lhs = "<C-t>",
     char = "CTRL-T",
     mode = "i",
     summary = "insert one shiftwidth of indent in current line"
   },
   {
     tag = "i_CTRL-U",
-    lhs = "<C-U>",
+    lhs = "<C-u>",
     char = "CTRL-U",
     mode = "i",
     summary = "delete all entered characters in the current line"
@@ -275,7 +275,7 @@ return {
   },
   {
     tag = "i_CTRL-W",
-    lhs = "<C-W>",
+    lhs = "<C-w>",
     char = "CTRL-W",
     mode = "i",
     summary = "delete word before the cursor"
@@ -289,7 +289,7 @@ return {
   },
   {
     tag = "i_CTRL-Y",
-    lhs = "<C-Y>",
+    lhs = "<C-y>",
     char = "CTRL-Y",
     mode = "i",
     summary = "insert the character which is above the cursor"
@@ -583,119 +583,119 @@ return {
   },
   {
     tag = "i_CTRL-X_CTRL-D",
-    lhs = "<C-X><C-D>",
+    lhs = "<C-x><C-d>",
     char = "CTRL-X CTRL-D",
     mode = "i",
     summary = "complete defined identifiers"
   },
   {
     tag = "i_CTRL-X_CTRL-E",
-    lhs = "<C-X><C-E>",
+    lhs = "<C-x><C-e>",
     char = "CTRL-X CTRL-E",
     mode = "i",
     summary = "scroll up"
   },
   {
     tag = "i_CTRL-X_CTRL-F",
-    lhs = "<C-X><C-F>",
+    lhs = "<C-x><C-f>",
     char = "CTRL-X CTRL-F",
     mode = "i",
     summary = "complete file names"
   },
   {
     tag = "i_CTRL-X_CTRL-I",
-    lhs = "<C-X><C-I>",
+    lhs = "<C-x><C-i>",
     char = "CTRL-X CTRL-I",
     mode = "i",
     summary = "complete identifiers"
   },
   {
     tag = "i_CTRL-X_CTRL-K",
-    lhs = "<C-X><C-K>",
+    lhs = "<C-x><C-k>",
     char = "CTRL-X CTRL-K",
     mode = "i",
     summary = "complete identifiers from dictionary"
   },
   {
     tag = "i_CTRL-X_CTRL-L",
-    lhs = "<C-X><C-L>",
+    lhs = "<C-x><C-l>",
     char = "CTRL-X CTRL-L",
     mode = "i",
     summary = "complete whole lines"
   },
   {
     tag = "i_CTRL-X_CTRL-N",
-    lhs = "<C-X><C-N>",
+    lhs = "<C-x><C-n>",
     char = "CTRL-X CTRL-N",
     mode = "i",
     summary = "next completion"
   },
   {
     tag = "i_CTRL-X_CTRL-O",
-    lhs = "<C-X><C-O>",
+    lhs = "<C-x><C-o>",
     char = "CTRL-X CTRL-O",
     mode = "i",
     summary = "omni completion"
   },
   {
     tag = "i_CTRL-X_CTRL-P",
-    lhs = "<C-X><C-P>",
+    lhs = "<C-x><C-p>",
     char = "CTRL-X CTRL-P",
     mode = "i",
     summary = "previous completion"
   },
   {
     tag = "i_CTRL-X_CTRL-S",
-    lhs = "<C-X><C-S>",
+    lhs = "<C-x><C-s>",
     char = "CTRL-X CTRL-S",
     mode = "i",
     summary = "spelling suggestions"
   },
   {
     tag = "i_CTRL-X_CTRL-T",
-    lhs = "<C-X><C-T>",
+    lhs = "<C-x><C-t>",
     char = "CTRL-X CTRL-T",
     mode = "i",
     summary = "complete identifiers from thesaurus"
   },
   {
     tag = "i_CTRL-X_CTRL-Y",
-    lhs = "<C-X><C-Y>",
+    lhs = "<C-x><C-y>",
     char = "CTRL-X CTRL-Y",
     mode = "i",
     summary = "scroll down"
   },
   {
     tag = "i_CTRL-X_CTRL-U",
-    lhs = "<C-X><C-U>",
+    lhs = "<C-x><C-u>",
     char = "CTRL-X CTRL-U",
     mode = "i",
     summary = "complete with 'completefunc'"
   },
   {
     tag = "i_CTRL-X_CTRL-V",
-    lhs = "<C-X><C-V>",
+    lhs = "<C-x><C-v>",
     char = "CTRL-X CTRL-V",
     mode = "i",
     summary = "complete like in : command line"
   },
   {
     tag = "i_CTRL-X_CTRL-Z",
-    lhs = "<C-X><C-Z>",
+    lhs = "<C-x><C-z>",
     char = "CTRL-X CTRL-Z",
     mode = "i",
     summary = "stop completion, keeping the text as-is"
   },
   {
     tag = "i_CTRL-X_CTRL-]",
-    lhs = "<C-X><C-]>",
+    lhs = "<C-x><C-]>",
     char = "CTRL-X CTRL-]",
     mode = "i",
     summary = "complete tags"
   },
   {
     tag = "i_CTRL-X_s",
-    lhs = "<C-X>s",
+    lhs = "<C-x>s",
     char = "CTRL-X s",
     mode = "i",
     summary = "spelling suggestions"
@@ -709,7 +709,7 @@ return {
   },
   {
     tag = "CTRL-A",
-    lhs = "<C-A>",
+    lhs = "<C-a>",
     char = "CTRL-A",
     note = "2",
     summary = "add N to number at/after cursor",
@@ -717,7 +717,7 @@ return {
   },
   {
     tag = "CTRL-B",
-    lhs = "<C-B>",
+    lhs = "<C-b>",
     char = "CTRL-B",
     note = "1",
     summary = "scroll N screens Backwards",
@@ -725,28 +725,28 @@ return {
   },
   {
     tag = "CTRL-C",
-    lhs = "<C-C>",
+    lhs = "<C-c>",
     char = "CTRL-C",
     summary = "interrupt current (search) command",
     mode = "n"
   },
   {
     tag = "CTRL-D",
-    lhs = "<C-D>",
+    lhs = "<C-d>",
     char = "CTRL-D",
     summary = "scroll Down N lines (default: half a screen)",
     mode = "n"
   },
   {
     tag = "CTRL-E",
-    lhs = "<C-E>",
+    lhs = "<C-e>",
     char = "CTRL-E",
     summary = "scroll N lines upwards (N lines Extra)",
     mode = "n"
   },
   {
     tag = "CTRL-F",
-    lhs = "<C-F>",
+    lhs = "<C-f>",
     char = "CTRL-F",
     note = "1",
     summary = "scroll N screens Forward",
@@ -754,7 +754,7 @@ return {
   },
   {
     tag = "CTRL-G",
-    lhs = "<C-G>",
+    lhs = "<C-g>",
     char = "CTRL-G",
     summary = "display current file name and position",
     mode = "n"
@@ -769,7 +769,7 @@ return {
   },
   {
     tag = "CTRL-H",
-    lhs = "<C-H>",
+    lhs = "<C-h>",
     char = "CTRL-H",
     note = "1",
     summary = "same as 'h'",
@@ -785,7 +785,7 @@ return {
   },
   {
     tag = "CTRL-I",
-    lhs = "<C-I>",
+    lhs = "<C-i>",
     char = "CTRL-I",
     note = "1",
     summary = "same as <Tab>",
@@ -801,7 +801,7 @@ return {
   },
   {
     tag = "CTRL-J",
-    lhs = "<C-J>",
+    lhs = "<C-j>",
     char = "CTRL-J",
     note = "1",
     summary = "same as 'j'",
@@ -809,14 +809,14 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "<C-K>",
+    lhs = "<C-k>",
     char = "CTRL-K",
     summary = "not used",
     mode = "n"
   },
   {
     tag = "CTRL-L",
-    lhs = "<C-L>",
+    lhs = "<C-l>",
     char = "CTRL-L",
     summary = "redraw screen",
     mode = "n"
@@ -831,7 +831,7 @@ return {
   },
   {
     tag = "CTRL-M",
-    lhs = "<C-M>",
+    lhs = "<C-m>",
     char = "CTRL-M",
     note = "1",
     summary = "same as <CR>",
@@ -839,7 +839,7 @@ return {
   },
   {
     tag = "CTRL-N",
-    lhs = "<C-N>",
+    lhs = "<C-n>",
     char = "CTRL-N",
     note = "1",
     summary = "same as 'j'",
@@ -847,7 +847,7 @@ return {
   },
   {
     tag = "CTRL-O",
-    lhs = "<C-O>",
+    lhs = "<C-o>",
     char = "CTRL-O",
     note = "1",
     summary = "go to N older entry in jump list",
@@ -855,7 +855,7 @@ return {
   },
   {
     tag = "CTRL-P",
-    lhs = "<C-P>",
+    lhs = "<C-p>",
     char = "CTRL-P",
     note = "1",
     summary = "same as 'k'",
@@ -863,14 +863,14 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "<C-Q>",
+    lhs = "<C-q>",
     char = "CTRL-Q",
     summary = "not used, or used for terminal control flow",
     mode = "n"
   },
   {
     tag = "CTRL-R",
-    lhs = "<C-R>",
+    lhs = "<C-r>",
     char = "CTRL-R",
     note = "2",
     summary = "redo changes which were undone with 'u'",
@@ -878,28 +878,28 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "<C-S>",
+    lhs = "<C-s>",
     char = "CTRL-S",
     summary = "not used, or used for terminal control flow",
     mode = "n"
   },
   {
     tag = "CTRL-T",
-    lhs = "<C-T>",
+    lhs = "<C-t>",
     char = "CTRL-T",
     summary = "jump to N older Tag in tag list",
     mode = "n"
   },
   {
     tag = "CTRL-U",
-    lhs = "<C-U>",
+    lhs = "<C-u>",
     char = "CTRL-U",
     summary = "scroll N lines Upwards (default: half a screen)",
     mode = "n"
   },
   {
     tag = "CTRL-V",
-    lhs = "<C-V>",
+    lhs = "<C-v>",
     char = "CTRL-V",
     summary = "start blockwise Visual mode",
     mode = "n"
@@ -913,7 +913,7 @@ return {
   },
   {
     tag = "CTRL-X",
-    lhs = "<C-X>",
+    lhs = "<C-x>",
     char = "CTRL-X",
     note = "2",
     summary = "subtract N from number at/after cursor",
@@ -921,14 +921,14 @@ return {
   },
   {
     tag = "CTRL-Y",
-    lhs = "<C-Y>",
+    lhs = "<C-y>",
     char = "CTRL-Y",
     summary = "scroll N lines downwards",
     mode = "n"
   },
   {
     tag = "CTRL-Z",
-    lhs = "<C-Z>",
+    lhs = "<C-z>",
     char = "CTRL-Z",
     summary = "suspend program (or start new shell)",
     mode = "n"
@@ -2567,322 +2567,322 @@ return {
   },
   {
     tag = "CTRL-W_CTRL-B",
-    lhs = "<C-W><C-B>",
+    lhs = "<C-w><C-b>",
     char = "CTRL-W CTRL-B",
     summary = "same as 'CTRL-W b'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-C",
-    lhs = "<C-W><C-C>",
+    lhs = "<C-w><C-c>",
     char = "CTRL-W CTRL-C",
     summary = "same as 'CTRL-W c'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-D",
-    lhs = "<C-W><C-D>",
+    lhs = "<C-w><C-d>",
     char = "CTRL-W CTRL-D",
     summary = "same as 'CTRL-W d'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-F",
-    lhs = "<C-W><C-F>",
+    lhs = "<C-w><C-f>",
     char = "CTRL-W CTRL-F",
     summary = "same as 'CTRL-W f'",
     mode = "n"
   },
   {
     tag = "<NONE>",
-    lhs = "<C-W><C-G>",
+    lhs = "<C-w><C-g>",
     char = "CTRL-W CTRL-G",
     summary = "same as 'CTRL-W g ..'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-H",
-    lhs = "<C-W><C-H>",
+    lhs = "<C-w><C-h>",
     char = "CTRL-W CTRL-H",
     summary = "same as 'CTRL-W h'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-I",
-    lhs = "<C-W><C-I>",
+    lhs = "<C-w><C-i>",
     char = "CTRL-W CTRL-I",
     summary = "same as 'CTRL-W i'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-J",
-    lhs = "<C-W><C-J>",
+    lhs = "<C-w><C-j>",
     char = "CTRL-W CTRL-J",
     summary = "same as 'CTRL-W j'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-K",
-    lhs = "<C-W><C-K>",
+    lhs = "<C-w><C-k>",
     char = "CTRL-W CTRL-K",
     summary = "same as 'CTRL-W k'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-L",
-    lhs = "<C-W><C-L>",
+    lhs = "<C-w><C-l>",
     char = "CTRL-W CTRL-L",
     summary = "same as 'CTRL-W l'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-N",
-    lhs = "<C-W><C-N>",
+    lhs = "<C-w><C-n>",
     char = "CTRL-W CTRL-N",
     summary = "same as 'CTRL-W n'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-O",
-    lhs = "<C-W><C-O>",
+    lhs = "<C-w><C-o>",
     char = "CTRL-W CTRL-O",
     summary = "same as 'CTRL-W o'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-P",
-    lhs = "<C-W><C-P>",
+    lhs = "<C-w><C-p>",
     char = "CTRL-W CTRL-P",
     summary = "same as 'CTRL-W p'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-Q",
-    lhs = "<C-W><C-Q>",
+    lhs = "<C-w><C-q>",
     char = "CTRL-W CTRL-Q",
     summary = "same as 'CTRL-W q'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-R",
-    lhs = "<C-W><C-R>",
+    lhs = "<C-w><C-r>",
     char = "CTRL-W CTRL-R",
     summary = "same as 'CTRL-W r'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-S",
-    lhs = "<C-W><C-S>",
+    lhs = "<C-w><C-s>",
     char = "CTRL-W CTRL-S",
     summary = "same as 'CTRL-W s'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-T",
-    lhs = "<C-W><C-T>",
+    lhs = "<C-w><C-t>",
     char = "CTRL-W CTRL-T",
     summary = "same as 'CTRL-W t'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-V",
-    lhs = "<C-W><C-V>",
+    lhs = "<C-w><C-v>",
     char = "CTRL-W CTRL-V",
     summary = "same as 'CTRL-W v'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-W",
-    lhs = "<C-W><C-W>",
+    lhs = "<C-w><C-w>",
     char = "CTRL-W CTRL-W",
     summary = "same as 'CTRL-W w'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-X",
-    lhs = "<C-W><C-X>",
+    lhs = "<C-w><C-x>",
     char = "CTRL-W CTRL-X",
     summary = "same as 'CTRL-W x'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-Z",
-    lhs = "<C-W><C-Z>",
+    lhs = "<C-w><C-z>",
     char = "CTRL-W CTRL-Z",
     summary = "same as 'CTRL-W z'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-]",
-    lhs = "<C-W><C-]>",
+    lhs = "<C-w><C-]>",
     char = "CTRL-W CTRL-]",
     summary = "same as 'CTRL-W ]'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-^",
-    lhs = "<C-W><C-^>",
+    lhs = "<C-w><C-^>",
     char = "CTRL-W CTRL-^",
     summary = "same as 'CTRL-W ^'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-_",
-    lhs = "<C-W><C-_>",
+    lhs = "<C-w><C-_>",
     char = "CTRL-W CTRL-_",
     summary = "same as 'CTRL-W _'",
     mode = "n"
   },
   {
     tag = "CTRL-W_+",
-    lhs = "<C-W>+",
+    lhs = "<C-w>+",
     char = "CTRL-W +",
     summary = "increase current window height N lines",
     mode = "n"
   },
   {
     tag = "CTRL-W_-",
-    lhs = "<C-W>-",
+    lhs = "<C-w>-",
     char = "CTRL-W -",
     summary = "decrease current window height N lines",
     mode = "n"
   },
   {
     tag = "CTRL-W_<",
-    lhs = "<C-W><",
+    lhs = "<C-w><",
     char = "CTRL-W <",
     summary = "decrease current window width N columns",
     mode = "n"
   },
   {
     tag = "CTRL-W_=",
-    lhs = "<C-W>=",
+    lhs = "<C-w>=",
     char = "CTRL-W =",
     summary = "make all windows the same height & width",
     mode = "n"
   },
   {
     tag = "CTRL-W_>",
-    lhs = "<C-W>>",
+    lhs = "<C-w>>",
     char = "CTRL-W >",
     summary = "increase current window width N columns",
     mode = "n"
   },
   {
     tag = "CTRL-W_H",
-    lhs = "<C-W>H",
+    lhs = "<C-w>H",
     char = "CTRL-W H",
     summary = "move current window to the far left",
     mode = "n"
   },
   {
     tag = "CTRL-W_J",
-    lhs = "<C-W>J",
+    lhs = "<C-w>J",
     char = "CTRL-W J",
     summary = "move current window to the very bottom",
     mode = "n"
   },
   {
     tag = "CTRL-W_K",
-    lhs = "<C-W>K",
+    lhs = "<C-w>K",
     char = "CTRL-W K",
     summary = "move current window to the very top",
     mode = "n"
   },
   {
     tag = "CTRL-W_L",
-    lhs = "<C-W>L",
+    lhs = "<C-w>L",
     char = "CTRL-W L",
     summary = "move current window to the far right",
     mode = "n"
   },
   {
     tag = "CTRL-W_P",
-    lhs = "<C-W>P",
+    lhs = "<C-w>P",
     char = "CTRL-W P",
     summary = "go to preview window",
     mode = "n"
   },
   {
     tag = "CTRL-W_R",
-    lhs = "<C-W>R",
+    lhs = "<C-w>R",
     char = "CTRL-W R",
     summary = "rotate windows upwards N times",
     mode = "n"
   },
   {
     tag = "CTRL-W_S",
-    lhs = "<C-W>S",
+    lhs = "<C-w>S",
     char = "CTRL-W S",
     summary = "same as 'CTRL-W s'",
     mode = "n"
   },
   {
     tag = "CTRL-W_T",
-    lhs = "<C-W>T",
+    lhs = "<C-w>T",
     char = "CTRL-W T",
     summary = "move current window to a new tab page",
     mode = "n"
   },
   {
     tag = "CTRL-W_W",
-    lhs = "<C-W>W",
+    lhs = "<C-w>W",
     char = "CTRL-W W",
     summary = "go to N previous window (wrap around)",
     mode = "n"
   },
   {
     tag = "CTRL-W_]",
-    lhs = "<C-W>]",
+    lhs = "<C-w>]",
     char = "CTRL-W ]",
     summary = "split window and jump to tag under cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_^",
-    lhs = "<C-W>^",
+    lhs = "<C-w>^",
     char = "CTRL-W ^",
     summary = "split current window and edit alternate file N",
     mode = "n"
   },
   {
     tag = "CTRL-W__",
-    lhs = "<C-W>_",
+    lhs = "<C-w>_",
     char = "CTRL-W _",
     summary = "set current window height to N (default: very high)",
     mode = "n"
   },
   {
     tag = "CTRL-W_b",
-    lhs = "<C-W>b",
+    lhs = "<C-w>b",
     char = "CTRL-W b",
     summary = "go to bottom window",
     mode = "n"
   },
   {
     tag = "CTRL-W_c",
-    lhs = "<C-W>c",
+    lhs = "<C-w>c",
     char = "CTRL-W c",
     summary = "close current window (like |:close|)",
     mode = "n"
   },
   {
     tag = "CTRL-W_d",
-    lhs = "<C-W>d",
+    lhs = "<C-w>d",
     char = "CTRL-W d",
     summary = "split window and jump to definition under the cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_f",
-    lhs = "<C-W>f",
+    lhs = "<C-w>f",
     char = "CTRL-W f",
     summary = "split window and edit file name under the cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_F",
-    lhs = "<C-W>F",
+    lhs = "<C-w>F",
     char = "CTRL-W F",
     summary = "split window and edit file name under the cursor and jump to the line number following the file name.",
     mode = "n"
@@ -2945,154 +2945,154 @@ return {
   },
   {
     tag = "CTRL-W_h",
-    lhs = "<C-W>h",
+    lhs = "<C-w>h",
     char = "CTRL-W h",
     summary = "go to Nth left window (stop at first window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_i",
-    lhs = "<C-W>i",
+    lhs = "<C-w>i",
     char = "CTRL-W i",
     summary = "split window and jump to declaration of identifier under the cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_j",
-    lhs = "<C-W>j",
+    lhs = "<C-w>j",
     char = "CTRL-W j",
     summary = "go N windows down (stop at last window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_k",
-    lhs = "<C-W>k",
+    lhs = "<C-w>k",
     char = "CTRL-W k",
     summary = "go N windows up (stop at first window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_l",
-    lhs = "<C-W>l",
+    lhs = "<C-w>l",
     char = "CTRL-W l",
     summary = "go to Nth right window (stop at last window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_n",
-    lhs = "<C-W>n",
+    lhs = "<C-w>n",
     char = "CTRL-W n",
     summary = "open new window, N lines high",
     mode = "n"
   },
   {
     tag = "CTRL-W_o",
-    lhs = "<C-W>o",
+    lhs = "<C-w>o",
     char = "CTRL-W o",
     summary = "close all but current window (like |:only|)",
     mode = "n"
   },
   {
     tag = "CTRL-W_p",
-    lhs = "<C-W>p",
+    lhs = "<C-w>p",
     char = "CTRL-W p",
     summary = "go to previous (last accessed) window",
     mode = "n"
   },
   {
     tag = "CTRL-W_q",
-    lhs = "<C-W>q",
+    lhs = "<C-w>q",
     char = "CTRL-W q",
     summary = "quit current window (like |:quit|)",
     mode = "n"
   },
   {
     tag = "CTRL-W_r",
-    lhs = "<C-W>r",
+    lhs = "<C-w>r",
     char = "CTRL-W r",
     summary = "rotate windows downwards N times",
     mode = "n"
   },
   {
     tag = "CTRL-W_s",
-    lhs = "<C-W>s",
+    lhs = "<C-w>s",
     char = "CTRL-W s",
     summary = "split current window in two parts, new window N lines high",
     mode = "n"
   },
   {
     tag = "CTRL-W_t",
-    lhs = "<C-W>t",
+    lhs = "<C-w>t",
     char = "CTRL-W t",
     summary = "go to top window",
     mode = "n"
   },
   {
     tag = "CTRL-W_v",
-    lhs = "<C-W>v",
+    lhs = "<C-w>v",
     char = "CTRL-W v",
     summary = "split current window vertically, new window N columns wide",
     mode = "n"
   },
   {
     tag = "CTRL-W_w",
-    lhs = "<C-W>w",
+    lhs = "<C-w>w",
     char = "CTRL-W w",
     summary = "go to N next window (wrap around)",
     mode = "n"
   },
   {
     tag = "CTRL-W_x",
-    lhs = "<C-W>x",
+    lhs = "<C-w>x",
     char = "CTRL-W x",
     summary = "exchange current window with window N (default: next window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_z",
-    lhs = "<C-W>z",
+    lhs = "<C-w>z",
     char = "CTRL-W z",
     summary = "close preview window",
     mode = "n"
   },
   {
     tag = "CTRL-W_bar",
-    lhs = "<C-W>|",
+    lhs = "<C-w>|",
     char = "CTRL-W |",
     summary = "set window width to N columns",
     mode = "n"
   },
   {
     tag = "CTRL-W_}",
-    lhs = "<C-W>}",
+    lhs = "<C-w>}",
     char = "CTRL-W }",
     summary = "show tag under cursor in preview window",
     mode = "n"
   },
   {
     tag = "CTRL-W_<Down>",
-    lhs = "<C-W><Down>",
+    lhs = "<C-w><Down>",
     char = "CTRL-W <Down>",
     summary = "same as 'CTRL-W j'",
     mode = "n"
   },
   {
     tag = "CTRL-W_<Up>",
-    lhs = "<C-W><Up>",
+    lhs = "<C-w><Up>",
     char = "CTRL-W <Up>",
     summary = "same as 'CTRL-W k'",
     mode = "n"
   },
   {
     tag = "CTRL-W_<Left>",
-    lhs = "<C-W><Left>",
+    lhs = "<C-w><Left>",
     char = "CTRL-W <Left>",
     summary = "same as 'CTRL-W h'",
     mode = "n"
   },
   {
     tag = "CTRL-W_<Right>",
-    lhs = "<C-W><Right>",
+    lhs = "<C-w><Right>",
     char = "CTRL-W <Right>",
     summary = "same as 'CTRL-W l'",
     mode = "n"
@@ -4352,7 +4352,7 @@ return {
   },
   {
     tag = "o_CTRL-V",
-    lhs = "<C-V>",
+    lhs = "<C-v>",
     char = "CTRL-V",
     summary = "force operator to work blockwise",
     mode = "o"
@@ -4373,7 +4373,7 @@ return {
   },
   {
     tag = "v_CTRL-A",
-    lhs = "<C-A>",
+    lhs = "<C-a>",
     char = "CTRL-A",
     note = "2",
     summary = "add N to number in highlighted text",
@@ -4381,14 +4381,14 @@ return {
   },
   {
     tag = "v_CTRL-C",
-    lhs = "<C-C>",
+    lhs = "<C-c>",
     char = "CTRL-C",
     summary = "stop Visual mode",
     mode = "v"
   },
   {
     tag = "v_CTRL-G",
-    lhs = "<C-G>",
+    lhs = "<C-g>",
     char = "CTRL-G",
     summary = "toggle between Visual mode and Select mode",
     mode = "v"
@@ -4403,7 +4403,7 @@ return {
   },
   {
     tag = "v_CTRL-H",
-    lhs = "<C-H>",
+    lhs = "<C-h>",
     char = "CTRL-H",
     note = "2",
     summary = "same as <BS>",
@@ -4411,21 +4411,21 @@ return {
   },
   {
     tag = "v_CTRL-O",
-    lhs = "<C-O>",
+    lhs = "<C-o>",
     char = "CTRL-O",
     summary = "switch from Select to Visual mode for one command",
     mode = "v"
   },
   {
     tag = "v_CTRL-V",
-    lhs = "<C-V>",
+    lhs = "<C-v>",
     char = "CTRL-V",
     summary = "make Visual mode blockwise or stop Visual mode",
     mode = "v"
   },
   {
     tag = "v_CTRL-X",
-    lhs = "<C-X>",
+    lhs = "<C-x>",
     char = "CTRL-X",
     note = "2",
     summary = "subtract N from number in highlighted text",
@@ -4982,49 +4982,49 @@ return {
   },
   {
     tag = "c_CTRL-A",
-    lhs = "<C-A>",
+    lhs = "<C-a>",
     char = "CTRL-A",
     summary = "do completion on the pattern in front of the cursor and insert all matches",
     mode = "c"
   },
   {
     tag = "c_CTRL-B",
-    lhs = "<C-B>",
+    lhs = "<C-b>",
     char = "CTRL-B",
     summary = "cursor to begin of command-line",
     mode = "c"
   },
   {
     tag = "c_CTRL-C",
-    lhs = "<C-C>",
+    lhs = "<C-c>",
     char = "CTRL-C",
     summary = "same as <Esc>",
     mode = "c"
   },
   {
     tag = "c_CTRL-D",
-    lhs = "<C-D>",
+    lhs = "<C-d>",
     char = "CTRL-D",
     summary = "list completions that match the pattern in front of the cursor",
     mode = "c"
   },
   {
     tag = "c_CTRL-E",
-    lhs = "<C-E>",
+    lhs = "<C-e>",
     char = "CTRL-E",
     summary = "cursor to end of command-line",
     mode = "c"
   },
   {
     tag = "'cedit'",
-    lhs = "<C-F>",
+    lhs = "<C-f>",
     char = "CTRL-F",
     summary = "default value for 'cedit': opens the command-line window; otherwise not used",
     mode = "c"
   },
   {
     tag = "c_CTRL-G",
-    lhs = "<C-G>",
+    lhs = "<C-g>",
     char = "CTRL-G",
     summary = "next match when 'incsearch' is active",
     mode = "c"
@@ -5045,7 +5045,7 @@ return {
   },
   {
     tag = "c_CTRL-H",
-    lhs = "<C-H>",
+    lhs = "<C-h>",
     char = "CTRL-H",
     summary = "same as <BS>",
     mode = "c"
@@ -5073,7 +5073,7 @@ return {
   },
   {
     tag = "c_CTRL-I",
-    lhs = "<C-I>",
+    lhs = "<C-i>",
     char = "CTRL-I",
     summary = "same as <Tab>",
     mode = "c"
@@ -5087,7 +5087,7 @@ return {
   },
   {
     tag = "c_CTRL-J",
-    lhs = "<C-J>",
+    lhs = "<C-j>",
     char = "CTRL-J",
     summary = "same as <CR>",
     mode = "c"
@@ -5101,7 +5101,7 @@ return {
   },
   {
     tag = "c_CTRL-L",
-    lhs = "<C-L>",
+    lhs = "<C-l>",
     char = "CTRL-L",
     summary = "do completion on the pattern in front of the cursor and insert the longest common part",
     mode = "c"
@@ -5115,112 +5115,112 @@ return {
   },
   {
     tag = "c_CTRL-M",
-    lhs = "<C-M>",
+    lhs = "<C-m>",
     char = "CTRL-M",
     summary = "same as <CR>",
     mode = "c"
   },
   {
     tag = "c_CTRL-N",
-    lhs = "<C-N>",
+    lhs = "<C-n>",
     char = "CTRL-N",
     summary = "after using 'wildchar' with multiple matches: go to next match, otherwise: recall older command-line from history.",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "<C-O>",
+    lhs = "<C-o>",
     char = "CTRL-O",
     summary = "not used",
     mode = "c"
   },
   {
     tag = "c_CTRL-P",
-    lhs = "<C-P>",
+    lhs = "<C-p>",
     char = "CTRL-P",
     summary = "after using 'wildchar' with multiple matches: go to previous match, otherwise: recall older command-line from history.",
     mode = "c"
   },
   {
     tag = "c_CTRL-Q",
-    lhs = "<C-Q>",
+    lhs = "<C-q>",
     char = "CTRL-Q",
     summary = "same as CTRL-V, unless it's used for terminal control flow",
     mode = "c"
   },
   {
     tag = "c_CTRL-R",
-    lhs = "<C-R>",
+    lhs = "<C-r>",
     char = "CTRL-R {regname}",
     summary = "insert the contents of a register or object under the cursor as if typed",
     mode = "c"
   },
   {
     tag = "c_CTRL-R_CTRL-R",
-    lhs = "<C-R><C-R>",
+    lhs = "<C-r><C-r>",
     char = "CTRL-R CTRL-R {regname}",
     summary = "insert the contents of a register or object under the cursor literally",
     mode = "c"
   },
   {
     tag = "c_CTRL-R_CTRL-O",
-    lhs = "<C-R><C-O>",
+    lhs = "<C-r><C-o>",
     char = "CTRL-R CTRL-O {regname}",
     summary = "insert the contents of a register or object under the cursor literally",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "<C-S>",
+    lhs = "<C-s>",
     char = "CTRL-S",
     summary = "not used, or used for terminal control flow",
     mode = "c"
   },
   {
     tag = "c_CTRL-T",
-    lhs = "<C-T>",
+    lhs = "<C-t>",
     char = "CTRL-T",
     summary = "previous match when 'incsearch' is active",
     mode = "c"
   },
   {
     tag = "c_CTRL-U",
-    lhs = "<C-U>",
+    lhs = "<C-u>",
     char = "CTRL-U",
     summary = "remove all characters",
     mode = "c"
   },
   {
     tag = "c_CTRL-V",
-    lhs = "<C-V>",
+    lhs = "<C-v>",
     char = "CTRL-V",
     summary = "insert next non-digit literally, insert three digit decimal number as a single byte.",
     mode = "c"
   },
   {
     tag = "c_CTRL-W",
-    lhs = "<C-W>",
+    lhs = "<C-w>",
     char = "CTRL-W",
     summary = "delete the word in front of the cursor",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "<C-X>",
+    lhs = "<C-x>",
     char = "CTRL-X",
     summary = "not used (reserved for completion)",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "<C-Y>",
+    lhs = "<C-y>",
     char = "CTRL-Y",
     summary = "copy (yank) modeless selection",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "<C-Z>",
+    lhs = "<C-z>",
     char = "CTRL-Z",
     summary = "not used (reserved for suspend)",
     mode = "c"
