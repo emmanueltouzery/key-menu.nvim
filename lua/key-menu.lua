@@ -227,8 +227,17 @@ local pretty_keystroke_dict = {
   [" "] = '␠',
 }
 
+local function modified_keystroke(keystroke)
+  local n = vim.fn.char2nr(keystroke)
+  if 1 <= n and n <= 26 then
+    return string.format('CTRL-%s', vim.fn.nr2char(vim.fn.char2nr('A') - 1 + n))
+  end
+end
+
 local function get_pretty_keystroke(keystroke)
-  return pretty_keystroke_dict[keystroke] or keystroke
+  return pretty_keystroke_dict[keystroke]
+      or modified_keystroke(keystroke)
+      or keystroke
 end
 
 local function get_pretty_items(prefix, prefix_keys, complete_keys)
@@ -297,15 +306,22 @@ local function get_keystrokes(prefix)
   return result
 end
 
+local function normalize_keymap(keymap)
+  keymap = vim.deepcopy(keymap)
+  for _, m in ipairs(keymap) do
+    m.lhs = vim.api.nvim_replace_termcodes(m.lhs, true, true, true)
+  end
+  return keymap
+end
+
 local function get_builtin_keymap(mode)
-  local builtin_mappings = vim.deepcopy(require 'km-builtins')
-  for _, mapping in ipairs(builtin_mappings) do
-    mapping.lhs = vim.api.nvim_replace_termcodes(mapping.lhs, true, true, true)
+  local keymap = normalize_keymap(require 'km-builtins')
+  keymap = vim.tbl_filter(function(m) return m.mode == mode end, keymap)
+  for _, mapping in ipairs(keymap) do
     mapping.rhs = mapping.lhs
     mapping.noremap = true -- This is important.
   end
-  builtin_mappings = vim.tbl_filter(function(m) return m.mode == mode end, builtin_mappings)
-  return builtin_mappings
+  return keymap
 end
 
 local function shadow(old_mappings, new_mappings)
@@ -366,8 +382,8 @@ local function open_window(prefix)
   local close_window = function() vim.api.nvim_win_close(win, true) end
 
   local all_mappings = get_builtin_keymap(mode)
-  all_mappings = shadow(all_mappings, vim.api.nvim_get_keymap(mode))
-  all_mappings = shadow(all_mappings, vim.api.nvim_buf_get_keymap(original_buf, mode))
+  all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_get_keymap(mode)))
+  all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_buf_get_keymap(original_buf, mode)))
   all_mappings = vim.tbl_filter(is_not_nop, all_mappings)
 
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
