@@ -4359,14 +4359,14 @@ return {
   },
   {
     tag = "v_CTRL-\\_CTRL-N",
-    lhs = "CTRL-\\ CTRL-N",
+    lhs = "<C-Bslash><C-n>",
     char = "CTRL-\\ CTRL-N",
     summary = "stop Visual mode",
     mode = "v"
   },
   {
     tag = "v_CTRL-\\_CTRL-G",
-    lhs = "CTRL-\\ CTRL-G",
+    lhs = "<C-Bslash><C-g>",
     char = "CTRL-\\ CTRL-G",
     summary = "go to Normal mode",
     mode = "v"
@@ -5241,14 +5241,14 @@ return {
   },
   {
     tag = "c_CTRL-\\_CTRL-N",
-    lhs = "CTRL-\\ CTRL-N",
+    lhs = "<C-Bslash><C-n>",
     char = "CTRL-\\ CTRL-N",
     summary = "go to Normal mode, abandon command-line",
     mode = "c"
   },
   {
     tag = "c_CTRL-\\_CTRL-G",
-    lhs = "CTRL-\\ CTRL-G",
+    lhs = "<C-Bslash><C-g>",
     char = "CTRL-\\ CTRL-G",
     summary = "go to Normal mode, abandon command-line",
     mode = "c"
