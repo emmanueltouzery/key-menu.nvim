@@ -2984,12 +2984,15 @@ return {
     summary = "same as ']p'",
     mode = "n"
   },
+  --]]
   {
     tag = "g_CTRL-G",
-    lhs = "g CTRL-G",
+    lhs = "g<C-g>",
     summary = "show information about current cursor position",
+    desc = "Info about cursor pos",
     mode = "n"
   },
+  --[[
   {
     tag = "g_CTRL-H",
     lhs = "g CTRL-H",
