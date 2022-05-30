@@ -51,7 +51,7 @@ return {
   },
   {
     tag = "i_CTRL-G_j",
-    lhs = "CTRL-G j",
+    lhs = "<C-G>j",
     char = "CTRL-G j",
     mode = "i",
     summary = "line down, to column where inserting started"
@@ -72,7 +72,7 @@ return {
   },
   {
     tag = "i_CTRL-G_k",
-    lhs = "CTRL-G k",
+    lhs = "<C-G>k",
     char = "CTRL-G k",
     mode = "i",
     summary = "line up, to column where inserting started"
@@ -86,14 +86,14 @@ return {
   },
   {
     tag = "i_CTRL-G_u",
-    lhs = "CTRL-G u",
+    lhs = "<C-G>u",
     char = "CTRL-G u",
     mode = "i",
     summary = "start new undoable edit"
   },
   {
     tag = "i_CTRL-G_U",
-    lhs = "CTRL-G U",
+    lhs = "<C-G>U",
     char = "CTRL-G U",
     mode = "i",
     summary = "don't break undo with next cursor movement"
@@ -695,7 +695,7 @@ return {
   },
   {
     tag = "i_CTRL-X_s",
-    lhs = "CTRL-X s",
+    lhs = "<C-X>s",
     char = "CTRL-X s",
     mode = "i",
     summary = "spelling suggestions"
@@ -2735,154 +2735,154 @@ return {
   },
   {
     tag = "CTRL-W_+",
-    lhs = "CTRL-W +",
+    lhs = "<C-W>+",
     char = "CTRL-W +",
     summary = "increase current window height N lines",
     mode = "n"
   },
   {
     tag = "CTRL-W_-",
-    lhs = "CTRL-W -",
+    lhs = "<C-W>-",
     char = "CTRL-W -",
     summary = "decrease current window height N lines",
     mode = "n"
   },
   {
     tag = "CTRL-W_<",
-    lhs = "CTRL-W <",
+    lhs = "<C-W><",
     char = "CTRL-W <",
     summary = "decrease current window width N columns",
     mode = "n"
   },
   {
     tag = "CTRL-W_=",
-    lhs = "CTRL-W =",
+    lhs = "<C-W>=",
     char = "CTRL-W =",
     summary = "make all windows the same height & width",
     mode = "n"
   },
   {
     tag = "CTRL-W_>",
-    lhs = "CTRL-W >",
+    lhs = "<C-W>>",
     char = "CTRL-W >",
     summary = "increase current window width N columns",
     mode = "n"
   },
   {
     tag = "CTRL-W_H",
-    lhs = "CTRL-W H",
+    lhs = "<C-W>H",
     char = "CTRL-W H",
     summary = "move current window to the far left",
     mode = "n"
   },
   {
     tag = "CTRL-W_J",
-    lhs = "CTRL-W J",
+    lhs = "<C-W>J",
     char = "CTRL-W J",
     summary = "move current window to the very bottom",
     mode = "n"
   },
   {
     tag = "CTRL-W_K",
-    lhs = "CTRL-W K",
+    lhs = "<C-W>K",
     char = "CTRL-W K",
     summary = "move current window to the very top",
     mode = "n"
   },
   {
     tag = "CTRL-W_L",
-    lhs = "CTRL-W L",
+    lhs = "<C-W>L",
     char = "CTRL-W L",
     summary = "move current window to the far right",
     mode = "n"
   },
   {
     tag = "CTRL-W_P",
-    lhs = "CTRL-W P",
+    lhs = "<C-W>P",
     char = "CTRL-W P",
     summary = "go to preview window",
     mode = "n"
   },
   {
     tag = "CTRL-W_R",
-    lhs = "CTRL-W R",
+    lhs = "<C-W>R",
     char = "CTRL-W R",
     summary = "rotate windows upwards N times",
     mode = "n"
   },
   {
     tag = "CTRL-W_S",
-    lhs = "CTRL-W S",
+    lhs = "<C-W>S",
     char = "CTRL-W S",
     summary = "same as 'CTRL-W s'",
     mode = "n"
   },
   {
     tag = "CTRL-W_T",
-    lhs = "CTRL-W T",
+    lhs = "<C-W>T",
     char = "CTRL-W T",
     summary = "move current window to a new tab page",
     mode = "n"
   },
   {
     tag = "CTRL-W_W",
-    lhs = "CTRL-W W",
+    lhs = "<C-W>W",
     char = "CTRL-W W",
     summary = "go to N previous window (wrap around)",
     mode = "n"
   },
   {
     tag = "CTRL-W_]",
-    lhs = "CTRL-W ]",
+    lhs = "<C-W>]",
     char = "CTRL-W ]",
     summary = "split window and jump to tag under cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_^",
-    lhs = "CTRL-W ^",
+    lhs = "<C-W>^",
     char = "CTRL-W ^",
     summary = "split current window and edit alternate file N",
     mode = "n"
   },
   {
     tag = "CTRL-W__",
-    lhs = "CTRL-W _",
+    lhs = "<C-W>_",
     char = "CTRL-W _",
     summary = "set current window height to N (default: very high)",
     mode = "n"
   },
   {
     tag = "CTRL-W_b",
-    lhs = "CTRL-W b",
+    lhs = "<C-W>b",
     char = "CTRL-W b",
     summary = "go to bottom window",
     mode = "n"
   },
   {
     tag = "CTRL-W_c",
-    lhs = "CTRL-W c",
+    lhs = "<C-W>c",
     char = "CTRL-W c",
     summary = "close current window (like |:close|)",
     mode = "n"
   },
   {
     tag = "CTRL-W_d",
-    lhs = "CTRL-W d",
+    lhs = "<C-W>d",
     char = "CTRL-W d",
     summary = "split window and jump to definition under the cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_f",
-    lhs = "CTRL-W f",
+    lhs = "<C-W>f",
     char = "CTRL-W f",
     summary = "split window and edit file name under the cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_F",
-    lhs = "CTRL-W F",
+    lhs = "<C-W>F",
     char = "CTRL-W F",
     summary = "split window and edit file name under the cursor and jump to the line number following the file name.",
     mode = "n"
@@ -2945,126 +2945,126 @@ return {
   },
   {
     tag = "CTRL-W_h",
-    lhs = "CTRL-W h",
+    lhs = "<C-W>h",
     char = "CTRL-W h",
     summary = "go to Nth left window (stop at first window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_i",
-    lhs = "CTRL-W i",
+    lhs = "<C-W>i",
     char = "CTRL-W i",
     summary = "split window and jump to declaration of identifier under the cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_j",
-    lhs = "CTRL-W j",
+    lhs = "<C-W>j",
     char = "CTRL-W j",
     summary = "go N windows down (stop at last window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_k",
-    lhs = "CTRL-W k",
+    lhs = "<C-W>k",
     char = "CTRL-W k",
     summary = "go N windows up (stop at first window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_l",
-    lhs = "CTRL-W l",
+    lhs = "<C-W>l",
     char = "CTRL-W l",
     summary = "go to Nth right window (stop at last window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_n",
-    lhs = "CTRL-W n",
+    lhs = "<C-W>n",
     char = "CTRL-W n",
     summary = "open new window, N lines high",
     mode = "n"
   },
   {
     tag = "CTRL-W_o",
-    lhs = "CTRL-W o",
+    lhs = "<C-W>o",
     char = "CTRL-W o",
     summary = "close all but current window (like |:only|)",
     mode = "n"
   },
   {
     tag = "CTRL-W_p",
-    lhs = "CTRL-W p",
+    lhs = "<C-W>p",
     char = "CTRL-W p",
     summary = "go to previous (last accessed) window",
     mode = "n"
   },
   {
     tag = "CTRL-W_q",
-    lhs = "CTRL-W q",
+    lhs = "<C-W>q",
     char = "CTRL-W q",
     summary = "quit current window (like |:quit|)",
     mode = "n"
   },
   {
     tag = "CTRL-W_r",
-    lhs = "CTRL-W r",
+    lhs = "<C-W>r",
     char = "CTRL-W r",
     summary = "rotate windows downwards N times",
     mode = "n"
   },
   {
     tag = "CTRL-W_s",
-    lhs = "CTRL-W s",
+    lhs = "<C-W>s",
     char = "CTRL-W s",
     summary = "split current window in two parts, new window N lines high",
     mode = "n"
   },
   {
     tag = "CTRL-W_t",
-    lhs = "CTRL-W t",
+    lhs = "<C-W>t",
     char = "CTRL-W t",
     summary = "go to top window",
     mode = "n"
   },
   {
     tag = "CTRL-W_v",
-    lhs = "CTRL-W v",
+    lhs = "<C-W>v",
     char = "CTRL-W v",
     summary = "split current window vertically, new window N columns wide",
     mode = "n"
   },
   {
     tag = "CTRL-W_w",
-    lhs = "CTRL-W w",
+    lhs = "<C-W>w",
     char = "CTRL-W w",
     summary = "go to N next window (wrap around)",
     mode = "n"
   },
   {
     tag = "CTRL-W_x",
-    lhs = "CTRL-W x",
+    lhs = "<C-W>x",
     char = "CTRL-W x",
     summary = "exchange current window with window N (default: next window)",
     mode = "n"
   },
   {
     tag = "CTRL-W_z",
-    lhs = "CTRL-W z",
+    lhs = "<C-W>z",
     char = "CTRL-W z",
     summary = "close preview window",
     mode = "n"
   },
   {
     tag = "CTRL-W_bar",
-    lhs = "CTRL-W |",
+    lhs = "<C-W>|",
     char = "CTRL-W |",
     summary = "set window width to N columns",
     mode = "n"
   },
   {
     tag = "CTRL-W_}",
-    lhs = "CTRL-W }",
+    lhs = "<C-W>}",
     char = "CTRL-W }",
     summary = "show tag under cursor in preview window",
     mode = "n"
