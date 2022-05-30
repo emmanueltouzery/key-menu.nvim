@@ -44,7 +44,7 @@ return {
   },
   {
     tag = "i_CTRL-G_j",
-    lhs = "CTRL-G CTRL-J",
+    lhs = "<C-G><C-J>",
     char = "CTRL-G CTRL-J",
     mode = "i",
     summary = "line down, to column where inserting started"
@@ -65,7 +65,7 @@ return {
   },
   {
     tag = "i_CTRL-G_k",
-    lhs = "CTRL-G CTRL-K",
+    lhs = "<C-G><C-K>",
     char = "CTRL-G CTRL-K",
     mode = "i",
     summary = "line up, to column where inserting started"
@@ -149,7 +149,7 @@ return {
   },
   {
     tag = "i_CTRL-K",
-    lhs = "CTRL-K {char1} {char2}",
+    lhs = "<C-k>",
     char = "CTRL-K {char1} {char2}",
     mode = "i",
     summary = "enter digraph"
@@ -198,35 +198,35 @@ return {
   },
   {
     tag = "i_CTRL-SHIFT-Q",
-    lhs = "CTRL-SHIFT-Q {char}",
+    lhs = "<C-S-q>",
     char = "CTRL-SHIFT-Q {char}",
     mode = "i",
     summary = "like CTRL-Q unless |modifyOtherKeys| is active"
   },
   {
     tag = "i_CTRL-R",
-    lhs = "CTRL-R {register}",
+    lhs = "<C-R>",
     char = "CTRL-R {register}",
     mode = "i",
     summary = "insert the contents of a register"
   },
   {
     tag = "i_CTRL-R_CTRL-R",
-    lhs = "CTRL-R CTRL-R",
+    lhs = "<C-R><C-R>",
     char = "CTRL-R CTRL-R {register}",
     mode = "i",
     summary = "insert the contents of a register literally"
   },
   {
     tag = "i_CTRL-R_CTRL-O",
-    lhs = "CTRL-R CTRL-O",
+    lhs = "<C-R><C-O>",
     char = "CTRL-R CTRL-O {register}",
     mode = "i",
     summary = "insert the contents of a register literally and don't auto-indent"
   },
   {
     tag = "i_CTRL-R_CTRL-P",
-    lhs = "CTRL-R CTRL-P",
+    lhs = "<C-R><C-P>",
     char = "CTRL-R CTRL-P {register}",
     mode = "i",
     summary = "insert the contents of a register literally and fix indent."
@@ -254,21 +254,21 @@ return {
   },
   {
     tag = "i_CTRL-V",
-    lhs = "CTRL-V {char}",
+    lhs = "<C-v>",
     char = "CTRL-V {char}",
     mode = "i",
     summary = "insert next non-digit literally"
   },
   {
     tag = "i_CTRL-SHIFT-V",
-    lhs = "CTRL-SHIFT-V {char}",
+    lhs = "<C-S-v>",
     char = "CTRL-SHIFT-V {char}",
     mode = "i",
     summary = "like CTRL-V unless |modifyOtherKeys| is active"
   },
   {
     tag = "i_CTRL-V_digit",
-    lhs = "CTRL-V {number}",
+    lhs = "<C-v>",
     char = "CTRL-V {number}",
     mode = "i",
     summary = "insert three digit decimal number as a single byte."
@@ -282,7 +282,7 @@ return {
   },
   {
     tag = "i_CTRL-X",
-    lhs = "CTRL-X {mode}",
+    lhs = "<C-x>",
     char = "CTRL-X {mode}",
     mode = "i",
     summary = "enter CTRL-X sub mode, see |i_CTRL-X_index|"
@@ -583,112 +583,112 @@ return {
   },
   {
     tag = "i_CTRL-X_CTRL-D",
-    lhs = "CTRL-X CTRL-D",
+    lhs = "<C-X><C-D>",
     char = "CTRL-X CTRL-D",
     mode = "i",
     summary = "complete defined identifiers"
   },
   {
     tag = "i_CTRL-X_CTRL-E",
-    lhs = "CTRL-X CTRL-E",
+    lhs = "<C-X><C-E>",
     char = "CTRL-X CTRL-E",
     mode = "i",
     summary = "scroll up"
   },
   {
     tag = "i_CTRL-X_CTRL-F",
-    lhs = "CTRL-X CTRL-F",
+    lhs = "<C-X><C-F>",
     char = "CTRL-X CTRL-F",
     mode = "i",
     summary = "complete file names"
   },
   {
     tag = "i_CTRL-X_CTRL-I",
-    lhs = "CTRL-X CTRL-I",
+    lhs = "<C-X><C-I>",
     char = "CTRL-X CTRL-I",
     mode = "i",
     summary = "complete identifiers"
   },
   {
     tag = "i_CTRL-X_CTRL-K",
-    lhs = "CTRL-X CTRL-K",
+    lhs = "<C-X><C-K>",
     char = "CTRL-X CTRL-K",
     mode = "i",
     summary = "complete identifiers from dictionary"
   },
   {
     tag = "i_CTRL-X_CTRL-L",
-    lhs = "CTRL-X CTRL-L",
+    lhs = "<C-X><C-L>",
     char = "CTRL-X CTRL-L",
     mode = "i",
     summary = "complete whole lines"
   },
   {
     tag = "i_CTRL-X_CTRL-N",
-    lhs = "CTRL-X CTRL-N",
+    lhs = "<C-X><C-N>",
     char = "CTRL-X CTRL-N",
     mode = "i",
     summary = "next completion"
   },
   {
     tag = "i_CTRL-X_CTRL-O",
-    lhs = "CTRL-X CTRL-O",
+    lhs = "<C-X><C-O>",
     char = "CTRL-X CTRL-O",
     mode = "i",
     summary = "omni completion"
   },
   {
     tag = "i_CTRL-X_CTRL-P",
-    lhs = "CTRL-X CTRL-P",
+    lhs = "<C-X><C-P>",
     char = "CTRL-X CTRL-P",
     mode = "i",
     summary = "previous completion"
   },
   {
     tag = "i_CTRL-X_CTRL-S",
-    lhs = "CTRL-X CTRL-S",
+    lhs = "<C-X><C-S>",
     char = "CTRL-X CTRL-S",
     mode = "i",
     summary = "spelling suggestions"
   },
   {
     tag = "i_CTRL-X_CTRL-T",
-    lhs = "CTRL-X CTRL-T",
+    lhs = "<C-X><C-T>",
     char = "CTRL-X CTRL-T",
     mode = "i",
     summary = "complete identifiers from thesaurus"
   },
   {
     tag = "i_CTRL-X_CTRL-Y",
-    lhs = "CTRL-X CTRL-Y",
+    lhs = "<C-X><C-Y>",
     char = "CTRL-X CTRL-Y",
     mode = "i",
     summary = "scroll down"
   },
   {
     tag = "i_CTRL-X_CTRL-U",
-    lhs = "CTRL-X CTRL-U",
+    lhs = "<C-X><C-U>",
     char = "CTRL-X CTRL-U",
     mode = "i",
     summary = "complete with 'completefunc'"
   },
   {
     tag = "i_CTRL-X_CTRL-V",
-    lhs = "CTRL-X CTRL-V",
+    lhs = "<C-X><C-V>",
     char = "CTRL-X CTRL-V",
     mode = "i",
     summary = "complete like in : command line"
   },
   {
     tag = "i_CTRL-X_CTRL-Z",
-    lhs = "CTRL-X CTRL-Z",
+    lhs = "<C-X><C-Z>",
     char = "CTRL-X CTRL-Z",
     mode = "i",
     summary = "stop completion, keeping the text as-is"
   },
   {
     tag = "i_CTRL-X_CTRL-]",
-    lhs = "CTRL-X CTRL-]",
+    lhs = "<C-X><C-]>",
     char = "CTRL-X CTRL-]",
     mode = "i",
     summary = "complete tags"
@@ -906,7 +906,7 @@ return {
   },
   {
     tag = "CTRL-W",
-    lhs = "CTRL-W {char}",
+    lhs = "<C-w>",
     char = "CTRL-W {char}",
     summary = "window commands, see |CTRL-W|",
     mode = "n"
@@ -1006,7 +1006,7 @@ return {
   },
   {
     tag = "!",
-    lhs = "!{motion}{filter}",
+    lhs = "!",
     char = "!{motion}{filter}",
     note = "2",
     summary = "filter Nmove text through the {filter} command",
@@ -1014,7 +1014,7 @@ return {
   },
   {
     tag = "!!",
-    lhs = "!!{filter}",
+    lhs = "!!",
     char = "!!{filter}",
     note = "2",
     summary = "filter N lines through the {filter} command",
@@ -1022,8 +1022,8 @@ return {
   },
   {
     tag = "quote",
-    lhs = "\"{register}  ",
-    char = "\"{register}  ",
+    lhs = "\"",
+    char = "\"{register}",
     summary = "use {register} for next delete, yank or put ({.%#:} only work with put)",
     mode = "n"
   },
@@ -1053,7 +1053,7 @@ return {
   },
   {
     tag = "N%",
-    lhs = "{count}%",
+    lhs = "%",
     char = "{count}%",
     note = "1",
     summary = "go to N percentage in the file",
@@ -1069,7 +1069,7 @@ return {
   },
   {
     tag = "'",
-    lhs = "'{a-zA-Z0-9}",
+    lhs = "'",
     char = "'{a-zA-Z0-9}",
     note = "1",
     summary = "cursor to the first CHAR on the line with mark {a-zA-Z0-9}",
@@ -1205,7 +1205,7 @@ return {
   },
   {
     tag = "/",
-    lhs = "/{pattern}<CR>",
+    lhs = "/",
     char = "/{pattern}<CR>",
     note = "1",
     summary = "search forward for the Nth occurrence of {pattern}",
@@ -1300,7 +1300,7 @@ return {
   },
   {
     tag = "N:",
-    lhs = "{count}:",
+    lhs = ":",
     char = "{count}:",
     summary = "start entering an Ex command with range from current line to N-1 lines down",
     mode = "n"
@@ -1315,7 +1315,7 @@ return {
   },
   {
     tag = "<",
-    lhs = "<{motion}",
+    lhs = "<",
     char = "<{motion}",
     note = "2",
     summary = "shift Nmove lines one 'shiftwidth' leftwards",
@@ -1331,7 +1331,7 @@ return {
   },
   {
     tag = "=",
-    lhs = "={motion}",
+    lhs = "=",
     char = "={motion}",
     note = "2",
     summary = "filter Nmove lines through 'indent'",
@@ -1347,7 +1347,7 @@ return {
   },
   {
     tag = ">",
-    lhs = ">{motion}",
+    lhs = ">",
     char = ">{motion}",
     note = "2",
     summary = "shift Nmove lines one 'shiftwidth' rightwards",
@@ -1363,7 +1363,7 @@ return {
   },
   {
     tag = "?",
-    lhs = "?{pattern}<CR>",
+    lhs = "?",
     char = "?{pattern}<CR>",
     note = "1",
     summary = "search backward for the Nth previous occurrence of {pattern}",
@@ -1379,7 +1379,7 @@ return {
   },
   {
     tag = "@",
-    lhs = "@{a-z}",
+    lhs = "@",
     char = "@{a-z}",
     note = "2",
     summary = "execute the contents of register {a-z} N times",
@@ -1442,7 +1442,7 @@ return {
   },
   {
     tag = "F",
-    lhs = "F{char}",
+    lhs = "F",
     char = "F{char}",
     note = "1",
     summary = "cursor to the Nth occurrence of {char} to the left",
@@ -1545,7 +1545,7 @@ return {
   },
   {
     tag = "T",
-    lhs = "T{char}",
+    lhs = "T",
     char = "T{char}",
     note = "1",
     summary = "cursor till after Nth occurrence of {char} to the left",
@@ -1605,7 +1605,7 @@ return {
   },
   {
     tag = "[",
-    lhs = "[{char}",
+    lhs = "[",
     char = "[{char}",
     summary = "square bracket command (see |[| below)",
     mode = "n"
@@ -1619,7 +1619,7 @@ return {
   },
   {
     tag = "]",
-    lhs = "]{char}",
+    lhs = "]",
     char = "]{char}",
     summary = "square bracket command (see |]| below)",
     mode = "n"
@@ -1642,7 +1642,7 @@ return {
   },
   {
     tag = "`",
-    lhs = "`{a-zA-Z0-9}",
+    lhs = "`",
     char = "`{a-zA-Z0-9}",
     note = "1",
     summary = "cursor to the mark {a-zA-Z0-9}",
@@ -1738,7 +1738,7 @@ return {
   },
   {
     tag = "c",
-    lhs = "[\"x]c{motion}",
+    lhs = "c",
     char = "[\"x]c{motion}",
     note = "2",
     summary = "delete Nmove text [into register x] and start insert",
@@ -1754,7 +1754,7 @@ return {
   },
   {
     tag = "d",
-    lhs = "[\"x]d{motion}",
+    lhs = "d",
     char = "[\"x]d{motion}",
     note = "2",
     summary = "delete Nmove text [into register x]",
@@ -1794,7 +1794,7 @@ return {
   },
   {
     tag = "f",
-    lhs = "f{char}",
+    lhs = "f",
     char = "f{char}",
     note = "1",
     summary = "cursor to Nth occurrence of {char} to the right",
@@ -1842,7 +1842,7 @@ return {
   },
   {
     tag = "m",
-    lhs = "m{A-Za-z}",
+    lhs = "m",
     char = "m{A-Za-z}",
     summary = "set mark {A-Za-z} at cursor position",
     mode = "n"
@@ -1873,7 +1873,7 @@ return {
   },
   {
     tag = "q",
-    lhs = "q{0-9a-zA-Z\"}",
+    lhs = "q",
     char = "q{0-9a-zA-Z\"}",
     summary = "record typed characters into named register {0-9a-zA-Z\"} (uppercase to append)",
     mode = "n"
@@ -1915,7 +1915,7 @@ return {
   },
   {
     tag = "r",
-    lhs = "r{char}",
+    lhs = "r",
     char = "r{char}",
     note = "2",
     summary = "replace N chars with {char}",
@@ -1931,7 +1931,7 @@ return {
   },
   {
     tag = "t",
-    lhs = "t{char}",
+    lhs = "t",
     char = "t{char}",
     note = "1",
     summary = "cursor till before Nth occurrence of {char} to the right",
@@ -1970,7 +1970,7 @@ return {
   },
   {
     tag = "y",
-    lhs = "[\"x]y{motion}",
+    lhs = "y",
     char = "[\"x]y{motion}",
     summary = "yank Nmove text [into register x]",
     mode = "n"
@@ -1984,7 +1984,7 @@ return {
   },
   {
     tag = "z",
-    lhs = "z{char}",
+    lhs = "z",
     char = "z{char}",
     summary = "commands starting with 'z', see |z| below",
     mode = "n"
@@ -2023,7 +2023,7 @@ return {
   },
   {
     tag = "~",
-    lhs = "~{motion}",
+    lhs = "~",
     char = "~{motion}",
     summary = "'tildeop' on: switch case of Nmove text",
     mode = "n"
@@ -2091,7 +2091,7 @@ return {
   },
   {
     tag = "N<Del>",
-    lhs = "{count}<Del>",
+    lhs = "<Del>",
     char = "{count}<Del>",
     summary = "remove the last digit from {count}",
     mode = "n"
@@ -2567,168 +2567,168 @@ return {
   },
   {
     tag = "CTRL-W_CTRL-B",
-    lhs = "CTRL-W CTRL-B",
+    lhs = "<C-W><C-B>",
     char = "CTRL-W CTRL-B",
     summary = "same as 'CTRL-W b'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-C",
-    lhs = "CTRL-W CTRL-C",
+    lhs = "<C-W><C-C>",
     char = "CTRL-W CTRL-C",
     summary = "same as 'CTRL-W c'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-D",
-    lhs = "CTRL-W CTRL-D",
+    lhs = "<C-W><C-D>",
     char = "CTRL-W CTRL-D",
     summary = "same as 'CTRL-W d'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-F",
-    lhs = "CTRL-W CTRL-F",
+    lhs = "<C-W><C-F>",
     char = "CTRL-W CTRL-F",
     summary = "same as 'CTRL-W f'",
     mode = "n"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-W CTRL-G",
+    lhs = "<C-W><C-G>",
     char = "CTRL-W CTRL-G",
     summary = "same as 'CTRL-W g ..'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-H",
-    lhs = "CTRL-W CTRL-H",
+    lhs = "<C-W><C-H>",
     char = "CTRL-W CTRL-H",
     summary = "same as 'CTRL-W h'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-I",
-    lhs = "CTRL-W CTRL-I",
+    lhs = "<C-W><C-I>",
     char = "CTRL-W CTRL-I",
     summary = "same as 'CTRL-W i'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-J",
-    lhs = "CTRL-W CTRL-J",
+    lhs = "<C-W><C-J>",
     char = "CTRL-W CTRL-J",
     summary = "same as 'CTRL-W j'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-K",
-    lhs = "CTRL-W CTRL-K",
+    lhs = "<C-W><C-K>",
     char = "CTRL-W CTRL-K",
     summary = "same as 'CTRL-W k'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-L",
-    lhs = "CTRL-W CTRL-L",
+    lhs = "<C-W><C-L>",
     char = "CTRL-W CTRL-L",
     summary = "same as 'CTRL-W l'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-N",
-    lhs = "CTRL-W CTRL-N",
+    lhs = "<C-W><C-N>",
     char = "CTRL-W CTRL-N",
     summary = "same as 'CTRL-W n'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-O",
-    lhs = "CTRL-W CTRL-O",
+    lhs = "<C-W><C-O>",
     char = "CTRL-W CTRL-O",
     summary = "same as 'CTRL-W o'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-P",
-    lhs = "CTRL-W CTRL-P",
+    lhs = "<C-W><C-P>",
     char = "CTRL-W CTRL-P",
     summary = "same as 'CTRL-W p'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-Q",
-    lhs = "CTRL-W CTRL-Q",
+    lhs = "<C-W><C-Q>",
     char = "CTRL-W CTRL-Q",
     summary = "same as 'CTRL-W q'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-R",
-    lhs = "CTRL-W CTRL-R",
+    lhs = "<C-W><C-R>",
     char = "CTRL-W CTRL-R",
     summary = "same as 'CTRL-W r'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-S",
-    lhs = "CTRL-W CTRL-S",
+    lhs = "<C-W><C-S>",
     char = "CTRL-W CTRL-S",
     summary = "same as 'CTRL-W s'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-T",
-    lhs = "CTRL-W CTRL-T",
+    lhs = "<C-W><C-T>",
     char = "CTRL-W CTRL-T",
     summary = "same as 'CTRL-W t'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-V",
-    lhs = "CTRL-W CTRL-V",
+    lhs = "<C-W><C-V>",
     char = "CTRL-W CTRL-V",
     summary = "same as 'CTRL-W v'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-W",
-    lhs = "CTRL-W CTRL-W",
+    lhs = "<C-W><C-W>",
     char = "CTRL-W CTRL-W",
     summary = "same as 'CTRL-W w'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-X",
-    lhs = "CTRL-W CTRL-X",
+    lhs = "<C-W><C-X>",
     char = "CTRL-W CTRL-X",
     summary = "same as 'CTRL-W x'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-Z",
-    lhs = "CTRL-W CTRL-Z",
+    lhs = "<C-W><C-Z>",
     char = "CTRL-W CTRL-Z",
     summary = "same as 'CTRL-W z'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-]",
-    lhs = "CTRL-W CTRL-]",
+    lhs = "<C-W><C-]>",
     char = "CTRL-W CTRL-]",
     summary = "same as 'CTRL-W ]'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-^",
-    lhs = "CTRL-W CTRL-^",
+    lhs = "<C-W><C-^>",
     char = "CTRL-W CTRL-^",
     summary = "same as 'CTRL-W ^'",
     mode = "n"
   },
   {
     tag = "CTRL-W_CTRL-_",
-    lhs = "CTRL-W CTRL-_",
+    lhs = "<C-W><C-_>",
     char = "CTRL-W CTRL-_",
     summary = "same as 'CTRL-W _'",
     mode = "n"
@@ -3503,7 +3503,7 @@ return {
   },
   {
     tag = "g'",
-    lhs = "g'{mark}",
+    lhs = "g'",
     char = "g'{mark}",
     note = "1",
     summary = "like |'| but without changing the jumplist",
@@ -3511,7 +3511,7 @@ return {
   },
   {
     tag = "g`",
-    lhs = "g`{mark}",
+    lhs = "g`",
     char = "g`{mark}",
     note = "1",
     summary = "like |`| but without changing the jumplist",
@@ -3680,7 +3680,7 @@ return {
   },
   {
     tag = "gU",
-    lhs = "gU{motion}",
+    lhs = "gU",
     char = "gU{motion}",
     note = "2",
     summary = "make Nmove text uppercase",
@@ -3837,7 +3837,7 @@ return {
   },
   {
     tag = "gq",
-    lhs = "gq{motion}",
+    lhs = "gq",
     char = "gq{motion}",
     note = "2",
     summary = "format Nmove text",
@@ -3845,7 +3845,7 @@ return {
   },
   {
     tag = "gr",
-    lhs = "gr{char}",
+    lhs = "gr",
     char = "gr{char}",
     note = "2",
     summary = "virtual replace N chars with {char}",
@@ -3867,7 +3867,7 @@ return {
   },
   {
     tag = "gu",
-    lhs = "gu{motion}",
+    lhs = "gu",
     char = "gu{motion}",
     note = "2",
     summary = "make Nmove text lowercase",
@@ -3882,7 +3882,7 @@ return {
   },
   {
     tag = "gw",
-    lhs = "gw{motion}",
+    lhs = "gw",
     char = "gw{motion}",
     note = "2",
     summary = "format Nmove text and keep cursor",
@@ -3897,14 +3897,14 @@ return {
   },
   {
     tag = "g@",
-    lhs = "g@{motion}",
+    lhs = "g@",
     char = "g@{motion}",
     summary = "call 'operatorfunc'",
     mode = "n"
   },
   {
     tag = "g~",
-    lhs = "g~{motion}",
+    lhs = "g~",
     char = "g~{motion}",
     note = "2",
     summary = "swap case for Nmove text",
@@ -3979,7 +3979,7 @@ return {
   },
   {
     tag = "zN<CR>",
-    lhs = "z{height}<CR>",
+    lhs = "z",
     char = "z{height}<CR>",
     summary = "redraw, make window {height} lines high",
     mode = "n"
@@ -4154,7 +4154,7 @@ return {
   },
   {
     tag = "zf",
-    lhs = "zf{motion}",
+    lhs = "zf",
     char = "zf{motion}",
     summary = "create a fold for Nmove text",
     mode = "n"
@@ -4447,7 +4447,7 @@ return {
   },
   {
     tag = "v_!",
-    lhs = "!{filter}",
+    lhs = "!",
     char = "!{filter}",
     note = "2",
     summary = "filter the highlighted lines through the external command {filter}",
@@ -5094,7 +5094,7 @@ return {
   },
   {
     tag = "c_CTRL-K",
-    lhs = "CTRL-K {char1} {char2}",
+    lhs = "<C-k>",
     char = "CTRL-K {char1} {char2}",
     summary = "enter digraph",
     mode = "c"
@@ -5150,21 +5150,21 @@ return {
   },
   {
     tag = "c_CTRL-R",
-    lhs = "CTRL-R {regname}",
+    lhs = "<C-R>",
     char = "CTRL-R {regname}",
     summary = "insert the contents of a register or object under the cursor as if typed",
     mode = "c"
   },
   {
     tag = "c_CTRL-R_CTRL-R",
-    lhs = "CTRL-R CTRL-R",
+    lhs = "<C-R><C-R>",
     char = "CTRL-R CTRL-R {regname}",
     summary = "insert the contents of a register or object under the cursor literally",
     mode = "c"
   },
   {
     tag = "c_CTRL-R_CTRL-O",
-    lhs = "CTRL-R CTRL-O",
+    lhs = "<C-R><C-O>",
     char = "CTRL-R CTRL-O {regname}",
     summary = "insert the contents of a register or object under the cursor literally",
     mode = "c"
@@ -5262,7 +5262,7 @@ return {
   },
   {
     tag = "c_CTRL-\\_e",
-    lhs = "CTRL-\\ e {expr}",
+    lhs = "<C-Bslash>e,
     char = "CTRL-\\ e {expr}",
     summary = "replace the command line with the result of {expr}",
     mode = "c"
