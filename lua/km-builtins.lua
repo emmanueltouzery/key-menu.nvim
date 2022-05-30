@@ -4695,7 +4695,8 @@ return {
     lhs = "gg",
     note = "1",
     summary = "cursor to line N, default first line",
-    mode = "n"
+    mode = "n",
+    desc = "Go to top of buffer",
   },
   {
     tag = "gh",
