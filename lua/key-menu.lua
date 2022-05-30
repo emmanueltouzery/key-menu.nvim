@@ -6,10 +6,6 @@ do
   setmetatable(open_window_callbacks, mt)
 end
 
-local function _concat(t1, t2)
-  return vim.list_extend(vim.deepcopy(t1), t2)
-end
-
 local function _partial(func, x)
   local function result(y)
     return func(x, y)
