@@ -2,42 +2,42 @@ return {
   --[[
   {
     tag = "i_CTRL-@",
-    lhs = "CTRL-@",
+    lhs = "<C-@>",
     char = "CTRL-@",
     mode = "i",
     summary = "insert previously inserted text and stop insert"
   },
   {
     tag = "i_CTRL-A",
-    lhs = "CTRL-A",
+    lhs = "<C-A>",
     char = "CTRL-A",
     mode = "i",
     summary = "insert previously inserted text"
   },
   {
     tag = "i_CTRL-C",
-    lhs = "CTRL-C",
+    lhs = "<C-C>",
     char = "CTRL-C",
     mode = "i",
     summary = "quit insert mode, without checking for abbreviation"
   },
   {
     tag = "i_CTRL-D",
-    lhs = "CTRL-D",
+    lhs = "<C-D>",
     char = "CTRL-D",
     mode = "i",
     summary = "delete one shiftwidth of indent in the current line"
   },
   {
     tag = "i_CTRL-E",
-    lhs = "CTRL-E",
+    lhs = "<C-E>",
     char = "CTRL-E",
     mode = "i",
     summary = "insert the character which is below the cursor"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-F",
+    lhs = "<C-F>",
     char = "CTRL-F",
     mode = "i",
     summary = "not used (but by default it's in 'cinkeys' to re-indent the current line)"
@@ -114,7 +114,7 @@ return {
   },
   {
     tag = "i_CTRL-H",
-    lhs = "CTRL-H",
+    lhs = "<C-H>",
     char = "CTRL-H",
     mode = "i",
     summary = "same as <BS>"
@@ -128,7 +128,7 @@ return {
   },
   {
     tag = "i_CTRL-I",
-    lhs = "CTRL-I",
+    lhs = "<C-I>",
     char = "CTRL-I",
     mode = "i",
     summary = "same as <Tab>"
@@ -142,7 +142,7 @@ return {
   },
   {
     tag = "i_CTRL-J",
-    lhs = "CTRL-J",
+    lhs = "<C-J>",
     char = "CTRL-J",
     mode = "i",
     summary = "same as <CR>"
@@ -163,35 +163,35 @@ return {
   },
   {
     tag = "i_CTRL-M",
-    lhs = "CTRL-M",
+    lhs = "<C-M>",
     char = "CTRL-M",
     mode = "i",
     summary = "same as <CR>"
   },
   {
     tag = "i_CTRL-N",
-    lhs = "CTRL-N",
+    lhs = "<C-N>",
     char = "CTRL-N",
     mode = "i",
     summary = "find next match for keyword in front of the cursor"
   },
   {
     tag = "i_CTRL-O",
-    lhs = "CTRL-O",
+    lhs = "<C-O>",
     char = "CTRL-O",
     mode = "i",
     summary = "execute a single command and return to insert mode"
   },
   {
     tag = "i_CTRL-P",
-    lhs = "CTRL-P",
+    lhs = "<C-P>",
     char = "CTRL-P",
     mode = "i",
     summary = "find previous match for keyword in front of the cursor"
   },
   {
     tag = "i_CTRL-Q",
-    lhs = "CTRL-Q",
+    lhs = "<C-Q>",
     char = "CTRL-Q",
     mode = "i",
     summary = "same as CTRL-V, unless used for terminal control flow"
@@ -212,42 +212,42 @@ return {
   },
   {
     tag = "i_CTRL-R_CTRL-R",
-    lhs = "CTRL-R CTRL-R {register}",
+    lhs = "CTRL-R CTRL-R",
     char = "CTRL-R CTRL-R {register}",
     mode = "i",
     summary = "insert the contents of a register literally"
   },
   {
     tag = "i_CTRL-R_CTRL-O",
-    lhs = "CTRL-R CTRL-O {register}",
+    lhs = "CTRL-R CTRL-O",
     char = "CTRL-R CTRL-O {register}",
     mode = "i",
     summary = "insert the contents of a register literally and don't auto-indent"
   },
   {
     tag = "i_CTRL-R_CTRL-P",
-    lhs = "CTRL-R CTRL-P {register}",
+    lhs = "CTRL-R CTRL-P",
     char = "CTRL-R CTRL-P {register}",
     mode = "i",
     summary = "insert the contents of a register literally and fix indent."
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-S",
+    lhs = "<C-S>",
     char = "CTRL-S",
     mode = "i",
     summary = "not used or used for terminal control flow"
   },
   {
     tag = "i_CTRL-T",
-    lhs = "CTRL-T",
+    lhs = "<C-T>",
     char = "CTRL-T",
     mode = "i",
     summary = "insert one shiftwidth of indent in current line"
   },
   {
     tag = "i_CTRL-U",
-    lhs = "CTRL-U",
+    lhs = "<C-U>",
     char = "CTRL-U",
     mode = "i",
     summary = "delete all entered characters in the current line"
@@ -275,7 +275,7 @@ return {
   },
   {
     tag = "i_CTRL-W",
-    lhs = "CTRL-W",
+    lhs = "<C-W>",
     char = "CTRL-W",
     mode = "i",
     summary = "delete word before the cursor"
@@ -289,7 +289,7 @@ return {
   },
   {
     tag = "i_CTRL-Y",
-    lhs = "CTRL-Y",
+    lhs = "<C-Y>",
     char = "CTRL-Y",
     mode = "i",
     summary = "insert the character which is above the cursor"
@@ -303,56 +303,56 @@ return {
   },
   {
     tag = "i_CTRL-[",
-    lhs = "CTRL-[",
+    lhs = "<C-[>",
     char = "CTRL-[",
     mode = "i",
     summary = "same as <Esc>"
   },
   {
     tag = "i_CTRL-\\_CTRL-N",
-    lhs = "CTRL-\\ CTRL-N",
+    lhs = "CTRL-<Bslash> CTRL-N",
     char = "CTRL-\\ CTRL-N",
     mode = "i",
     summary = "go to Normal mode"
   },
   {
     tag = "i_CTRL-\\_CTRL-G",
-    lhs = "CTRL-\\ CTRL-G",
+    lhs = "CTRL-<Bslash> CTRL-G",
     char = "CTRL-\\ CTRL-G",
     mode = "i",
     summary = "go to Normal mode"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-\\ a - z",
+    lhs = "CTRL-<Bslash> a - z",
     char = "CTRL-\\ a - z",
     mode = "i",
     summary = "reserved for extensions"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-\\ others",
+    lhs = "CTRL-<Bslash> others",
     char = "CTRL-\\ others",
     mode = "i",
     summary = "not used"
   },
   {
     tag = "i_CTRL-]",
-    lhs = "CTRL-]",
+    lhs = "<C-]>",
     char = "CTRL-]",
     mode = "i",
     summary = "trigger abbreviation"
   },
   {
     tag = "i_CTRL-^",
-    lhs = "CTRL-^",
+    lhs = "<C-^>",
     char = "CTRL-^",
     mode = "i",
     summary = "toggle use of |:lmap| mappings"
   },
   {
     tag = "i_CTRL-_",
-    lhs = "CTRL-_",
+    lhs = "<C-_>",
     char = "CTRL-_",
     mode = "i",
     summary = "When 'allowrevins' set: change language (Hebrew)"
@@ -702,14 +702,14 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-@",
+    lhs = "<C-@>",
     char = "CTRL-@",
     summary = "not used",
     mode = "n"
   },
   {
     tag = "CTRL-A",
-    lhs = "CTRL-A",
+    lhs = "<C-A>",
     char = "CTRL-A",
     note = "2",
     summary = "add N to number at/after cursor",
@@ -717,7 +717,7 @@ return {
   },
   {
     tag = "CTRL-B",
-    lhs = "CTRL-B",
+    lhs = "<C-B>",
     char = "CTRL-B",
     note = "1",
     summary = "scroll N screens Backwards",
@@ -725,28 +725,28 @@ return {
   },
   {
     tag = "CTRL-C",
-    lhs = "CTRL-C",
+    lhs = "<C-C>",
     char = "CTRL-C",
     summary = "interrupt current (search) command",
     mode = "n"
   },
   {
     tag = "CTRL-D",
-    lhs = "CTRL-D",
+    lhs = "<C-D>",
     char = "CTRL-D",
     summary = "scroll Down N lines (default: half a screen)",
     mode = "n"
   },
   {
     tag = "CTRL-E",
-    lhs = "CTRL-E",
+    lhs = "<C-E>",
     char = "CTRL-E",
     summary = "scroll N lines upwards (N lines Extra)",
     mode = "n"
   },
   {
     tag = "CTRL-F",
-    lhs = "CTRL-F",
+    lhs = "<C-F>",
     char = "CTRL-F",
     note = "1",
     summary = "scroll N screens Forward",
@@ -754,7 +754,7 @@ return {
   },
   {
     tag = "CTRL-G",
-    lhs = "CTRL-G",
+    lhs = "<C-G>",
     char = "CTRL-G",
     summary = "display current file name and position",
     mode = "n"
@@ -769,7 +769,7 @@ return {
   },
   {
     tag = "CTRL-H",
-    lhs = "CTRL-H",
+    lhs = "<C-H>",
     char = "CTRL-H",
     note = "1",
     summary = "same as 'h'",
@@ -785,7 +785,7 @@ return {
   },
   {
     tag = "CTRL-I",
-    lhs = "CTRL-I",
+    lhs = "<C-I>",
     char = "CTRL-I",
     note = "1",
     summary = "same as <Tab>",
@@ -801,7 +801,7 @@ return {
   },
   {
     tag = "CTRL-J",
-    lhs = "CTRL-J",
+    lhs = "<C-J>",
     char = "CTRL-J",
     note = "1",
     summary = "same as 'j'",
@@ -809,14 +809,14 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-K",
+    lhs = "<C-K>",
     char = "CTRL-K",
     summary = "not used",
     mode = "n"
   },
   {
     tag = "CTRL-L",
-    lhs = "CTRL-L",
+    lhs = "<C-L>",
     char = "CTRL-L",
     summary = "redraw screen",
     mode = "n"
@@ -831,7 +831,7 @@ return {
   },
   {
     tag = "CTRL-M",
-    lhs = "CTRL-M",
+    lhs = "<C-M>",
     char = "CTRL-M",
     note = "1",
     summary = "same as <CR>",
@@ -839,7 +839,7 @@ return {
   },
   {
     tag = "CTRL-N",
-    lhs = "CTRL-N",
+    lhs = "<C-N>",
     char = "CTRL-N",
     note = "1",
     summary = "same as 'j'",
@@ -847,7 +847,7 @@ return {
   },
   {
     tag = "CTRL-O",
-    lhs = "CTRL-O",
+    lhs = "<C-O>",
     char = "CTRL-O",
     note = "1",
     summary = "go to N older entry in jump list",
@@ -855,7 +855,7 @@ return {
   },
   {
     tag = "CTRL-P",
-    lhs = "CTRL-P",
+    lhs = "<C-P>",
     char = "CTRL-P",
     note = "1",
     summary = "same as 'k'",
@@ -863,14 +863,14 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-Q",
+    lhs = "<C-Q>",
     char = "CTRL-Q",
     summary = "not used, or used for terminal control flow",
     mode = "n"
   },
   {
     tag = "CTRL-R",
-    lhs = "CTRL-R",
+    lhs = "<C-R>",
     char = "CTRL-R",
     note = "2",
     summary = "redo changes which were undone with 'u'",
@@ -878,28 +878,28 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-S",
+    lhs = "<C-S>",
     char = "CTRL-S",
     summary = "not used, or used for terminal control flow",
     mode = "n"
   },
   {
     tag = "CTRL-T",
-    lhs = "CTRL-T",
+    lhs = "<C-T>",
     char = "CTRL-T",
     summary = "jump to N older Tag in tag list",
     mode = "n"
   },
   {
     tag = "CTRL-U",
-    lhs = "CTRL-U",
+    lhs = "<C-U>",
     char = "CTRL-U",
     summary = "scroll N lines Upwards (default: half a screen)",
     mode = "n"
   },
   {
     tag = "CTRL-V",
-    lhs = "CTRL-V",
+    lhs = "<C-V>",
     char = "CTRL-V",
     summary = "start blockwise Visual mode",
     mode = "n"
@@ -913,7 +913,7 @@ return {
   },
   {
     tag = "CTRL-X",
-    lhs = "CTRL-X",
+    lhs = "<C-X>",
     char = "CTRL-X",
     note = "2",
     summary = "subtract N from number at/after cursor",
@@ -921,14 +921,14 @@ return {
   },
   {
     tag = "CTRL-Y",
-    lhs = "CTRL-Y",
+    lhs = "<C-Y>",
     char = "CTRL-Y",
     summary = "scroll N lines downwards",
     mode = "n"
   },
   {
     tag = "CTRL-Z",
-    lhs = "CTRL-Z",
+    lhs = "<C-Z>",
     char = "CTRL-Z",
     summary = "suspend program (or start new shell)",
     mode = "n"
@@ -942,42 +942,42 @@ return {
   },
   {
     tag = "CTRL-\\_CTRL-N",
-    lhs = "CTRL-\\ CTRL-N",
+    lhs = "CTRL-<Bslash> CTRL-N",
     char = "CTRL-\\ CTRL-N",
     summary = "go to Normal mode (no-op)",
     mode = "n"
   },
   {
     tag = "CTRL-\\_CTRL-G",
-    lhs = "CTRL-\\ CTRL-G",
+    lhs = "CTRL-<Bslash> CTRL-G",
     char = "CTRL-\\ CTRL-G",
     summary = "go to Normal mode (no-op)",
     mode = "n"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-\\ a - z",
+    lhs = "CTRL-<Bslash> a - z",
     char = "CTRL-\\ a - z",
     summary = "reserved for extensions",
     mode = "n"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-\\ others",
+    lhs = "CTRL-<Bslash> others",
     char = "CTRL-\\ others",
     summary = "not used",
     mode = "n"
   },
   {
     tag = "CTRL-]",
-    lhs = "CTRL-]",
+    lhs = "<C-]>",
     char = "CTRL-]",
     summary = ":ta to ident under cursor",
     mode = "n"
   },
   {
     tag = "CTRL-^",
-    lhs = "CTRL-^",
+    lhs = "<C-^>",
     char = "CTRL-^",
     summary = "edit Nth alternate file (equivalent to ':e #N')",
     mode = "n"
@@ -991,7 +991,7 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-_",
+    lhs = "<C-_>",
     char = "CTRL-_",
     summary = "not used",
     mode = "n"
@@ -4352,7 +4352,7 @@ return {
   },
   {
     tag = "o_CTRL-V",
-    lhs = "CTRL-V",
+    lhs = "<C-V>",
     char = "CTRL-V",
     summary = "force operator to work blockwise",
     mode = "o"
@@ -4373,7 +4373,7 @@ return {
   },
   {
     tag = "v_CTRL-A",
-    lhs = "CTRL-A",
+    lhs = "<C-A>",
     char = "CTRL-A",
     note = "2",
     summary = "add N to number in highlighted text",
@@ -4381,14 +4381,14 @@ return {
   },
   {
     tag = "v_CTRL-C",
-    lhs = "CTRL-C",
+    lhs = "<C-C>",
     char = "CTRL-C",
     summary = "stop Visual mode",
     mode = "v"
   },
   {
     tag = "v_CTRL-G",
-    lhs = "CTRL-G",
+    lhs = "<C-G>",
     char = "CTRL-G",
     summary = "toggle between Visual mode and Select mode",
     mode = "v"
@@ -4403,7 +4403,7 @@ return {
   },
   {
     tag = "v_CTRL-H",
-    lhs = "CTRL-H",
+    lhs = "<C-H>",
     char = "CTRL-H",
     note = "2",
     summary = "same as <BS>",
@@ -4411,21 +4411,21 @@ return {
   },
   {
     tag = "v_CTRL-O",
-    lhs = "CTRL-O",
+    lhs = "<C-O>",
     char = "CTRL-O",
     summary = "switch from Select to Visual mode for one command",
     mode = "v"
   },
   {
     tag = "v_CTRL-V",
-    lhs = "CTRL-V",
+    lhs = "<C-V>",
     char = "CTRL-V",
     summary = "make Visual mode blockwise or stop Visual mode",
     mode = "v"
   },
   {
     tag = "v_CTRL-X",
-    lhs = "CTRL-X",
+    lhs = "<C-X>",
     char = "CTRL-X",
     note = "2",
     summary = "subtract N from number in highlighted text",
@@ -4440,7 +4440,7 @@ return {
   },
   {
     tag = "v_CTRL-]",
-    lhs = "CTRL-]",
+    lhs = "<C-]>",
     char = "CTRL-]",
     summary = "jump to highlighted tag",
     mode = "v"
@@ -4975,56 +4975,56 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-@",
+    lhs = "<C-@>",
     char = "CTRL-@",
     summary = "not used",
     mode = "c"
   },
   {
     tag = "c_CTRL-A",
-    lhs = "CTRL-A",
+    lhs = "<C-A>",
     char = "CTRL-A",
     summary = "do completion on the pattern in front of the cursor and insert all matches",
     mode = "c"
   },
   {
     tag = "c_CTRL-B",
-    lhs = "CTRL-B",
+    lhs = "<C-B>",
     char = "CTRL-B",
     summary = "cursor to begin of command-line",
     mode = "c"
   },
   {
     tag = "c_CTRL-C",
-    lhs = "CTRL-C",
+    lhs = "<C-C>",
     char = "CTRL-C",
     summary = "same as <Esc>",
     mode = "c"
   },
   {
     tag = "c_CTRL-D",
-    lhs = "CTRL-D",
+    lhs = "<C-D>",
     char = "CTRL-D",
     summary = "list completions that match the pattern in front of the cursor",
     mode = "c"
   },
   {
     tag = "c_CTRL-E",
-    lhs = "CTRL-E",
+    lhs = "<C-E>",
     char = "CTRL-E",
     summary = "cursor to end of command-line",
     mode = "c"
   },
   {
     tag = "'cedit'",
-    lhs = "CTRL-F",
+    lhs = "<C-F>",
     char = "CTRL-F",
     summary = "default value for 'cedit': opens the command-line window; otherwise not used",
     mode = "c"
   },
   {
     tag = "c_CTRL-G",
-    lhs = "CTRL-G",
+    lhs = "<C-G>",
     char = "CTRL-G",
     summary = "next match when 'incsearch' is active",
     mode = "c"
@@ -5045,7 +5045,7 @@ return {
   },
   {
     tag = "c_CTRL-H",
-    lhs = "CTRL-H",
+    lhs = "<C-H>",
     char = "CTRL-H",
     summary = "same as <BS>",
     mode = "c"
@@ -5073,7 +5073,7 @@ return {
   },
   {
     tag = "c_CTRL-I",
-    lhs = "CTRL-I",
+    lhs = "<C-I>",
     char = "CTRL-I",
     summary = "same as <Tab>",
     mode = "c"
@@ -5087,7 +5087,7 @@ return {
   },
   {
     tag = "c_CTRL-J",
-    lhs = "CTRL-J",
+    lhs = "<C-J>",
     char = "CTRL-J",
     summary = "same as <CR>",
     mode = "c"
@@ -5101,7 +5101,7 @@ return {
   },
   {
     tag = "c_CTRL-L",
-    lhs = "CTRL-L",
+    lhs = "<C-L>",
     char = "CTRL-L",
     summary = "do completion on the pattern in front of the cursor and insert the longest common part",
     mode = "c"
@@ -5115,35 +5115,35 @@ return {
   },
   {
     tag = "c_CTRL-M",
-    lhs = "CTRL-M",
+    lhs = "<C-M>",
     char = "CTRL-M",
     summary = "same as <CR>",
     mode = "c"
   },
   {
     tag = "c_CTRL-N",
-    lhs = "CTRL-N",
+    lhs = "<C-N>",
     char = "CTRL-N",
     summary = "after using 'wildchar' with multiple matches: go to next match, otherwise: recall older command-line from history.",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-O",
+    lhs = "<C-O>",
     char = "CTRL-O",
     summary = "not used",
     mode = "c"
   },
   {
     tag = "c_CTRL-P",
-    lhs = "CTRL-P",
+    lhs = "<C-P>",
     char = "CTRL-P",
     summary = "after using 'wildchar' with multiple matches: go to previous match, otherwise: recall older command-line from history.",
     mode = "c"
   },
   {
     tag = "c_CTRL-Q",
-    lhs = "CTRL-Q",
+    lhs = "<C-Q>",
     char = "CTRL-Q",
     summary = "same as CTRL-V, unless it's used for terminal control flow",
     mode = "c"
@@ -5157,70 +5157,70 @@ return {
   },
   {
     tag = "c_CTRL-R_CTRL-R",
-    lhs = "CTRL-R CTRL-R {regname}",
+    lhs = "CTRL-R CTRL-R",
     char = "CTRL-R CTRL-R {regname}",
     summary = "insert the contents of a register or object under the cursor literally",
     mode = "c"
   },
   {
     tag = "c_CTRL-R_CTRL-O",
-    lhs = "CTRL-R CTRL-O {regname}",
+    lhs = "CTRL-R CTRL-O",
     char = "CTRL-R CTRL-O {regname}",
     summary = "insert the contents of a register or object under the cursor literally",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-S",
+    lhs = "<C-S>",
     char = "CTRL-S",
     summary = "not used, or used for terminal control flow",
     mode = "c"
   },
   {
     tag = "c_CTRL-T",
-    lhs = "CTRL-T",
+    lhs = "<C-T>",
     char = "CTRL-T",
     summary = "previous match when 'incsearch' is active",
     mode = "c"
   },
   {
     tag = "c_CTRL-U",
-    lhs = "CTRL-U",
+    lhs = "<C-U>",
     char = "CTRL-U",
     summary = "remove all characters",
     mode = "c"
   },
   {
     tag = "c_CTRL-V",
-    lhs = "CTRL-V",
+    lhs = "<C-V>",
     char = "CTRL-V",
     summary = "insert next non-digit literally, insert three digit decimal number as a single byte.",
     mode = "c"
   },
   {
     tag = "c_CTRL-W",
-    lhs = "CTRL-W",
+    lhs = "<C-W>",
     char = "CTRL-W",
     summary = "delete the word in front of the cursor",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-X",
+    lhs = "<C-X>",
     char = "CTRL-X",
     summary = "not used (reserved for completion)",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-Y",
+    lhs = "<C-Y>",
     char = "CTRL-Y",
     summary = "copy (yank) modeless selection",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-Z",
+    lhs = "<C-Z>",
     char = "CTRL-Z",
     summary = "not used (reserved for suspend)",
     mode = "c"
@@ -5234,7 +5234,7 @@ return {
   },
   {
     tag = "c_CTRL-[",
-    lhs = "CTRL-[",
+    lhs = "<C-[>",
     char = "CTRL-[",
     summary = "same as <Esc>",
     mode = "c"
@@ -5283,21 +5283,21 @@ return {
   },
   {
     tag = "c_CTRL-]",
-    lhs = "CTRL-]",
+    lhs = "<C-]>",
     char = "CTRL-]",
     summary = "trigger abbreviation",
     mode = "c"
   },
   {
     tag = "c_CTRL-^",
-    lhs = "CTRL-^",
+    lhs = "<C-^>",
     char = "CTRL-^",
     summary = "toggle use of |:lmap| mappings",
     mode = "c"
   },
   {
     tag = "c_CTRL-_",
-    lhs = "CTRL-_",
+    lhs = "<C-_>",
     char = "CTRL-_",
     summary = "when 'allowrevins' set: change language (Hebrew)",
     mode = "c"
