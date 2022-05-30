@@ -302,7 +302,7 @@ local function get_keystrokes(prefix)
 end
 
 local function get_builtin_keymap(mode)
-  local builtin_mappings = require 'builtins'
+  local builtin_mappings = require 'km-builtins'
   for _, mapping in ipairs(builtin_mappings) do
     mapping.rhs = mapping.lhs
   end
