@@ -310,28 +310,28 @@ return {
   },
   {
     tag = "i_CTRL-\\_CTRL-N",
-    lhs = "CTRL-<Bslash> CTRL-N",
+    lhs = "<C-Bslash><C-n>",
     char = "CTRL-\\ CTRL-N",
     mode = "i",
     summary = "go to Normal mode"
   },
   {
     tag = "i_CTRL-\\_CTRL-G",
-    lhs = "CTRL-<Bslash> CTRL-G",
+    lhs = "<C-Bslash><C-g>",
     char = "CTRL-\\ CTRL-G",
     mode = "i",
     summary = "go to Normal mode"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-<Bslash> a - z",
+    lhs = "<C-Bslash> a - z",
     char = "CTRL-\\ a - z",
     mode = "i",
     summary = "reserved for extensions"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-<Bslash> others",
+    lhs = "<C-Bslash> others",
     char = "CTRL-\\ others",
     mode = "i",
     summary = "not used"
@@ -366,14 +366,14 @@ return {
   },
   {
     tag = "i_0_CTRL-D",
-    lhs = "0 CTRL-D",
+    lhs = "0<C-d>",
     char = "0 CTRL-D",
     mode = "i",
     summary = "delete all indent in the current line"
   },
   {
     tag = "i_^_CTRL-D",
-    lhs = "^ CTRL-D",
+    lhs = "^<C-d>",
     char = "^ CTRL-D",
     mode = "i",
     summary = "delete all indent in the current line, restore it in the next line"
@@ -942,28 +942,28 @@ return {
   },
   {
     tag = "CTRL-\\_CTRL-N",
-    lhs = "CTRL-<Bslash> CTRL-N",
+    lhs = "<C-Bslash><C-n>",
     char = "CTRL-\\ CTRL-N",
     summary = "go to Normal mode (no-op)",
     mode = "n"
   },
   {
     tag = "CTRL-\\_CTRL-G",
-    lhs = "CTRL-<Bslash> CTRL-G",
+    lhs = "<C-Bslash><C-g>",
     char = "CTRL-\\ CTRL-G",
     summary = "go to Normal mode (no-op)",
     mode = "n"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-<Bslash> a - z",
+    lhs = "<C-Bslash> a - z",
     char = "CTRL-\\ a - z",
     summary = "reserved for extensions",
     mode = "n"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-<Bslash> others",
+    lhs = "<C-Bslash> others",
     char = "CTRL-\\ others",
     summary = "not used",
     mode = "n"
@@ -984,7 +984,7 @@ return {
   },
   {
     tag = "CTRL-<Tab>",
-    lhs = "CTRL-<Tab>",
+    lhs = "<C-Tab>",
     char = "CTRL-<Tab>",
     summary = "same as `g<Tab>` : go to last accessed tab page",
     mode = "n"
@@ -2889,56 +2889,56 @@ return {
   },
   {
     tag = "CTRL-W_g_CTRL-]",
-    lhs = "CTRL-W g CTRL-]",
+    lhs = "<C-w>g<C-]>",
     char = "CTRL-W g CTRL-]",
     summary = "split window and do |:tjump| to tag under cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_g]",
-    lhs = "CTRL-W g ]",
+    lhs = "<C-w>g]",
     char = "CTRL-W g ]",
     summary = "split window and do |:tselect| for tag under cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_g}",
-    lhs = "CTRL-W g }",
+    lhs = "<C-w>g}",
     char = "CTRL-W g }",
     summary = "do a |:ptjump| to the tag under the cursor",
     mode = "n"
   },
   {
     tag = "CTRL-W_gf",
-    lhs = "CTRL-W g f",
+    lhs = "<C-w>gf",
     char = "CTRL-W g f",
     summary = "edit file name under the cursor in a new tab page",
     mode = "n"
   },
   {
     tag = "CTRL-W_gF",
-    lhs = "CTRL-W g F",
+    lhs = "<C-w>gF",
     char = "CTRL-W g F",
     summary = "edit file name under the cursor in a new tab page and jump to the line number following the file name.",
     mode = "n"
   },
   {
     tag = "CTRL-W_gt",
-    lhs = "CTRL-W g t",
+    lhs = "<C-w>gt",
     char = "CTRL-W g t",
     summary = "same as `gt`: go to next tab page",
     mode = "n"
   },
   {
     tag = "CTRL-W_gT",
-    lhs = "CTRL-W g T",
+    lhs = "<C-w>gT",
     char = "CTRL-W g T",
     summary = "same as `gT`: go to previous tab page",
     mode = "n"
   },
   {
     tag = "CTRL-W_g<Tab>",
-    lhs = "CTRL-W g <Tab>",
+    lhs = "<C-w>g<Tab>",
     char = "CTRL-W g <Tab>",
     summary = "same as |g<Tab>|: go to last accessed tab page",
     mode = "n"
@@ -3099,14 +3099,14 @@ return {
   },
   {
     tag = "[_CTRL-D",
-    lhs = "[ CTRL-D",
+    lhs = "[<C-d>",
     char = "[ CTRL-D",
     summary = "jump to first #define found in current and included files matching the word under the cursor, start searching at beginning of current file",
     mode = "n"
   },
   {
     tag = "[_CTRL-I",
-    lhs = "[ CTRL-I",
+    lhs = "[<C-i>",
     char = "[ CTRL-I",
     summary = "jump to first line in current and included files that contains the word under the cursor, start searching at beginning of current file",
     mode = "n"
@@ -3276,14 +3276,14 @@ return {
   },
   {
     tag = "]_CTRL-D",
-    lhs = "] CTRL-D",
+    lhs = "]<C-d>",
     char = "] CTRL-D",
     summary = "jump to first #define found in current and included files matching the word under the cursor, start searching at cursor position",
     mode = "n"
   },
   {
     tag = "]_CTRL-I",
-    lhs = "] CTRL-I",
+    lhs = "]<C-i>",
     char = "] CTRL-I",
     summary = "jump to first line in current and included files that contains the word under the cursor, start searching at cursor position",
     mode = "n"
@@ -3456,7 +3456,7 @@ return {
   --]]
   {
     tag = "g_CTRL-G",
-    lhs = "g CTRL-G",
+    lhs = "g<C-g>",
     char = "g CTRL-G",
     summary = "show information about current cursor position",
     desc = "Info about cursor pos",
@@ -3465,14 +3465,14 @@ return {
   --[[
   {
     tag = "g_CTRL-H",
-    lhs = "g CTRL-H",
+    lhs = "g<C-h>",
     char = "g CTRL-H",
     summary = "start Select block mode",
     mode = "n"
   },
   {
     tag = "g_CTRL-]",
-    lhs = "g CTRL-]",
+    lhs = "g<C-]>",
     char = "g CTRL-]",
     summary = "|:tjump| to the tag under the cursor",
     mode = "n"
@@ -4742,7 +4742,7 @@ return {
   },
   {
     tag = "v_g_CTRL-A",
-    lhs = "g CTRL-A",
+    lhs = "g<C-a>",
     char = "g CTRL-A",
     note = "2",
     summary = "add N to number in highlighted text",
@@ -4750,7 +4750,7 @@ return {
   },
   {
     tag = "v_g_CTRL-X",
-    lhs = "g CTRL-X",
+    lhs = "g<C-x>",
     char = "g CTRL-X",
     note = "2",
     summary = "subtract N from number in highlighted text",
@@ -5255,7 +5255,7 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-\\ a - d",
+    lhs = "<C-Bslash> a - d",
     char = "CTRL-\\ a - d",
     summary = "reserved for extensions",
     mode = "c"
@@ -5269,14 +5269,14 @@ return {
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-\\ f - z",
+    lhs = "<C-Bslash> f - z",
     char = "CTRL-\\ f - z",
     summary = "reserved for extensions",
     mode = "c"
   },
   {
     tag = "<NONE>",
-    lhs = "CTRL-\\ others",
+    lhs = "<C-Bslash> others",
     char = "CTRL-\\ others",
     summary = "not used",
     mode = "c"
