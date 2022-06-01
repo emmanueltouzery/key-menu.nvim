@@ -117,6 +117,8 @@ We are in the process of adding support for Neovim's built-in commands. Follow [
 require 'key-menu'.set('n', 'g')
 ```
 
+The `g` hint window will look something like this: ![g-hint-window](https://user-images.githubusercontent.com/5308024/171311333-f911acea-edd2-4404-b63b-cf095f110e21.png)
+
 ## Related plugins
 
 - [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
