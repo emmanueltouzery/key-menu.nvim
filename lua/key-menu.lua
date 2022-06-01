@@ -311,9 +311,11 @@ end
 
 local function normalize_keymap(keymap)
   keymap = vim.deepcopy(keymap)
+  --[[
   for _, m in ipairs(keymap) do
     m.lhs = vim.api.nvim_replace_termcodes(m.lhs, true, true, true)
   end
+  --]]
   return keymap
 end
 
