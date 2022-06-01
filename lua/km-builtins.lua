@@ -3492,7 +3492,7 @@ return {
     char = "g#",
     note = "1",
     summary = "like '#', but without butter using '\\<' and '\\>'",
-    desc = "Forward-search partial word under cursor",
+    desc = "Find word under cursor*",
     mode = "n"
   },
   {
@@ -3501,7 +3501,7 @@ return {
     char = "g$",
     note = "1",
     summary = "when 'wrap' off go to rightmost character of the current line that is on the screen; when 'wrap' on go to the rightmost character of the current screen line",
-    desc = "(Built-in)",
+    desc = "Goto end of screen line",
     mode = "n"
   },
   {
@@ -3510,7 +3510,7 @@ return {
     char = "g&",
     note = "2",
     summary = "repeat last ':s' on all lines",
-    desc = "(Built-in)",
+    desc = "Repeat last :s on all lines",
     mode = "n"
   },
   {
@@ -3519,7 +3519,7 @@ return {
     char = "g'{mark}",
     note = "1",
     summary = "like |'| but without changing the jumplist",
-    desc = "(Built-in)",
+    desc = "Goto mark–don't change jumplist",
     mode = "n"
   },
   {
@@ -3528,7 +3528,7 @@ return {
     char = "g`{mark}",
     note = "1",
     summary = "like |`| but without changing the jumplist",
-    desc = "(Built-in)",
+    desc = "Goto mark–don't change jumplist",
     mode = "n"
   },
   {
@@ -3537,7 +3537,7 @@ return {
     char = "g*",
     note = "1",
     summary = "like '*', but without using '\\<' and '\\>'",
-    desc = "(Built-in)",
+    desc = "Bwards-find word under cursor*",
     mode = "n"
   },
   {
@@ -3571,7 +3571,7 @@ return {
     char = "g0",
     note = "1",
     summary = "when 'wrap' off go to leftmost character of the current line that is on the screen; when 'wrap' on go to the leftmost character of the current screen line",
-    desc = "(Built-in)",
+    desc = "Goto beginning of screen line",
     mode = "n"
   },
   {
@@ -3579,7 +3579,7 @@ return {
     lhs = "g8",
     char = "g8",
     summary = "print hex value of bytes used in UTF-8 character under the cursor",
-    desc = "(Built-in)",
+    desc = "Print hex value of character",
     mode = "n"
   },
   {
@@ -3607,7 +3607,7 @@ return {
     char = "g?",
     note = "2",
     summary = "Rot13 encoding operator",
-    desc = "(Built-in)",
+    desc = "Rot13",
     mode = "n"
   },
   {
@@ -3616,7 +3616,7 @@ return {
     char = "g??",
     note = "2",
     summary = "Rot13 encode current line",
-    desc = "(Built-in)",
+    desc = "Rot13-encode line",
     mode = "n"
   },
   {
@@ -3625,7 +3625,7 @@ return {
     char = "g?g?",
     note = "2",
     summary = "Rot13 encode current line",
-    desc = "(Built-in)",
+    desc = "Rot13-encode line",
     mode = "n"
   },
   {
@@ -3634,7 +3634,7 @@ return {
     char = "gD",
     note = "1",
     summary = "go to definition of word under the cursor in current file",
-    desc = "(Built-in)",
+    desc = "Goto defn of word under cursor",
     mode = "n"
   },
   {
@@ -3643,7 +3643,7 @@ return {
     char = "gE",
     note = "1",
     summary = "go backwards to the end of the previous WORD",
-    desc = "(Built-in)",
+    desc = "Goto end of prev WORD",
     mode = "n"
   },
   {
@@ -3651,7 +3651,7 @@ return {
     lhs = "gH",
     char = "gH",
     summary = "start Select line mode",
-    desc = "(Built-in)",
+    desc = "Start Select line mode",
     mode = "n"
   },
   {
@@ -3660,7 +3660,7 @@ return {
     char = "gI",
     note = "2",
     summary = "like 'I', but always start in column 1",
-    desc = "(Built-in)",
+    desc = "Start Insert mode in column 1",
     mode = "n"
   },
   {
@@ -3669,7 +3669,7 @@ return {
     char = "gJ",
     note = "2",
     summary = "join lines without inserting space",
-    desc = "(Built-in)",
+    desc = "Join lines without space",
     mode = "n"
   },
   {
@@ -3678,7 +3678,7 @@ return {
     char = "gN",
     note = "1,2",
     summary = "find the previous match with the last used search pattern and Visually select it",
-    desc = "(Built-in)",
+    desc = "Select previous search match",
     mode = "n"
   },
   {
@@ -3687,7 +3687,7 @@ return {
     char = "[\"x]gP",
     note = "2",
     summary = "put the text [from register x] before the cursor N times, leave the cursor after it",
-    desc = "(Built-in)",
+    desc = "Put before cursor",
     mode = "n"
   },
   {
@@ -3695,7 +3695,7 @@ return {
     lhs = "gQ",
     char = "gQ",
     summary = "switch to Ex mode with Vim editing",
-    desc = "(Built-in)",
+    desc = "Start Ex mode",
     mode = "n"
   },
   {
@@ -3704,7 +3704,7 @@ return {
     char = "gR",
     note = "2",
     summary = "enter Virtual Replace mode",
-    desc = "(Built-in)",
+    desc = "Start Visual Replace mode",
     mode = "n"
   },
   {
@@ -3712,7 +3712,7 @@ return {
     lhs = "gT",
     char = "gT",
     summary = "go to the previous tab page",
-    desc = "(Built-in)",
+    desc = "Goto prev tab page",
     mode = "n"
   },
   {
@@ -3721,7 +3721,7 @@ return {
     char = "gU{motion}",
     note = "2",
     summary = "make Nmove text uppercase",
-    desc = "(Built-in)",
+    desc = "Make uppercase",
     mode = "n"
   },
   {
@@ -3763,7 +3763,7 @@ return {
     lhs = "ga",
     char = "ga",
     summary = "print ascii value of character under the cursor",
-    desc = "(Built-in)",
+    desc = "ASCII value of character",
     mode = "n"
   },
   {
@@ -3772,7 +3772,7 @@ return {
     char = "gd",
     note = "1",
     summary = "go to definition of word under the cursor in current function",
-    desc = "(Built-in)",
+    desc = "Defn of word under cursor*",
     mode = "n"
   },
   {
@@ -3781,7 +3781,7 @@ return {
     char = "ge",
     note = "1",
     summary = "go backwards to the end of the previous word",
-    desc = "(Built-in)",
+    desc = "Goto end of prev word",
     mode = "n"
   },
   {
@@ -3789,7 +3789,7 @@ return {
     lhs = "gf",
     char = "gf",
     summary = "start editing the file whose name is under the cursor",
-    desc = "(Built-in)",
+    desc = "Edit filename under cursor",
     mode = "n"
   },
   {
@@ -3797,7 +3797,7 @@ return {
     lhs = "gF",
     char = "gF",
     summary = "start editing the file whose name is under the cursor and jump to the line number following the filename.",
-    desc = "(Built-in)",
+    desc = "Edit filename/line under cursor",
     mode = "n"
   },
   {
@@ -3807,14 +3807,14 @@ return {
     note = "1",
     summary = "cursor to line N, default first line",
     mode = "n",
-    desc = "Go to top of buffer",
+    desc = "Goto top of buffer",
   },
   {
     tag = "gh",
     lhs = "gh",
     char = "gh",
     summary = "start Select mode",
-    desc = "(Built-in)",
+    desc = "Start Select mode",
     mode = "n"
   },
   {
@@ -3832,7 +3832,7 @@ return {
     char = "gj",
     note = "1",
     summary = "like 'j', but when 'wrap' on go N screen lines down",
-    desc = "(Built-in)",
+    desc = "Cursor down one screen line",
     mode = "n"
   },
   {
@@ -3841,7 +3841,7 @@ return {
     char = "gk",
     note = "1",
     summary = "like 'k', but when 'wrap' on go N screen lines up",
-    desc = "(Built-in)",
+    desc = "Cursor up one screen line",
     mode = "n"
   },
   {
@@ -3850,7 +3850,7 @@ return {
     char = "gm",
     note = "1",
     summary = "go to character at middle of the screenline",
-    desc = "(Built-in)",
+    desc = "Goto middle of screen line",
     mode = "n"
   },
   {
@@ -3859,7 +3859,7 @@ return {
     char = "gM",
     note = "1",
     summary = "go to character at middle of the text line",
-    desc = "(Built-in)",
+    desc = "Goto middle of line",
     mode = "n"
   },
   {
@@ -3868,7 +3868,7 @@ return {
     char = "gn",
     note = "1,2",
     summary = "find the next match with the last used search pattern and Visually select it",
-    desc = "(Built-in)",
+    desc = "Select next search match",
     mode = "n"
   },
   {
@@ -3877,7 +3877,7 @@ return {
     char = "go",
     note = "1",
     summary = "cursor to byte N in the buffer",
-    desc = "(Built-in)",
+    desc = "Goto buffer byte N",
     mode = "n"
   },
   {
@@ -3886,7 +3886,7 @@ return {
     char = "[\"x]gp",
     note = "2",
     summary = "put the text [from register x] after the cursor N times, leave the cursor after it",
-    desc = "(Built-in)",
+    desc = "Put after cursor",
     mode = "n"
   },
   {
@@ -3895,7 +3895,7 @@ return {
     char = "gq{motion}",
     note = "2",
     summary = "format Nmove text",
-    desc = "(Built-in)",
+    desc = "Auto-format",
     mode = "n"
   },
   {
@@ -3912,7 +3912,7 @@ return {
     lhs = "gs",
     char = "gs",
     summary = "go to sleep for N seconds (default 1)",
-    desc = "(Built-in)",
+    desc = "Sleep N secs",
     mode = "n"
   },
   {
@@ -3929,7 +3929,7 @@ return {
     char = "gu{motion}",
     note = "2",
     summary = "make Nmove text lowercase",
-    desc = "(Built-in)",
+    desc = "Lowercase",
     mode = "n"
   },
   {
@@ -3980,7 +3980,7 @@ return {
     char = "g<Down>",
     note = "1",
     summary = "same as 'gj'",
-    desc = "(Built-in)",
+    desc = "Cursor down one screen line",
     mode = "n"
   },
   {
