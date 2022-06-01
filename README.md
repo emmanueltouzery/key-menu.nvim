@@ -81,7 +81,7 @@ The easiest way to understand how this plugin works is to run the following comm
 This opens a window showing your mappings that start with a `g`. You can press one of the keys in the popup menu to complete or advance the mapping.
 
 So, if we want to see hints for mappings starting with `g`, then all we have to do is make this window appear when we press `g`, like so:
-```
+```lua
 vim.keymap.set( -- define a new mapping
   'n',          -- in Normal mode
   'g',          -- which is bound to the 'g' key
@@ -92,7 +92,7 @@ vim.keymap.set( -- define a new mapping
 Now, when we press `g`, if we don't quickly press another key (within `timeoutlen`) to invoke a different mapping (like `gx` or `gc`), then _this_ mapping will be executed, which pops up the `key-menu` window.
 
 It's annoying that we have to say `'g'` twice, once in the arguments to `vim.keymap.set`, and once in the arguments to `open_window`. So `key-menu` provides a convenience function called `set`, which can be used like this:
-```
+```lua
 require 'key-menu'.set( -- pop up a hint window
   'n',                  -- in Normal mode
   'g')                  -- when the letter g is pressed
@@ -100,11 +100,18 @@ require 'key-menu'.set( -- pop up a hint window
 This is the same as the `vim.keymap.set` in the previous code block.
 
 We can also use `desc` to configure the hint that is shown in the window. For example, suppose that we use `<Space>` as a leader key, and `<Space>g` for a collection of Git-related mappings. Then we might do:
-```
+```lua
 require 'key-menu'.set('n', '<Space>')
 require 'key-menu'.set('n', '<Space>g', {desc='Git'})
 ```
 Now a hint window will be shown if you press `<Space>`, with a `g → Git` entry.
+
+## *Experimental*: support for built-in mappings
+
+We are in the process of adding support for Neovim's built-in commands. Follow [this issue](https://github.com/linty-org/key-menu.nvim/issues/7) for updates, or if you would like to contribute to this feature. To turn on key-menu.nvim hints for builtins starting with `g`, add this to your `init.lua`:
+```lua
+require 'key-menu'.set('n', 'g')
+```
 
 ## Related plugins
 

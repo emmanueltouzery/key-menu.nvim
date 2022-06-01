@@ -6,10 +6,6 @@ do
   setmetatable(open_window_callbacks, mt)
 end
 
-local function _concat(t1, t2)
-  return vim.list_extend(vim.deepcopy(t1), t2)
-end
-
 local function _partial(func, x)
   local function result(y)
     return func(x, y)
@@ -231,8 +227,20 @@ local pretty_keystroke_dict = {
   [" "] = '␠',
 }
 
+local function modified_keystroke(keystroke)
+  local n = vim.fn.char2nr(keystroke)
+  if 1 <= n and n <= 26 then
+    return string.format('CTRL-%s', vim.fn.nr2char(vim.fn.char2nr('A') - 1 + n))
+  end
+  if n == 29 then
+    return 'CTRL-]'
+  end
+end
+
 local function get_pretty_keystroke(keystroke)
-  return pretty_keystroke_dict[keystroke] or keystroke
+  return pretty_keystroke_dict[keystroke]
+      or modified_keystroke(keystroke)
+      or keystroke
 end
 
 local function get_pretty_items(prefix, prefix_keys, complete_keys)
@@ -301,6 +309,37 @@ local function get_keystrokes(prefix)
   return result
 end
 
+local function normalize_keymap(keymap)
+  keymap = vim.deepcopy(keymap)
+  --[[
+  for _, m in ipairs(keymap) do
+    m.lhs = vim.api.nvim_replace_termcodes(m.lhs, true, true, true)
+  end
+  --]]
+  return keymap
+end
+
+local function get_builtin_keymap(mode)
+  local keymap = normalize_keymap(require 'km-builtins')
+  keymap = vim.tbl_filter(function(m) return m.mode == mode end, keymap)
+  for _, mapping in ipairs(keymap) do
+    mapping.rhs = mapping.lhs
+    mapping.noremap = true -- This is important.
+  end
+  return keymap
+end
+
+local function shadow(old_mappings, new_mappings)
+  local new_lhss = {}
+  for _, m in ipairs(new_mappings) do
+    new_lhss[m.lhs] = true
+  end
+  local result = vim.deepcopy(old_mappings)
+  result = vim.tbl_filter(function(m) return not new_lhss[m.lhs] end, result)
+  vim.list_extend(result, new_mappings)
+  return result
+end
+
 local function open_window(prefix)
   local mode = vim.fn.mode()
   prefix = vim.api.nvim_replace_termcodes(prefix, true, true, true) -- Pretty ugly. Is there a better way to do this?
@@ -318,11 +357,9 @@ local function open_window(prefix)
 
   local horizontal_padding = 1
   local horizontal_spacing = 3
-  local max_num_rows = 10
-  local screen_bottom_margin = 4 -- Very roughly, minimum distance from bottom of popup to bottom of screen.
 
   local anchor, row, col
-  if vim.fn.screenrow() + max_num_rows + screen_bottom_margin > vim.o.lines then
+  if vim.fn.screenrow() > vim.o.lines / 2 then
     anchor, row, col = 'SW', 0, 1
   else
     anchor, row, col = 'NW', 1, 1
@@ -339,6 +376,7 @@ local function open_window(prefix)
     style = 'minimal',
     border = 'rounded',
   })
+  local border_width = 1
 
   vim.api.nvim_win_set_option(win, 'winhighlight', table.concat({
     'Normal:KeyMenuNormal',
@@ -347,13 +385,19 @@ local function open_window(prefix)
 
   local close_window = function() vim.api.nvim_win_close(win, true) end
 
-  local global_mappings = vim.api.nvim_get_keymap(mode)
-  local buffer_mappings = vim.api.nvim_buf_get_keymap(original_buf, mode)
-  local all_mappings = vim.tbl_filter(is_not_nop, _concat(global_mappings, buffer_mappings))
+  local all_mappings = get_builtin_keymap(mode)
+  all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_get_keymap(mode)))
+  all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_buf_get_keymap(original_buf, mode)))
+  all_mappings = vim.tbl_filter(is_not_nop, all_mappings)
+
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
   local redraw = function(prefix_keys, complete_keys)
     -- Basically everything is one-based.
+
+    local max_num_rows = 10
+
+    ::start_redraw::
 
     local command_line_text = get_command_line_text()
     local pretty_keystrokes_so_far = string.rep(' ', horizontal_padding)
@@ -416,6 +460,12 @@ local function open_window(prefix)
       width = math.max(width, min_width)
     else
       width = math.max(2 * horizontal_padding + vim.api.nvim_strwidth(no_mappings_string), min_width)
+    end
+
+    local max_width = vim.o.columns - 2 * border_width
+    if width > max_width then
+      max_num_rows = max_num_rows + 1
+      goto start_redraw
     end
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
@@ -519,7 +569,7 @@ local function open_window(prefix)
           close_window()
           if mapping.callback then
             mapping.callback()
-          else
+          elseif mapping.rhs then
             local feedkeys_mode = ''
             if mapping.noremap then
               feedkeys_mode = feedkeys_mode .. 'n'
@@ -528,6 +578,8 @@ local function open_window(prefix)
             end
             local rhs = vim.api.nvim_replace_termcodes(mapping.rhs, true, true, true)
             vim.api.nvim_feedkeys(rhs, feedkeys_mode, false)
+          else
+            print(string.format('Error: mapping "%s" has no callback and no RHS', mapping.lhs))
           end
         end
         vim.keymap.set('n', keystroke, cb, opts_)
