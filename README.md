@@ -106,6 +106,10 @@ require 'key-menu'.set('n', '<Space>g', {desc='Git'})
 ```
 Now a hint window will be shown if you press `<Space>`, with a `g → Git` entry.
 
+## Highlighting
+
+Currently the `KeyMenuNormal` and `KeyMenuFloatBorder` highlight groups are supported, for the main body and the border of the floating window. Contributions are welcome to add more highlighting customizability.
+
 ## *Experimental*: support for built-in mappings
 
 We are in the process of adding support for Neovim's built-in commands. Follow [this issue](https://github.com/linty-org/key-menu.nvim/issues/7) for updates, or if you would like to contribute to this feature. To turn on key-menu.nvim hints for builtins starting with `g`, add this to your `init.lua`:
