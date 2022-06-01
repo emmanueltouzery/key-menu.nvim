@@ -374,6 +374,7 @@ local function open_window(prefix)
     style = 'minimal',
     border = 'rounded',
   })
+  local border_width = 1
 
   vim.api.nvim_win_set_option(win, 'winhighlight', table.concat({
     'Normal:KeyMenuNormal',
@@ -393,6 +394,8 @@ local function open_window(prefix)
     -- Basically everything is one-based.
 
     local max_num_rows = 10
+
+    ::start_redraw::
 
     local command_line_text = get_command_line_text()
     local pretty_keystrokes_so_far = string.rep(' ', horizontal_padding)
@@ -455,6 +458,12 @@ local function open_window(prefix)
       width = math.max(width, min_width)
     else
       width = math.max(2 * horizontal_padding + vim.api.nvim_strwidth(no_mappings_string), min_width)
+    end
+
+    local max_width = vim.o.columns - 2 * border_width
+    if width > max_width then
+      max_num_rows = max_num_rows + 1
+      goto start_redraw
     end
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
