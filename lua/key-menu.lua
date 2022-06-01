@@ -355,11 +355,9 @@ local function open_window(prefix)
 
   local horizontal_padding = 1
   local horizontal_spacing = 3
-  local max_num_rows = 10
-  local screen_bottom_margin = 4 -- Very roughly, minimum distance from bottom of popup to bottom of screen.
 
   local anchor, row, col
-  if vim.fn.screenrow() + max_num_rows + screen_bottom_margin > vim.o.lines then
+  if vim.fn.screenrow() > vim.o.lines / 2 then
     anchor, row, col = 'SW', 0, 1
   else
     anchor, row, col = 'NW', 1, 1
@@ -393,6 +391,8 @@ local function open_window(prefix)
 
   local redraw = function(prefix_keys, complete_keys)
     -- Basically everything is one-based.
+
+    local max_num_rows = 10
 
     local command_line_text = get_command_line_text()
     local pretty_keystrokes_so_far = string.rep(' ', horizontal_padding)
