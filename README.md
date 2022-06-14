@@ -66,6 +66,9 @@ vim.keymap.set('n', '<Space>sh',
 vim.keymap.set('n', '<Space>sg',
   function() print('Goodbye, world!') end,
   {desc = '...goodbye!', buffer = true})
+
+-- Create a mapping that does not appear in the pop up menu.
+vim.keymap.set('n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', {desc='HIDDEN'})
 ```
 
 Final results:

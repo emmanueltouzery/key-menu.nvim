@@ -34,6 +34,10 @@ local function is_not_nop(mapping)
   return mapping.rhs ~= ''
 end
 
+local function is_not_hidden(mapping)
+  return string.upper(mapping.desc) ~= 'HIDDEN'
+end
+
 local function is_prefix_mapping_starting_with(prefix, mapping)
   return #prefix ~= #mapping.lhs and _starts_with(prefix, mapping.lhs)
 end
@@ -389,6 +393,7 @@ local function open_window(prefix)
   all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_get_keymap(mode)))
   all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_buf_get_keymap(original_buf, mode)))
   all_mappings = vim.tbl_filter(is_not_nop, all_mappings)
+  all_mappings = vim.tbl_filter(is_not_hidden, all_mappings)
 
   local mappings = prefix_mappings_starting_with(prefix, all_mappings)
 
