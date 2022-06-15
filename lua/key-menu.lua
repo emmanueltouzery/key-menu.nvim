@@ -35,6 +35,9 @@ local function is_not_nop(mapping)
 end
 
 local function is_not_hidden(mapping)
+  if mapping.desc == nil or mapping.desc == "" then
+    return true
+  end
   return string.upper(mapping.desc) ~= 'HIDDEN'
 end
 
