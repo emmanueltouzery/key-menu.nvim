@@ -352,6 +352,7 @@ local function open_window(prefix)
   prefix = vim.api.nvim_replace_termcodes(prefix, true, true, true) -- Pretty ugly. Is there a better way to do this?
 
   local original_buf = vim.api.nvim_get_current_buf()
+  local orig_buf_keymap = vim.api.nvim_buf_get_keymap(original_buf, mode)
 
   local function get_command_line_text()
     local keystrokes = vim.tbl_map(get_pretty_keystroke, get_keystrokes(prefix))
@@ -394,7 +395,7 @@ local function open_window(prefix)
 
   local all_mappings = get_builtin_keymap(mode)
   all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_get_keymap(mode)))
-  all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_buf_get_keymap(original_buf, mode)))
+  all_mappings = shadow(all_mappings, normalize_keymap(orig_buf_keymap))
   all_mappings = vim.tbl_filter(is_not_nop, all_mappings)
   all_mappings = vim.tbl_filter(is_not_hidden, all_mappings)
 
