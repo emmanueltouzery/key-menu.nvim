@@ -391,7 +391,11 @@ local function open_window(prefix)
     'FloatBorder:KeyMenuFloatBorder',
   }, ','))
 
-  local close_window = function() vim.api.nvim_win_close(win, true) end
+  local close_window = function()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+  end
 
   local all_mappings = get_builtin_keymap(mode)
   all_mappings = shadow(all_mappings, normalize_keymap(vim.api.nvim_get_keymap(mode)))
