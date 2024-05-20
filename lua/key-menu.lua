@@ -482,7 +482,7 @@ local function open_window(prefix)
     end
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
-    vim.api.nvim_win_set_config(win, {width = width, height = num_rows + 2})
+    pcall(vim.api.nvim_win_set_config, win, {width = width, height = num_rows + 2})
 
     local blank_lines = {}
     for _ = 1, num_rows + 2 do
