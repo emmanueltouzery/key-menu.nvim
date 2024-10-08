@@ -361,6 +361,7 @@ local function open_window(prefix)
   end
 
   local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_option(buf, "filetype", "key-menu")
   shadow_all_global_mappings(buf)
 
   local horizontal_padding = 1
